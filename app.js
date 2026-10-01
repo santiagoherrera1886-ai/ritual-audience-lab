@@ -49,9 +49,9 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   // The inherited TikTok mark was white; use a dark mark on the editorial canvas.
   LOGOS.tiktok = LOGOS.tiktok.replace('fill="#fff"', 'fill="#17132e"');
   const PERSONAS = [
-    { name:'Valeria', image:'valeria', age:'25–34', subtitle:'Wellness y autocuidado', description:'Convierte el cuidado personal en pequeños hábitos que le permiten sentirse bien todos los días.', tags:['Yoga','Pilates','Skincare','Rutinas','Descanso'], story:'Busca bienestar que se sienta cercano, práctico y fácil de incorporar a su rutina.', moment:'HACER ESPACIO PARA SÍ MISMA', icon:'heart', tint:'#eadcf8', count:34 },
-    { name:'Carlos', image:'carlos', age:'30–44', subtitle:'Vida activa y recuperación', description:'Se mueve, entrena y busca un balance entre sus metas personales y el ritmo de la semana.', tags:['Running','Gimnasio','Hidratación','Deporte','Energía'], story:'Valora la constancia: del entrenamiento a la pausa, quiere acompañar cada momento.', moment:'ENCONTRAR SU PROPIO RITMO', icon:'activity', tint:'#e1eef9', count:43 },
-    { name:'Julián', image:'julian', age:'35–54', subtitle:'Equilibrio y descanso', description:'Integra bienestar, familia y trabajo. Le interesan los hábitos que puede sostener en el tiempo.', tags:['Sueño','Familia','Hábitos','Bienestar','Meditación'], story:'Quiere cerrar el día con una pausa y construir una rutina de descanso más consciente.', moment:'DARLE VALOR A LA PAUSA', icon:'moon', tint:'#f1e3e6', count:42 }
+    { name:'Valeria', image:'valeria-b', age:'25–34', subtitle:'Wellness y autocuidado', description:'Convierte el cuidado personal en pequeños hábitos que le permiten sentirse bien todos los días.', tags:['Yoga','Pilates','Skincare','Rutinas','Descanso'], story:'Busca bienestar que se sienta cercano, práctico y fácil de incorporar a su rutina.', moment:'HACER ESPACIO PARA SÍ MISMA', icon:'heart', tint:'#eadcf8', count:34 },
+    { name:'Carlos', image:'carlos-b', age:'30–44', subtitle:'Vida activa y recuperación', description:'Se mueve, entrena y busca un balance entre sus metas personales y el ritmo de la semana.', tags:['Running','Gimnasio','Hidratación','Deporte','Energía'], story:'Valora la constancia: del entrenamiento a la pausa, quiere acompañar cada momento.', moment:'ENCONTRAR SU PROPIO RITMO', icon:'activity', tint:'#e1eef9', count:43 },
+    { name:'Julián', image:'julian-b', age:'35–54', subtitle:'Equilibrio y descanso', description:'Integra bienestar, familia y trabajo. Le interesan los hábitos que puede sostener en el tiempo.', tags:['Sueño','Familia','Hábitos','Bienestar','Meditación'], story:'Quiere cerrar el día con una pausa y construir una rutina de descanso más consciente.', moment:'DARLE VALOR A LA PAUSA', icon:'moon', tint:'#f1e3e6', count:42 }
   ];
   const ROLES = {
     meta:['Afinidad y cobertura','Conecta los intereses con historias de bienestar, rutinas y momentos cotidianos.'],
@@ -65,18 +65,20 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     {id:'wellness',name:'Bienestar',icon:'heart',image:'yoga'},
     {id:'active',name:'Vida activa',icon:'activity',image:'running'},
     {id:'nutrition',name:'Alimentación',icon:'leaf',image:'nutrition'},
-    {id:'beauty',name:'Cuidado personal',icon:'sparkles',image:'skincare'},
-    {id:'rest',name:'Sueño y descanso',icon:'moon',image:'rest'},
-    {id:'family',name:'Familia y hogar',icon:'people',image:'family'},
+    {id:'beauty',name:'Belleza',icon:'sparkles',image:'skincare'},
+    {id:'mental',name:'Salud mental',icon:'heart',image:'yoga'},
+    {id:'rest',name:'Sueño',icon:'moon',image:'rest'},
+    {id:'family',name:'Familia',icon:'people',image:'family'},
     {id:'technology',name:'Tecnología',icon:'laptop',image:'technology'},
-    {id:'lifestyle',name:'Estilo de vida',icon:'coffee',image:'yoga'}
+    {id:'lifestyle',name:'Rutinas',icon:'coffee',image:'yoga'}
   ];
   function categoryFor(row) {
     const text = norm(row.interest);
-    if (/dorm|suen|descans|noche|insom|sleep|melaton|relaj/.test(text)) return 'rest';
+    if (/dorm|suen|descans|noche|nocturn|circadian|insom|sleep|melaton|relaj/.test(text)) return 'rest';
+    if (/familia|padre|madre|hogar|patern|matern/.test(text)) return 'family';
+    if (/medita|mindful|salud mental/.test(text)) return 'mental';
     if (/skincare|belleza|piel|maquilla|cuidado personal|beauty/.test(text)) return 'beauty';
     if (/nutri|alimenta|comida|cocina|dieta|receta|proteina|vitamina|suplement|magnesio|hidrat|electrolito/.test(text)) return 'nutrition';
-    if (/familia|padre|madre|hogar|patern|matern/.test(text)) return 'family';
     if (/tecnolog|app|wearable|smartwatch|dispositiv/.test(text)) return 'technology';
     if (/running|run |correr|carrera|deport|gimnas|fitness|entrena|crossfit|cicl|bici|futbol|natacion|maraton|sender|trail|outdoor|workout|triathlon/.test(text)) return 'active';
     if (/yoga|pilates|bienestar|wellness|mindful|medita|salud|autocuida|habito|autoconoc/.test(text)) return 'wellness';
@@ -123,6 +125,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     currentView = Object.hasOwn(TITLES, next) ? next : 'summary';
     $$('.view').forEach(v => { const active = v.id === currentView; v.hidden = !active; v.classList.toggle('active',active); });
     $$('[data-nav]').forEach(a => { const active = a.dataset.nav === currentView; a.classList.toggle('active',active); if(active) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    document.body.dataset.view = currentView;
     $('#breadcrumbName').textContent = TITLES[currentView];
     document.title = `${TITLES[currentView]} · Ritual Audience Atlas 2027`;
     $('#exportBtn').title = currentView === 'library' ? 'Exportar todas las señales que coinciden con los filtros' : currentView === 'sim' ? 'Exportar el escenario y su distribución de inversión' : 'Exportar datos de esta vista';
@@ -141,29 +144,22 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   function openLibrary({person:who='all', platform='all'} = {}) {
     Object.assign(filters,{query:'',category:'all',person:who,platform,page:1});
     $('#libSearch').value = ''; $('#platformFilter').value = platform;
+    $('#libraryFilters').hidden = false; $('#filterToggle').setAttribute('aria-expanded','true');
     navigate('library'); renderLibrary();
   }
   function renderSummary() {
-    const kpis = [['grid','119','Señales de afinidad'],['globe','14,0 M','Universo de planeación'],['people','3','Personas estratégicas'],['media','5','Canales complementarios']];
-    $('#summaryKpis').innerHTML = kpis.map(([name,value,label]) => `<div class="kpi-card"><span class="kpi-icon">${i(name)}</span><div><b>${value}</b><p>${label}</p></div></div>`).join('');
+    const kpis = [['14,0 M','Universo de planeación'],['53,7 M','Población · referencia'],['22,5 M','Adultos de 25–54 años'],[millions(Model.calculate(Model.defaults()).reach),'Alcance · escenario base']];
+    $('#summaryKpis').innerHTML = kpis.map(([value,label]) => `<div class="kpi-card"><b>${value}</b><p>${label}</p></div>`).join('');
     const territories = [['Bogotá',31],['Medellín',17],['Cali',12],['Caribe, Santander y Eje',21],['Otros territorios',19]];
-    $('#territoryRows').innerHTML = territories.map(([name,pct]) => `<div class="territory-row"><span>${name}</span><div class="territory-track"><span style="width:${pct/31*100}%"></span></div><b>${pct}%</b></div>`).join('');
-    $('#summaryPeople').innerHTML = PERSONAS.map(p => `<button class="summary-person" data-profile="${p.name}"><img src="assets/${p.image}.jpg" alt="Retrato ilustrativo de ${p.name}"><div><div class="summary-person-name">${p.name}<span>${p.age} años</span></div><p>${p.subtitle}</p></div><span>${p.count}</span>${i('arrow-up')}</button>`).join('');
-    $('#summaryMedia').innerHTML = CHANNELS.map(c => `<div class="media-ribbon-item">${LOGOS[c.id]}<span>${c.name}</span></div>`).join('');
+    $('#territoryRows').innerHTML = territories.map(([name,pct]) => `<div class="territory-row"><span>${name}</span><b>${pct}%</b><div class="territory-track"><span style="width:${pct/31*100}%"></span></div></div>`).join('');
   }
   function renderPersonas() {
-    $('#personaCards').innerHTML = PERSONAS.map((p,idx) => `<article class="persona-card" style="--tint:${p.tint}"><div class="persona-photo"><img src="assets/${p.image}.jpg" alt="Retrato ilustrativo del perfil ${p.name}"><span class="persona-number">PERSONA / 0${idx+1}</span><span class="persona-moment">${i(p.icon)}${p.moment}</span></div><div class="persona-info"><div class="persona-title"><h2>${p.name}</h2><span class="persona-age">${p.age} años</span></div><h3>${p.subtitle}</h3><p class="persona-description">${p.description}</p><div class="signal-count"><strong>${p.count}</strong><span>señales de afinidad</span></div><div class="chip-list">${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div><div class="persona-story"><span>SU FORMA DE VIVIR RITUAL</span><p>${p.story}</p></div><button class="button button-primary" data-person-signals="${p.name}">Explorar sus señales${i('arrow-right')}</button><button class="text-button" data-profile="${p.name}">Ver perfil completo${i('arrow-up')}</button></div></article>`).join('');
+    $('#personaCards').innerHTML = PERSONAS.map(p => `<article class="persona-card" style="--tint:${p.tint}"><div class="persona-photo"><img src="assets/${p.image}.webp" alt="Retrato ilustrativo del perfil ${p.name}"></div><div class="persona-info"><div class="persona-title"><h2>${p.name}</h2><span class="persona-age">${p.age}</span></div><h3>${p.subtitle}</h3><p class="persona-description">${p.description}</p><div class="signal-count">${i(p.icon)}<strong>${p.count}</strong><span>señales</span></div><div class="chip-list">${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div><p class="persona-story">${p.story}</p><button class="button button-primary" data-profile="${p.name}">Ver perfil completo${i('arrow-right')}</button><button class="text-button persona-signals-link" data-person-signals="${p.name}">Explorar sus ${p.count} señales${i('arrow-up')}</button></div></article>`).join('');
   }
   function renderMedia() {
     const result = Model.calculate(state);
-    let cursor=0;
-    $('#mixDonut').style.background = 'conic-gradient('+CHANNELS.map((c,idx)=>{ const start=cursor; cursor+=state.shares[idx]; return `${c.accent} ${start}% ${cursor}%`; }).join(',')+')';
-    $('#mixLegend').innerHTML = CHANNELS.map((c,idx)=>`<div><i style="background:${c.accent}"></i><span>${c.name}</span><b>${state.shares[idx]}%</b></div>`).join('');
     $('#mediaBudget').textContent = money(result.budget)+' COP';
-    $('#mediaRows').innerHTML = result.channels.map(c => {
-      const count = rows.filter(d=>platformMatch(d,c.id)).length;
-      return `<tr><td><div class="platform-brand">${LOGOS[c.id]}<b>${c.name}</b></div></td><td><div class="platform-role"><b>${ROLES[c.id][0]}</b><p>${ROLES[c.id][1]}</p></div></td><td><div class="mix-percent" style="--accent:${c.accent}"><strong>${c.share}%</strong><div><i style="width:${c.share}%"></i></div></div></td><td class="media-money">${money(c.spend)}</td><td><span class="signal-badge">${count || '—'}${c.id==='google'||c.id==='youtube' ? '<small> compartidas</small>' : ''}</span></td><td><button class="icon-button" data-media="${c.id}" aria-label="${c.id==='programmatic'?'Ver contexto de Programmatic':'Explorar señales de '+c.name}">${i('arrow-up')}</button></td></tr>`;
-    }).join('');
+    $('#mediaRows').innerHTML = result.channels.map(c => `<tr><td><button class="platform-brand" data-media="${c.id}" aria-label="${c.id==='programmatic'?'Ver contexto de Programmatic':'Explorar señales de '+c.name}">${LOGOS[c.id]}<span>${c.name}</span></button></td><td><div class="platform-role"><b>${ROLES[c.id][0]}</b><p>${ROLES[c.id][1]}</p></div></td><td class="mix-percent"><strong>${c.share}%</strong><small>${money(c.spend)} COP</small></td><td class="media-reach"><strong>${millions(c.reach)}</strong></td></tr>`).join('');
   }
   function filteredRows() {
     return rows.filter(d => (filters.person==='all'||d.cluster===filters.person) && (filters.category==='all'||d.category===filters.category) && (filters.platform==='all'||platformMatch(d,filters.platform)) && (!filters.query||norm(`${d.interest} ${d.platform} ${d.territory} ${d.cluster} ${d.product}`).includes(norm(filters.query))));
@@ -176,15 +172,38 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     const found=filteredRows(), size=filters.view==='grid'?12:18, pages=Math.max(1,Math.ceil(found.length/size));
     filters.page=Math.min(pages,Math.max(1,filters.page));
     const pageRows=found.slice((filters.page-1)*size,filters.page*size);
+    const hasFilters=filters.person!=='all'||filters.category!=='all'||filters.platform!=='all'||!!filters.query;
+    const browsing=!hasFilters&&filters.view==='grid';
     $('#libCount').textContent=`${found.length} de 119 señales`;
-    $('#categoryNav').innerHTML=CATEGORIES.map(c=>`<button class="category-nav-button ${filters.category===c.id?'active':''}" data-category="${c.id}" aria-pressed="${filters.category===c.id}">${i(c.icon)}${c.name}<span>${c.id==='all'?rows.length:rows.filter(d=>d.category===c.id).length}</span></button>`).join('');
+    $('#categoryNav').innerHTML=CATEGORIES.map(c=>`<button class="category-nav-button ${filters.category===c.id?'active':''}" data-category="${c.id}" aria-pressed="${filters.category===c.id}">${i(c.icon)}<span>${c.name}</span></button>`).join('');
     $$('[data-person-filter]').forEach(b=>{const active=b.dataset.personFilter===filters.person;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
     $$('[data-library-view]').forEach(b=>{const active=b.dataset.libraryView===filters.view;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
-    $('#clearFilters').hidden = filters.person==='all'&&filters.category==='all'&&filters.platform==='all'&&!filters.query;
+    const count=[filters.person!=='all',filters.category!=='all',filters.platform!=='all'].filter(Boolean).length;
+    $('#activeFilterCount').hidden=!count;$('#activeFilterCount').textContent=count;
+    $('#clearFilters').hidden=!hasFilters;
+    $('#filterStatus').hidden=browsing;
+    if(browsing) {
+      const tiles=[
+        {name:'Bienestar',category:'wellness',image:'yoga',icon:'heart'},
+        {name:'Vida activa',category:'active',image:'running',icon:'activity'},
+        {name:'Alimentación',category:'nutrition',image:'nutrition',icon:'leaf'},
+        {name:'Belleza',category:'beauty',image:'skincare',icon:'sparkles'},
+        {name:'Running',query:'running',image:'running',icon:'activity'},
+        {name:'Gimnasio',query:'gimnasio',image:'gym',icon:'target'},
+        {name:'Tecnología',category:'technology',image:'technology',icon:'laptop'},
+        {name:'Sueño',category:'rest',image:'rest',icon:'moon'},
+        {name:'Meditación',category:'mental',image:'yoga',icon:'sun'},
+        {name:'Familia',category:'family',image:'family',icon:'people'},
+        {name:'Rutinas',category:'lifestyle',image:'skincare',icon:'coffee'},
+        {name:'Ciclismo',query:'ciclismo',image:'running',icon:'activity'}
+      ];
+      $('#libraryResults').innerHTML=`<div class="category-grid">${tiles.map(t=>{const count=rows.filter(d=>t.category?d.category===t.category:norm(d.interest).includes(t.query)).length;return `<button class="category-tile" ${t.category?`data-category="${t.category}"`:`data-topic="${t.query}"`} aria-label="Explorar ${t.name}, ${count} señales"><img src="assets/${t.image}.jpg" alt=""><span class="category-tile-caption"><strong>${t.name}</strong><span>${i(t.icon)}${count} señales</span></span></button>`;}).join('')}</div>`;
+      $('#pagination').hidden=true;return;
+    }
     if(!found.length) {
       $('#libraryResults').innerHTML=`<div class="empty-state">${i('search')}<h3>No encontramos esa conexión.</h3><p>Prueba otro interés o amplía los filtros para seguir explorando.</p><button class="button button-secondary" data-action="clear-filters">Ver todas las señales</button></div>`;
     } else if(filters.view==='grid') {
-      $('#libraryResults').innerHTML=`<div class="interests-grid">${pageRows.map(d=>{const p=persona(d.cluster),c=CATEGORIES.find(c=>c.id===d.category);return `<button class="interest-card" data-signal="${d.id}" aria-label="Explorar ${esc(d.interest)} · ${esc(d.cluster)} · ${esc(d.platform)}"><div class="interest-photo"><img loading="lazy" src="assets/${imageFor(d)}.jpg" alt=""><span class="interest-category">${c.name}</span><span class="interest-platform" title="${esc(d.platform)}">${LOGOS[platformId(d)]}</span></div><div class="interest-body"><h3>${esc(d.interest)}</h3><div class="interest-meta"><img src="assets/${p.image}.jpg" alt="">${p.name}<span class="priority">Prioridad ${esc(d.priority).toLowerCase()}</span></div></div></button>`;}).join('')}</div>`;
+      $('#libraryResults').innerHTML=`<div class="interests-grid">${pageRows.map(d=>{const c=CATEGORIES.find(c=>c.id===d.category);return `<button class="interest-card" data-signal="${d.id}" aria-label="Explorar ${esc(d.interest)} · ${esc(d.cluster)} · ${esc(d.platform)}"><img loading="lazy" src="assets/${imageFor(d)}.jpg" alt=""><span class="interest-platform" title="${esc(d.platform)}">${LOGOS[platformId(d)]}</span><span class="interest-body"><small>${c.name}</small><strong>${esc(d.interest)}</strong><span>${esc(d.cluster)} · ${esc(d.platform)}</span></span></button>`;}).join('')}</div>`;
     } else {
       $('#libraryResults').innerHTML=`<div class="table-scroll"><table class="interest-table"><thead><tr><th>Interés</th><th>Persona</th><th>Plataforma</th><th>Prioridad</th></tr></thead><tbody>${pageRows.map(d=>`<tr><td><button data-signal="${d.id}"><img src="assets/${imageFor(d)}.jpg" alt="">${esc(d.interest)}</button></td><td>${esc(d.cluster)}</td><td>${LOGOS[platformId(d)]}${esc(d.platform)}</td><td>${esc(d.priority)}</td></tr>`).join('')}</tbody></table></div>`;
     }
@@ -201,7 +220,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   function showProfile(name) {
     const p=persona(name), signals=rows.filter(d=>d.cluster===name);
     const counts=[['meta','Meta'],['google','Google / YouTube'],['tiktok','TikTok']];
-    showDialog('PERSONA ESTRATÉGICA · PERFIL ILUSTRATIVO',`<img class="dialog-portrait" src="assets/${p.image}.jpg" alt="Retrato ilustrativo de ${p.name}"><h2>${p.name} <span class="purple">${p.age}</span></h2><p class="dialog-description">${p.description}</p><div class="detail-grid"><div class="detail-box"><span>Territorio</span><b>${p.subtitle}</b></div><div class="detail-box"><span>Señales originales</span><b>${p.count} señales de afinidad</b></div></div><div class="detail-section"><h3>Momento Ritual</h3><p>${p.story}</p></div><div class="detail-section"><h3>Presencia por plataforma</h3><div class="detail-grid">${counts.map(([id,title])=>`<div class="detail-box"><span>${title}</span><b>${signals.filter(d=>platformMatch(d,id)).length} señales</b></div>`).join('')}</div></div><div class="detail-section"><h3>Intereses destacados</h3><div class="related-signals">${signals.slice(0,7).map(d=>`<button data-signal="${d.id}">${esc(d.interest)}</button>`).join('')}</div></div><div class="dialog-actions"><button class="button button-primary" data-person-signals="${p.name}">Explorar las ${p.count} señales${i('arrow-right')}</button></div>`);
+    showDialog('PERSONA ESTRATÉGICA · PERFIL ILUSTRATIVO',`<img class="dialog-portrait" src="assets/${p.image}.webp" alt="Retrato ilustrativo de ${p.name}"><h2>${p.name} <span class="purple">${p.age}</span></h2><p class="dialog-description">${p.description}</p><div class="detail-grid"><div class="detail-box"><span>Territorio</span><b>${p.subtitle}</b></div><div class="detail-box"><span>Señales originales</span><b>${p.count} señales de afinidad</b></div></div><div class="detail-section"><h3>Momento Ritual</h3><p>${p.story}</p></div><div class="detail-section"><h3>Presencia por plataforma</h3><div class="detail-grid">${counts.map(([id,title])=>`<div class="detail-box"><span>${title}</span><b>${signals.filter(d=>platformMatch(d,id)).length} señales</b></div>`).join('')}</div></div><div class="detail-section"><h3>Intereses destacados</h3><div class="related-signals">${signals.slice(0,7).map(d=>`<button data-signal="${d.id}">${esc(d.interest)}</button>`).join('')}</div></div><div class="dialog-actions"><button class="button button-primary" data-person-signals="${p.name}">Explorar las ${p.count} señales${i('arrow-right')}</button></div>`);
   }
   function showSignal(id) {
     const d=rows[id];if(!d)return;
@@ -210,7 +229,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     showDialog(`SEÑAL ${String(id+1).padStart(3,'0')} / 119`,`<h2>${esc(d.interest)}</h2><p class="dialog-description">Una puerta de entrada al universo de ${esc(d.cluster)}.</p><div class="detail-grid">${details.map(([label,value])=>`<div class="detail-box"><span>${label}</span><b>${esc(value)}</b></div>`).join('')}</div><div class="detail-section"><h3>Rol táctico</h3><p>${esc(d.tactic)}</p></div><div class="detail-section"><h3>Validación en plataforma</h3><p>${esc(d.validation)}</p></div>${related.length?`<div class="detail-section"><h3>Conexiones relacionadas</h3><div class="related-signals">${related.map(x=>`<button data-signal="${x.id}">${esc(x.interest)}</button>`).join('')}</div></div>`:''}<div class="dialog-actions"><button class="button button-secondary" data-person-signals="${esc(d.cluster)}">Ver todas las señales de ${esc(d.cluster)}${i('arrow-right')}</button></div>`);
   }
   function showMethod() {
-    showDialog('CÓMO LEER EL ATLAS',`<h2>Una base para <span class="purple">tomar decisiones.</span></h2><p class="dialog-description">Este atlas organiza hipótesis de audiencias y simula escenarios. No está conectado a cuentas publicitarias ni contiene resultados de campañas.</p><div class="detail-section"><h3>01 · La matriz de afinidades</h3><p>Se conservan las 119 filas originales: 34 de Valeria, 43 de Carlos y 42 de Julián. Una señal puede aparecer en varias plataformas. Los perfiles y las fotografías son ilustrativos; las categorías de la biblioteca son una agrupación editorial.</p><p>Google y YouTube comparten 34 señales de la matriz y no constituyen filas adicionales. Programmatic es un canal propuesto; no tiene señales propias en la base original.</p></div><div class="detail-section"><h3>02 · Universo y territorio</h3><p>Los 53,7 M de contexto nacional, 22,5 M de adultos y 14,0 M de base de planeación son supuestos heredados del proyecto sin fuente demográfica verificada adjunta. El simulador permite cambiar el universo. Las participaciones territoriales son una propuesta estratégica, no alcance medido.</p></div><div class="detail-section"><h3>03 · Modelo de alcance</h3><code>Impresionesᵢ = inversiónᵢ / CPMᵢ × 1.000<br>Rᵢ = U × capᵢ × (1 − e^(−impresionesᵢ / (U × capᵢ × kᵢ)))<br>Alcance ≈ U × [1 − ∏(1 − Rᵢ / U)]<br>Frecuencia = impresiones totales / alcance</code><p>El alcance se limita al universo y cada canal tiene una curva de saturación. La combinación supone independencia entre medios: es una aproximación para planeación, no una deduplicación medida.</p><p>CPM iniciales (COP): Meta 9.200; Google 12.500; TikTok 8.200; YouTube 10.500; Programmatic 9.800. Límites de cobertura: 78%, 62%, 58%, 66% y 46%, respectivamente. kᵢ = 1,85 + (1 − capᵢ) × 1,6. Estos valores son supuestos editables o heredados, no cotizaciones.</p></div><div class="detail-section"><h3>04 · Qué exportas</h3><p>En Intereses, el CSV incluye todas las filas filtradas, no solo la página visible. En Medios, exporta la mezcla activa. En el Simulador, incluye el escenario actual, sus canales y los escenarios comparados. Resumen y Audiencias exportan la matriz completa con táctica y validación.</p></div><div class="detail-section"><h3>05 · Guardado</h3><p>El escenario se guarda únicamente en este navegador. La comparación admite hasta tres escenarios. Restablecer devuelve los valores iniciales del simulador; borrar comparación elimina los escenarios guardados.</p></div>`);
+    showDialog('CÓMO LEER EL ATLAS',`<h2>Una base para <span class="purple">tomar decisiones.</span></h2><p class="dialog-description">Este atlas organiza hipótesis de audiencias y simula escenarios. No está conectado a cuentas publicitarias ni contiene resultados de campañas.</p><div class="detail-section"><h3>01 · La matriz de afinidades</h3><p>Se conservan las 119 filas originales: 34 de Valeria, 43 de Carlos y 42 de Julián. Una señal puede aparecer en varias plataformas. Los perfiles y las fotografías son ilustrativos; los retratos y el paisaje urbano se generaron a partir de la referencia visual B; las categorías de la biblioteca son una agrupación editorial.</p><p>Google y YouTube comparten 34 señales de la matriz y no constituyen filas adicionales. Programmatic es un canal propuesto; no tiene señales propias en la base original.</p></div><div class="detail-section"><h3>02 · Universo y territorio</h3><p>Los 53,7 M de contexto nacional, 22,5 M de adultos y 14,0 M de base de planeación son supuestos heredados del proyecto sin fuente demográfica verificada adjunta. El simulador permite cambiar el universo. Las participaciones territoriales son una propuesta estratégica, no alcance medido.</p></div><div class="detail-section"><h3>03 · Modelo de alcance</h3><code>Impresionesᵢ = inversiónᵢ / CPMᵢ × 1.000<br>Rᵢ = U × capᵢ × (1 − e^(−impresionesᵢ / (U × capᵢ × kᵢ)))<br>Alcance ≈ U × [1 − ∏(1 − Rᵢ / U)]<br>Frecuencia = impresiones totales / alcance</code><p>El alcance se limita al universo y cada canal tiene una curva de saturación. La combinación supone independencia entre medios: es una aproximación para planeación, no una deduplicación medida.</p><p>CPM iniciales (COP): Meta 9.200; Google 12.500; TikTok 8.200; YouTube 10.500; Programmatic 9.800. Límites de cobertura: 78%, 62%, 58%, 66% y 46%, respectivamente. kᵢ = 1,85 + (1 − capᵢ) × 1,6. Estos valores son supuestos editables o heredados, no cotizaciones.</p></div><div class="detail-section"><h3>04 · Qué exportas</h3><p>En Intereses, el CSV incluye todas las filas filtradas, no solo la página visible. En Medios, exporta la mezcla activa. En el Simulador, incluye el escenario actual, sus canales y los escenarios comparados. Resumen y Audiencias exportan la matriz completa con táctica y validación.</p></div><div class="detail-section"><h3>05 · Guardado</h3><p>El escenario se guarda únicamente en este navegador. La comparación admite hasta tres escenarios. Restablecer devuelve los valores iniciales del simulador; borrar comparación elimina los escenarios guardados.</p></div>`);
   }
   function setupSimulator() {
     $('#mixRows').innerHTML=CHANNELS.map((c,idx)=>`<div class="mix-row"><span class="mix-brand">${LOGOS[c.id]}${c.name}</span><div class="mix-slider"><input type="range" min="0" max="100" step="1" id="share-${c.id}" data-share="${idx}" aria-label="Porcentaje de inversión en ${c.name}" value="${state.shares[idx]}"><output id="shareValue-${c.id}" for="share-${c.id}">${state.shares[idx]}%</output></div><input id="cpm-${c.id}" class="cpm-input" data-cpm="${idx}" aria-label="CPM de ${c.name} en pesos colombianos" type="number" min="100" max="1000000" step="100" value="${state.cpms[idx]}"><span class="mix-spend" id="spend-${c.id}"></span></div>`).join('');
@@ -223,7 +242,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   function renderSimulator() {
     const result=Model.calculate(state);
     const metrics=[['globe',millions(result.universe),'Universo de planeación','Base editable para el escenario'],['people',millions(result.reach),'Alcance estimado',number(result.coverage*100,1)+'% del universo'],['activity',number(result.frequency,1),'Frecuencia media','Impactos por persona alcanzada'],['media',millions(result.impressions),'Impresiones estimadas','Total proyectado de impactos']];
-    $('#simKpis').innerHTML=metrics.map(([name,value,label,detail])=>`<div class="sim-kpi"><span>${i(name)}${label}</span><strong>${value}</strong><small>${detail}</small></div>`).join('');
+    $('#simKpis').innerHTML=metrics.map(([name,value,label,detail])=>`<div class="sim-kpi" title="${detail}"><strong>${value}</strong><span>${label}</span></div>`).join('');
     result.channels.forEach((c,idx)=>{$('#share-'+c.id).value=state.shares[idx];$('#shareValue-'+c.id).textContent=state.shares[idx]+'%';$('#spend-'+c.id).textContent=money(c.spend);$('#spend-'+c.id).title='$'+number(c.spend)+' COP';});
     const isDefaultMix=JSON.stringify(state.shares)===JSON.stringify(Model.defaults().shares) && JSON.stringify(state.cpms)===JSON.stringify(Model.defaults().cpms) && state.universe===14;
     $$('[data-preset]').forEach(b=>{const active=isDefaultMix&&state.budget==={conservative:300,balanced:600,growth:1200}[b.dataset.preset];b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
@@ -277,6 +296,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     if(d.personSignals)openLibrary({person:d.personSignals});
     if(d.signal!==undefined)showSignal(Number(d.signal));
     if(d.category){filters.category=d.category;filters.page=1;renderLibrary();}
+    if(d.topic){Object.assign(filters,{query:d.topic,category:'all',person:d.personTopic||'all',platform:'all',page:1,view:'grid'});$('#libSearch').value=d.topic;$('#platformFilter').value='all';if(d.personTopic)navigate('library');renderLibrary();}
     if(d.personFilter){filters.person=d.personFilter;filters.page=1;renderLibrary();}
     if(d.libraryView){filters.view=d.libraryView;filters.page=1;renderLibrary();}
     if(d.page){filters.page=Number(d.page);renderLibrary();$('#libraryTitle').scrollIntoView({block:'start'});}
@@ -289,6 +309,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   });
   $('#libSearch').addEventListener('input',event=>{filters.query=event.target.value.trim();filters.page=1;renderLibrary();});
   $('#platformFilter').addEventListener('change',event=>{filters.platform=event.target.value;filters.page=1;renderLibrary();});
+  $('#filterToggle').addEventListener('click',()=>{const panel=$('#libraryFilters');panel.hidden=!panel.hidden;$('#filterToggle').setAttribute('aria-expanded',String(!panel.hidden));});
   $('#clearFilters').addEventListener('click',clearFilters);
   $('#exportBtn').addEventListener('click',exportCSV);
   $('#menuButton').addEventListener('click',()=>{const open=$('#sidebar').classList.toggle('open');$('#mobileScrim').classList.toggle('visible',open);$('#menuButton').setAttribute('aria-expanded',String(open));});
@@ -320,11 +341,10 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   $('#saveScenario').addEventListener('click',()=>{
     if(saved.length>=3){toast('Puedes comparar hasta 3 escenarios. Elimina uno para guardar otro.');return;}
     const labels=['Escenario 01','Escenario 02','Escenario 03'];const name=labels.find(label=>!saved.some(x=>x.name===label))||'Escenario';
-    saved.push({name,state:Model.sanitize(state)});renderComparison();persist();toast('Escenario guardado. Compáralo al final de la página.');
+    saved.push({name,state:Model.sanitize(state)});renderComparison();persist();toast('Escenario aplicado y añadido a la comparación.');
     $('#comparisonPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
   });
   $('#clearScenarios').addEventListener('click',()=>{saved=[];renderComparison();persist();toast('Comparación vaciada.');});
   window.addEventListener('hashchange',()=>{renderRoute();window.scrollTo({top:0,behavior:'instant'});});
   renderSummary();renderPersonas();renderMedia();renderLibrary();setupSimulator();renderSimulator();hydrateIcons();renderRoute();persist();
-  $('#colombiaMap').innerHTML = `<svg viewBox="20 0 580 650" role="img" aria-label="Mapa de Colombia con ciudades prioritarias"><path class="colombia" d="M 179.7,476.4 L 164.3,467.9 L 146.8,456.0 L 136.6,461.7 L 106.1,456.7 L 97.4,441.3 L 90.7,441.9 L 54.9,421.4 L 50.0,410.3 L 63.4,407.6 L 61.8,389.6 L 70.2,376.6 L 88.0,374.2 L 103.1,351.7 L 116.8,332.9 L 103.6,324.4 L 110.4,303.5 L 102.3,270.7 L 109.9,261.3 L 104.3,231.0 L 89.8,211.9 L 94.4,194.5 L 105.9,197.1 L 112.7,186.4 L 104.4,165.3 L 108.7,160.0 L 127.2,161.2 L 154.1,136.2 L 168.9,132.3 L 169.3,120.5 L 175.9,90.2 L 196.4,73.6 L 219.0,72.9 L 221.9,65.4 L 249.9,68.4 L 278.1,50.3 L 292.1,42.3 L 309.5,25.0 L 322.2,27.2 L 331.6,36.6 L 324.6,48.7 L 301.6,54.7 L 292.5,72.6 L 278.6,82.9 L 268.2,96.2 L 263.8,121.8 L 253.9,142.8 L 272.4,145.2 L 277.0,161.7 L 284.9,169.6 L 287.7,184.0 L 283.4,197.3 L 284.7,204.7 L 293.5,207.7 L 302.1,220.2 L 348.2,216.8 L 369.0,221.4 L 394.2,252.2 L 408.7,248.4 L 434.5,250.3 L 455.0,246.2 L 467.7,252.4 L 461.2,271.7 L 453.2,283.7 L 450.4,309.4 L 457.6,333.2 L 467.8,343.9 L 469.0,351.9 L 450.9,369.8 L 463.9,377.7 L 473.4,390.2 L 484.3,426.0 L 477.6,430.4 L 470.6,409.2 L 460.6,397.9 L 448.8,410.2 L 378.9,409.4 L 379.3,431.9 L 400.4,435.6 L 399.1,449.3 L 392.0,445.6 L 371.8,451.5 L 371.6,477.5 L 387.5,490.6 L 393.1,511.1 L 392.3,526.7 L 376.2,625.0 L 358.2,605.9 L 347.5,605.1 L 370.6,568.6 L 343.2,551.8 L 321.7,554.9 L 308.7,548.7 L 289.0,558.2 L 262.3,553.7 L 241.1,516.1 L 224.5,506.9 L 213.1,489.9 L 189.3,473.0 L 179.7,476.4 Z"/><circle class="city-halo" cx="226.3" cy="302.0" r="21"/><circle class="city-dot" cx="226.3" cy="302.0" r="7"/><text class="city-label" x="240.3" y="293.0">Bogotá</text><circle class="city-halo" cx="172.2" cy="247.0" r="21"/><circle class="city-dot" cx="172.2" cy="247.0" r="7"/><text class="city-label" x="186.2" y="238.0">Medellín</text><circle class="city-halo" cx="138.2" cy="347.2" r="21"/><circle class="city-dot" cx="138.2" cy="347.2" r="7"/><text class="city-label" x="152.2" y="338.2">Cali</text><circle class="city-halo" cx="200.9" cy="77.7" r="21"/><circle class="city-dot" cx="200.9" cy="77.7" r="7"/><text class="city-label" x="214.9" y="68.7">Barranquilla</text></svg>`;
 })();

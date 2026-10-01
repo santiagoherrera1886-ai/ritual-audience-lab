@@ -19,3 +19,12 @@ Fotografías ilustrativas de Unsplash (no representan personas reales de la inve
 - gym.jpg: https://images.unsplash.com/photo-1517836357463-d25dfeac3438
 
 Contorno de Colombia: https://raw.githubusercontent.com/johan/world.geo.json/master/countries/COL.geo.json
+
+
+## Reconstrucción de la opción B
+
+Los recursos `valeria-b.webp`, `carlos-b.webp`, `julian-b.webp` y `city-b.webp` se generaron con la herramienta integrada de generación de imágenes, usando el montaje proporcionado por el usuario como referencia visual. Son imágenes ilustrativas; la ciudad no representa datos geográficos medidos. Se conservaron los empaques originales. Los originales generados se codificaron en WebP para servirlos localmente.
+
+Prompts finales: `docs/option-b-assets.md`.
+
+Inter Variable: https://github.com/rsms/inter — licencia SIL Open Font License, incluida en `Inter-LICENSE.txt`. Fuente local: `inter-latin.woff2`.
