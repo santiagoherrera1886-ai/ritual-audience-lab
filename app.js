@@ -236,7 +236,12 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   async function copySegmentationGuide(channel,scope) {
     const context=guideContext(channel,scope==='dialog'?dialogGuide.signalId:null),g=Segmentation.channels[channel];
     const text=[`RITUAL · ${g.name}`,`Ejemplo propuesto para ${context.name} · perfil ${context.age} · Colombia`,`Señal: ${context.focus}`,g.explanation,g.route,...g.steps.map(([title,body],idx)=>`${idx+1}. ${title}: ${body}`),`${g.exampleLabel}: ${context.seeds.join('; ')}`,context.ageNote,g.validation,g.measure,`Fuentes (${Segmentation.reviewed}):`,...g.sources.map(([title,url])=>`${title}: ${url}`),'Ejemplos sin disponibilidad ni volumen certificados.'].join('\n\n');
-    try {await navigator.clipboard.writeText(text);toast('Guía copiada con pasos, ejemplo y fuentes.');}
+    try {
+      await navigator.clipboard.writeText(text);
+      const copyButton=$(`[data-copy-guide="${channel}"][data-guide-scope="${scope}"]`);
+      if(copyButton){copyButton.textContent='Guía copiada ✓';copyButton.setAttribute('aria-label','Guía copiada con pasos, ejemplo y fuentes');}
+      toast('Guía copiada con pasos, ejemplo y fuentes.');
+    }
     catch {showDialog('COPIAR GUÍA',`<h2>Tu guía de <span class="purple">${g.short}.</span></h2><p class="dialog-description">Selecciona y copia el texto para llevarlo a tu plan de medios.</p><textarea id="guideCopyText" class="guide-copy-text" readonly aria-label="Guía lista para copiar">${esc(text)}</textarea>`);$('#guideCopyText').focus();$('#guideCopyText').select();}
   }
   function renderSidebar() {

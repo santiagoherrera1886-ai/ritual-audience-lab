@@ -69,3 +69,9 @@ Las 43 señales originales de Carlos corresponden a Día / recuperación. Al sel
 Verificado en el sitio publicado: Carlos con Meta muestra 22 señales; Carlos en Medios muestra 43, distribuidas en Meta 22, TikTok 10 y Google/YouTube 11 compartidas. Seleccionar Valeria conserva Noche Plena y muestra 34 señales. No se modificó la matriz original.
 
 ![Carlos con sus 43 señales visibles](docs/Ritual_Carlos_Filtros_Corregidos.jpg)
+
+## Guías por medio · 1 de octubre de 2026
+
+Intereses incluye un panel desplegable con guías de Meta, Google Search, TikTok y YouTube/Video. Cada ficha enlaza a pasos y ejemplos del interés elegido, y Medios ofrece acceso directo. Las guías conservan el perfil activo y pueden copiarse con sus fuentes. [Alcance editorial y verificación](docs/segmentation-guide.md).
+
+![Guía de segmentación contextual de Carlos](docs/Ritual_Guia_Segmentacion.jpg)

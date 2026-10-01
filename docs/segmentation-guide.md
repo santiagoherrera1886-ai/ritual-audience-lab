@@ -42,3 +42,5 @@ Fuentes oficiales consultadas el 1 de octubre de 2026. Las páginas de ayuda de 
 ## Verificación
 
 Sintaxis JavaScript correcta. Prueba de integración DOM superada: cuatro canales, guía en Intereses/ficha/Medios, ejemplo de Carlos y Gimnasio conservado al cambiar de medio, nota de edades de TikTok, copia de pasos y fuentes, 43 señales de Carlos tras liberar el filtro incompatible de Noche y búsqueda escapada como texto. Sin errores de ejecución en ese recorrido.
+
+Verificación del sitio publicado en escritorio: el panel se despliega en Intereses; las pestañas de Search y TikTok conservan las 43 señales de Carlos; la ficha de Gimnasio mantiene su contexto al pasar a YouTube; Medios abre la guía correcta. El navegador confirmó la escritura al portapapeles; se añade confirmación dentro del botón para que se vea también en el diálogo. El contenido copiado se validó en la prueba DOM. No se observaron errores propios de la aplicación en el recorrido.
