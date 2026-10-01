@@ -25,3 +25,7 @@ Prompt de producción: mosaico único de ocho imágenes sin texto, cuadrícula e
 ## Verificación local
 
 Prueba DOM superada: siete ciudades desde lista y mapa, sincronización con detalle e imagen, foco/ARIA, cambio de modo, ficha de Carlos, navegación a sus 43 señales, compatibilidad con Noche, cambio del potencial según producto y conservación de las 119 filas. Las pruebas de las guías por medio también continúan pasando. Sintaxis y diff comprobados.
+
+## Verificación publicada
+
+Vercel desplegó correctamente el explorador. Se comprobó en navegador de escritorio la composición completa, el salto desde «Explorar ciudades», Cartagena desde la lista, Medellín desde el mapa, modo Clústeres, selección de Carlos, apertura de su ficha y acceso a las 43 señales originales. Las imágenes, perfiles y módulos del resumen se muestran correctamente. Se acercaron las etiquetas occidentales a sus puntos y el salto al mapa transfiere el foco al encabezado. La adaptación móvil está implementada; este entorno no permitió inspección con viewport móvil.
