@@ -1,6 +1,8 @@
 # Recursos visuales
 
-Logo y empaques: conservados del HTML original del repositorio.
+Empaques: conservados del HTML original del repositorio.
+
+Identificador tipográfico JGB / Ritual: SVG de navegación, reconstruido para reemplazar el recorte incorrecto del archivo original.
 
 Fotografías ilustrativas de Unsplash (no representan personas reales de la investigación):
 
@@ -15,3 +17,5 @@ Fotografías ilustrativas de Unsplash (no representan personas reales de la inve
 - family.jpg: https://images.unsplash.com/photo-1511895426328-dc8714191300
 - technology.jpg: https://images.unsplash.com/photo-1519389950473-47ba0277781c
 - gym.jpg: https://images.unsplash.com/photo-1517836357463-d25dfeac3438
+
+Contorno de Colombia: https://raw.githubusercontent.com/johan/world.geo.json/master/countries/COL.geo.json
