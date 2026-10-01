@@ -21,6 +21,7 @@
     sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>',
     moon:'<path d="M20.5 13.1A9 9 0 0 1 10.9 3.5 9 9 0 1 0 20.5 13.1Z"/>',
     info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/>',
+    'arrow-down':'<path d="M12 4v16m-6-6 6 6 6-6"/>',
     'arrow-up':'<path d="M6 18 18 6M6 6h12v12"/>',
     'arrow-right':'<path d="M4 12h16m-6-6 6 6-6 6"/>',
     'arrow-left':'<path d="M20 12H4m6-6-6 6 6 6"/>',
@@ -178,6 +179,8 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     {id:'bucaramanga',name:'Bucaramanga',potential:.48e6,x:51.8,y:33.3,dx:17,dy:-23,color:'#3eacff'},
     {id:'pereira',name:'Pereira',potential:.64e6,x:34.8,y:45.9,dx:-126,dy:3,color:'#68e4ff'}
   ];
+  let selectedCity='bogota';
+  let territoryMode='cities';
   const darkLogo=id=>id==='tiktok'?LOGOS[id].replace('fill="#17132e"','fill="#fff"'):LOGOS[id];
   function productMatch(row,id) { return id==='all'||(id==='day'?norm(row.product).includes('dia'):norm(row.product).includes('noche')); }
   const PRODUCT_LABELS={all:'Ambos productos',day:'Hidrapro · Día',night:'Noche Plena'};
@@ -286,10 +289,30 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     productState=ProductModel.sanitize({dayShare:night?100-Number(value):Number(value)});renderProductSimulator();
     try{localStorage.setItem('ritual-product-plan-v1',JSON.stringify(productState));}catch{}
   }
+  function renderTerritoryExplorer() {
+    const city=CITIES.find(c=>c.id===selectedCity)||CITIES[0];
+    const cityIndex=CITIES.indexOf(city),universe=filters.product==='day'?8.6e6:filters.product==='night'?7.8e6:14e6;
+    const labels={bogota:[18,4],medellin:[-100,-14],cali:[-69,7],barranquilla:[17,-29],cartagena:[-112,1],bucaramanga:[16,-17],pereira:[-88,-5]};
+    $$('[data-map-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mapMode===territoryMode)));
+    const navigation=$('#territoryNavigation');
+    navigation.setAttribute('aria-label',territoryMode==='cities'?'Seleccionar ciudad':'Seleccionar clúster');
+    navigation.innerHTML=territoryMode==='cities'
+      ? `<span class="territory-nav-label">7 CIUDADES</span>${CITIES.map(c=>`<button class="territory-city" data-map-city="${c.id}" data-map-source="list" aria-pressed="${c.id===city.id}"><span class="territory-city-dot" style="--city-color:${c.color}"></span><span>${c.name}</span>${i('arrow-right')}</button>`).join('')}`
+      : `<span class="territory-nav-label">PERFILES DEL ATLAS</span>${PERSONAS.map((p,idx)=>`<button class="territory-person" data-map-person="${p.name}" aria-pressed="${filters.person===p.name}"><img src="assets/${p.image}.webp" alt=""><span><b>${p.name}</b><small>${p.age} · ${p.count} señales</small></span><span class="territory-city-dot" style="--city-color:${PERSONA_COLORS[idx]}"></span></button>`).join('')}<button class="territory-all" data-map-person="all" aria-pressed="${filters.person==='all'}">Todos los perfiles${i('arrow-right')}</button><p class="territory-nav-note">El perfil cambia los intereses que explorarás. Las ciudades son referencias de planeación.</p>`;
+    $('#cityPins').innerHTML=CITIES.map(c=>`<button class="territory-pin ${c.id===city.id?'selected':''}" style="left:${c.x}%;top:${(c.y*.92).toFixed(3)}%;--city-color:${c.color};--label-x:${labels[c.id][0]}px;--label-y:${labels[c.id][1]}px" data-map-city="${c.id}" data-map-source="pin" aria-label="Seleccionar ${c.name} en el mapa" aria-pressed="${c.id===city.id}"><span class="territory-pin-dot"></span><span class="territory-pin-label">${c.name}</span></button>`).join('');
+    $('#cityDetailPanel').innerHTML=`<div class="city-scene" style="--scene-x:${cityIndex%2*100}%;--scene-y:${Math.floor(cityIndex/2)*100/3}%" role="img" aria-label="Vista ilustrativa de ${city.name}"><span>Vista ilustrativa</span></div><div class="territory-detail-heading"><span class="territory-detail-eyebrow">CIUDAD SELECCIONADA</span><h3>${city.name}</h3><p>Conecta con sus audiencias.</p></div><button class="city-potential" data-city="${city.id}" aria-label="Consultar el potencial ilustrativo de ${city.name}"><span>Potencial de referencia</span><b>${millions(city.potential*universe/14e6)}</b>${i('info')}</button><div class="territory-section-label">PERFILES PARA EXPLORAR</div><div class="territory-profiles">${PERSONAS.map((p,idx)=>`<button data-profile="${p.name}" aria-label="Ver perfil de ${p.name}" class="${filters.person===p.name?'active':''}"><img src="assets/${p.image}.webp" alt=""><b><span style="--city-color:${PERSONA_COLORS[idx]}"></span>${p.name}</b><small>${['Wellness','Vida activa','Equilibrio'][idx]}</small></button>`).join('')}</div><div class="territory-section-label">MOMENTOS RITUAL</div><div class="territory-products"><button data-product="day" aria-pressed="${filters.product==='day'}" class="territory-day">${i('sun')}<span><b>Hidrapro</b><small>Bienestar para tus días</small></span></button><button data-product="night" aria-pressed="${filters.product==='night'}" class="territory-night">${i('moon')}<span><b>Noche Plena</b><small>Momento de calma</small></span></button></div><button class="button button-primary territory-explore" data-map-explore>Explorar intereses${i('arrow-up')}</button><p class="territory-detail-note">${filters.person==='all'?'Todos los perfiles':esc(filters.person)} · ${PRODUCT_LABELS[filters.product]}</p>`;
+    $('#territoryMapCaption').textContent=territoryMode==='clusters'&&filters.person!=='all'?`${filters.person} · selecciona una ciudad para planear`:'7 ciudades · selecciona un punto en el mapa';
+  }
+  function selectTerritoryCity(id,source='list') {
+    if(!CITIES.some(c=>c.id===id))return;
+    selectedCity=id;renderTerritoryExplorer();
+    $('#territoryAnnouncement').textContent=`${CITIES.find(c=>c.id===id).name} seleccionada. Panel de ciudad actualizado.`;
+    $(`[data-map-city="${id}"][data-map-source="${source}"]`)?.focus({preventScroll:true});
+  }
   function renderSummary() {
     const universe=filters.product==='day'?8.6e6:filters.product==='night'?7.8e6:14e6;
     $('#atlasUniverse').textContent=millions(universe);
-    $('#cityPins').innerHTML=CITIES.map(c=>`<button class="map-pin city-${c.id}" style="left:${c.x}%;top:${c.y}%;--pin-color:${c.color};--label-x:${c.dx}px;--label-y:${c.dy}px" data-city="${c.id}" aria-label="Explorar potencial sugerido de ${c.name}"><span class="map-pin-light"></span><span class="map-pin-label"><b>${c.name}</b><span>${millions(c.potential*universe/14e6)}</span></span></button>`).join('');
+    renderTerritoryExplorer();
     $('#summaryMedia').innerHTML=MEDIA_ENVIRONMENTS.map(c=>`<button data-media="${c.id}"><span>${darkLogo(c.id)}</span><b>${c.short}</b><i style="--media-color:${c.color};--media-width:${c.id==='meta'?75:c.id==='google'?66:c.id==='tiktok'?57:45}%"></i><p>${c.summary}</p></button>`).join('');
   }
   function renderPersonas() {
@@ -445,6 +468,12 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     const button=event.target.closest('button');if(!button)return;
     const d=button.dataset;
     if(d.goto)navigate(d.goto);
+    if(d.mapCity)selectTerritoryCity(d.mapCity,d.mapSource);
+    if(d.mapMode&&['cities','clusters'].includes(d.mapMode)){territoryMode=d.mapMode;renderTerritoryExplorer();$(`[data-map-mode="${d.mapMode}"]`).focus({preventScroll:true});}
+    if(d.mapPerson&&(d.mapPerson==='all'||PERSONAS.some(p=>p.name===d.mapPerson))){selectPerson(d.mapPerson);renderSidebar();renderSummary();$(`[data-map-person="${d.mapPerson}"]`).focus({preventScroll:true});}
+    if(d.mapExplore!==undefined)openLibrary({person:filters.person});
+    if(d.mapJump!==undefined){$('#territoryExplorer').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
+
     if(d.guideOpen)showSegmentationGuide(d.guideOpen,d.guideSignal!==undefined?Number(d.guideSignal):null);
     if(d.guideTab&&Segmentation.channels[d.guideTab]){
       if(d.guideScope==='library'){libraryGuideChannel=d.guideTab;renderLibraryGuide();}
@@ -452,7 +481,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
       $(`[data-guide-tab="${d.guideTab}"][data-guide-scope="${d.guideScope}"]`).focus({preventScroll:true});
     }
     if(d.copyGuide&&Segmentation.channels[d.copyGuide])copySegmentationGuide(d.copyGuide,d.guideScope);
-    if(d.product){selectProduct(d.product);renderSidebar();renderSummary();renderMedia();renderLibrary();}
+    if(d.product){const inMap=!!button.closest('#territoryExplorer');selectProduct(d.product);renderSidebar();renderSummary();renderMedia();renderLibrary();if(inMap)$(`#cityDetailPanel [data-product="${d.product}"]`)?.focus({preventScroll:true});}
     if(d.focusPerson){if(currentView==='media'){selectPerson(d.focusPerson);renderSidebar();renderMedia();}else openLibrary({person:d.focusPerson});}
     if(d.allPersonas!==undefined){filters.person='all';renderSidebar();if(currentView==='media')renderMedia();else if(currentView==='library')renderLibrary();else navigate('audiences');}
     if(d.city){const c=CITIES.find(x=>x.id===d.city);showDialog('GEOGRAFÍA DE OPORTUNIDAD',`<h2>${c.name}</h2><p class="dialog-description">${millions(c.potential*(filters.product==='day'?8.6:filters.product==='night'?7.8:14)/14)} de potencial ilustrativo en la referencia de planeación.</p><div class="detail-section"><h3>Cómo leer esta cifra</h3><p>Es un supuesto visual propuesto para priorizar la exploración territorial. No representa población censada ni alcance medido. Debe validarse con datos demográficos e inventarios de medios antes de activar una campaña.</p></div><div class="dialog-actions"><button class="button button-primary" data-goto="library">Explorar intereses</button></div>`);}

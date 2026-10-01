@@ -6,7 +6,7 @@ Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz si
 
 ## Funciones
 
-- Resumen con universo de planeación, mapa de Colombia con siete ciudades y ecosistema de medios.
+- Resumen con universo de planeación, explorador de Colombia con siete ciudades y ecosistema de medios. El mapa de la opción C usa una lista de ciudades, selección de pines y panel contextual con perfiles, momentos de consumo y acceso a intereses.
 - Panel lateral permanente con filtros de producto y los tres perfiles: Valeria, Carlos y Julián.
 - Medios: Meta, Google, TikTok y YouTube, con porcentajes derivados de las señales de la matriz y accesos a sus intereses.
 - Audiencias: perfiles completos y acceso a sus señales.

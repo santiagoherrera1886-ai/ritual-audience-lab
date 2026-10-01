@@ -36,3 +36,9 @@ Corrección de fotografías de la biblioteca: `rest-b.webp`, `beauty-b.webp`, `t
 `atlas-hero.webp`, `media-meta.webp`, `media-google.webp`, `media-tiktok.webp` y `media-youtube.webp` se generaron con la herramienta integrada usando las tres referencias nuevas del usuario. El hero usa los empaques originales como referencia; las personas son ilustrativas. Prompts completos en `docs/atlas-assets.md`.
 
 `colombia-atlas.svg` utiliza el mismo contorno geográfico de Colombia indicado arriba. Las capas de relieve, curvas y brillos son decorativos; no representan departamentos, clima ni intensidad medida.
+
+## Explorador territorial C · 1 de octubre de 2026
+
+- `colombia-explorer.svg`: conserva el polígono geográfico del recurso `colombia-atlas.svg`, sobre un plano de 500 × 500 sin deformar su proporción. La cuadrícula y el halo son decorativos. No se representan límites departamentales ni intensidades medidas. Los puntos conservan las coordenadas del atlas y se adaptan al mismo plano.
+- `city-scenes.webp`: recurso generado con la herramienta integrada de imágenes. Mosaico 2 × 4, sin texto: Bogotá / Medellín; Cali / Barranquilla; Cartagena / Bucaramanga; Pereira / paisaje andino. Escenas ilustrativas al atardecer, no fotografías documentales. Se muestra «Vista ilustrativa» en cada panel. Se convirtió el formato a WebP sin cambiar tamaño ni composición.
+- Retratos de perfiles y productos: se reutilizan los recursos existentes.
