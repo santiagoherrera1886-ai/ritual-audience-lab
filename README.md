@@ -75,3 +75,9 @@ Verificado en el sitio publicado: Carlos con Meta muestra 22 señales; Carlos en
 Intereses incluye un panel desplegable con guías de Meta, Google Search, TikTok y YouTube/Video. Cada ficha enlaza a pasos y ejemplos del interés elegido, y Medios ofrece acceso directo. Las guías conservan el perfil activo y pueden copiarse con sus fuentes. [Alcance editorial y verificación](docs/segmentation-guide.md).
 
 ![Guía de segmentación contextual de Carlos](docs/Ritual_Guia_Segmentacion.jpg)
+
+## Mapa C · Explorador de ciudades
+
+El resumen ahora muestra el mapa a todo el ancho, con selección de las siete ciudades, pestañas Ciudades / Clústeres, panel con imagen ilustrativa y acceso a perfiles, productos e intereses. [Diseño, fuentes y verificación](docs/map-explorer.md).
+
+![Mapa C publicado: Bogotá seleccionada](docs/Ritual_Mapa_Explorador_C.jpg)
