@@ -152,7 +152,8 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     $('#main').focus({preventScroll:true});
   }
   function openLibrary({person:who='all', platform='all'} = {}) {
-    Object.assign(filters,{query:'',category:'all',person:who,platform,page:1});
+    Object.assign(filters,{query:'',category:'all',platform,page:1});
+    selectPerson(who);
     $('#libSearch').value = ''; $('#platformFilter').value = platform;
     $('#libraryFilters').hidden = false; $('#filterToggle').setAttribute('aria-expanded','true');
     navigate('library'); renderLibrary();
@@ -175,6 +176,23 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   ];
   const darkLogo=id=>id==='tiktok'?LOGOS[id].replace('fill="#17132e"','fill="#fff"'):LOGOS[id];
   function productMatch(row,id) { return id==='all'||(id==='day'?norm(row.product).includes('dia'):norm(row.product).includes('noche')); }
+  const PRODUCT_LABELS={all:'Ambos productos',day:'Hidrapro · Día',night:'Noche Plena'};
+  // Give the latest selection priority when a product and profile have no shared signals.
+  // Keep the original matrix intact and explain the filter that was released.
+  function selectPerson(name) {
+    filters.person=name;filters.page=1;
+    if(name==='all'||filters.product==='all'||rows.some(d=>d.cluster===name&&productMatch(d,filters.product)))return;
+    const previousProduct=PRODUCT_LABELS[filters.product];
+    filters.product='all';
+    toast(`Se quitó el filtro ${previousProduct} para mostrar las señales de ${name}.`);
+  }
+  function selectProduct(product) {
+    filters.product=product;filters.page=1;
+    if(product==='all'||filters.person==='all'||rows.some(d=>d.cluster===filters.person&&productMatch(d,product)))return;
+    const previousPerson=filters.person;
+    filters.person='all';
+    toast(`${previousPerson} no tiene señales de ${PRODUCT_LABELS[product]}. Mostrando todos los clústeres.`);
+  }
   function mediaBaseRows() { return rows.filter(d=>productMatch(d,filters.product)&&(filters.person==='all'||d.cluster===filters.person)); }
   function renderSidebar() {
     $$('[data-product]').forEach(b=>{const active=b.dataset.product===filters.product;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
@@ -250,7 +268,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     renderSidebar();
     const hasFilters=filters.product!=='all'||filters.person!=='all'||filters.category!=='all'||filters.platform!=='all'||!!filters.query;
     const browsing=!hasFilters&&filters.view==='grid';
-    $('#libCount').textContent=`${found.length} de 119 señales`;
+    $('#libCount').textContent=`${found.length} de 119 señales · ${filters.person==='all'?'Todos los clústeres':filters.person} · ${PRODUCT_LABELS[filters.product]}`;
     $('#categoryNav').innerHTML=CATEGORIES.map(c=>`<button class="category-nav-button ${filters.category===c.id?'active':''}" data-category="${c.id}" aria-pressed="${filters.category===c.id}">${i(c.icon)}<span>${c.name}</span></button>`).join('');
     $$('[data-person-filter]').forEach(b=>{const active=b.dataset.personFilter===filters.person;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
     $$('[data-library-view]').forEach(b=>{const active=b.dataset.libraryView===filters.view;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
@@ -374,8 +392,8 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     const button=event.target.closest('button');if(!button)return;
     const d=button.dataset;
     if(d.goto)navigate(d.goto);
-    if(d.product){filters.product=d.product;filters.page=1;renderSidebar();renderSummary();renderMedia();renderLibrary();}
-    if(d.focusPerson){filters.person=d.focusPerson;filters.page=1;renderSidebar();if(currentView==='media')renderMedia();else openLibrary({person:d.focusPerson});}
+    if(d.product){selectProduct(d.product);renderSidebar();renderSummary();renderMedia();renderLibrary();}
+    if(d.focusPerson){if(currentView==='media'){selectPerson(d.focusPerson);renderSidebar();renderMedia();}else openLibrary({person:d.focusPerson});}
     if(d.allPersonas!==undefined){filters.person='all';renderSidebar();if(currentView==='media')renderMedia();else if(currentView==='library')renderLibrary();else navigate('audiences');}
     if(d.city){const c=CITIES.find(x=>x.id===d.city);showDialog('GEOGRAFÍA DE OPORTUNIDAD',`<h2>${c.name}</h2><p class="dialog-description">${millions(c.potential*(filters.product==='day'?8.6:filters.product==='night'?7.8:14)/14)} de potencial ilustrativo en la referencia de planeación.</p><div class="detail-section"><h3>Cómo leer esta cifra</h3><p>Es un supuesto visual propuesto para priorizar la exploración territorial. No representa población censada ni alcance medido. Debe validarse con datos demográficos e inventarios de medios antes de activar una campaña.</p></div><div class="dialog-actions"><button class="button button-primary" data-goto="library">Explorar intereses</button></div>`);}
     if(d.simMode){simMode=d.simMode;$('#productsSimulator').hidden=simMode!=='products';$('#channelsSimulator').hidden=simMode!=='channels';$$('[data-sim-mode]').forEach(b=>{const active=b.dataset.simMode===simMode;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});if(simMode==='products')renderProductSimulator();else renderSimulator();}
@@ -384,8 +402,8 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     if(d.personSignals)openLibrary({person:d.personSignals});
     if(d.signal!==undefined)showSignal(Number(d.signal));
     if(d.category){filters.category=d.category;filters.page=1;renderLibrary();}
-    if(d.topic){Object.assign(filters,{query:d.topic,category:'all',person:d.personTopic||'all',platform:'all',page:1,view:'grid'});$('#libSearch').value=d.topic;$('#platformFilter').value='all';if(d.personTopic)navigate('library');renderLibrary();}
-    if(d.personFilter){filters.person=d.personFilter;filters.page=1;renderLibrary();}
+    if(d.topic){Object.assign(filters,{query:d.topic,category:'all',platform:'all',page:1,view:'grid'});selectPerson(d.personTopic||'all');$('#libSearch').value=d.topic;$('#platformFilter').value='all';if(d.personTopic)navigate('library');renderLibrary();}
+    if(d.personFilter){selectPerson(d.personFilter);renderLibrary();}
     if(d.libraryView){filters.view=d.libraryView;filters.page=1;renderLibrary();}
     if(d.page){filters.page=Number(d.page);renderLibrary();$('#libraryTitle').scrollIntoView({block:'start'});}
     if(d.action==='method')showMethod();
