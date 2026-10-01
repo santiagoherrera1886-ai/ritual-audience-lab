@@ -9,6 +9,7 @@
   const millions = n => number(n / 1e6, 1) + ' M';
   const DATA = window.RITUAL_SIGNALS;
   const Model = window.RitualModel;
+  const ProductModel = window.RitualProductModel;
   const CHANNELS = Model.CHANNELS;
   const ICONS = {
     overview:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',
@@ -63,13 +64,13 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   const CATEGORIES = [
     {id:'all',name:'Todos los intereses',icon:'grid'},
     {id:'wellness',name:'Bienestar',icon:'heart',image:'yoga'},
-    {id:'active',name:'Vida activa',icon:'activity',image:'running'},
+    {id:'active',name:'Vida activa',icon:'activity',image:'cycling-b'},
     {id:'nutrition',name:'Alimentación',icon:'leaf',image:'nutrition'},
-    {id:'beauty',name:'Belleza',icon:'sparkles',image:'skincare'},
+    {id:'beauty',name:'Belleza',icon:'sparkles',image:'beauty-b'},
     {id:'mental',name:'Salud mental',icon:'heart',image:'yoga'},
-    {id:'rest',name:'Sueño',icon:'moon',image:'rest'},
+    {id:'rest',name:'Sueño',icon:'moon',image:'rest-b'},
     {id:'family',name:'Familia',icon:'people',image:'family'},
-    {id:'technology',name:'Tecnología',icon:'laptop',image:'technology'},
+    {id:'technology',name:'Tecnología',icon:'laptop',image:'technology-b'},
     {id:'lifestyle',name:'Rutinas',icon:'coffee',image:'yoga'}
   ];
   function categoryFor(row) {
@@ -93,8 +94,11 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     return false; // The original matrix does not contain Programmatic platform rows.
   }
   const platformId = d => /Meta/.test(d.platform) ? 'meta' : /TikTok/.test(d.platform) ? 'tiktok' : 'youtube';
+  const imageSrc = name => `assets/${name}${name.endsWith('-b') ? '.webp' : '.jpg'}`;
   function imageFor(row) {
     const text = norm(row.interest);
+    if (/cicl|bici/.test(text)) return 'cycling-b';
+    if (/running|correr/.test(text)) return 'running';
     if (/gimnas|gym|crossfit|entrenamiento/.test(text)) return 'gym';
     return CATEGORIES.find(c => c.id === row.category)?.image || 'yoga';
   }
@@ -116,7 +120,11 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   }
   let currentView = 'summary';
   const TITLES = {summary:'Resumen',audiences:'Audiencias',media:'Medios',library:'Intereses',sim:'Simulador'};
-  const filters = { query:'', category:'all', person:'all', platform:'all', page:1, view:'grid' };
+  const filters = { query:'', category:'all', person:'all', platform:'all', product:'all', page:1, view:'grid' };
+  let productState={dayShare:60};
+  let simMode='products';
+  const waveModes={reach:'all',frequency:'all'};
+  try { productState=ProductModel.sanitize(JSON.parse(localStorage.getItem('ritual-product-plan-v1')||'null')); } catch {}
   let toastTimeout;
   function toast(message) { clearTimeout(toastTimeout); $('#toast').textContent = message; $('#toast').classList.add('visible'); toastTimeout = setTimeout(() => $('#toast').classList.remove('visible'), 3200); }
   function closeMenu() { $('#sidebar').classList.remove('open'); $('#mobileScrim').classList.remove('visible'); $('#menuButton').setAttribute('aria-expanded','false'); }
@@ -129,9 +137,11 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     $('#breadcrumbName').textContent = TITLES[currentView];
     document.title = `${TITLES[currentView]} · Ritual Audience Atlas 2027`;
     $('#exportBtn').title = currentView === 'library' ? 'Exportar todas las señales que coinciden con los filtros' : currentView === 'sim' ? 'Exportar el escenario y su distribución de inversión' : 'Exportar datos de esta vista';
+    renderSidebar();
+    if(currentView === 'summary') renderSummary();
     if(currentView === 'library') renderLibrary();
     if(currentView === 'media') renderMedia();
-    if(currentView === 'sim') renderSimulator();
+    if(currentView === 'sim') {renderSimulator();renderProductSimulator();}
     closeMenu();
   }
   function navigate(view) {
@@ -147,65 +157,127 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     $('#libraryFilters').hidden = false; $('#filterToggle').setAttribute('aria-expanded','true');
     navigate('library'); renderLibrary();
   }
+  const PERSONA_COLORS=['#b266ff','#43b7ff','#ff80b2'];
+  const MEDIA_ENVIRONMENTS=[
+    {id:'meta',name:'Meta Ads',short:'META ADS',color:'#578bff',summary:'Alcance y afinidad en los hábitos cotidianos.',description:'Bienestar y lifestyle<br>en cada momento del día.',tags:['Bienestar','Mindfulness','Nutrición','Autocuidado']},
+    {id:'google',name:'Google Ads',short:'GOOGLE ADS',color:'#41d69f',summary:'Intención y demanda en búsquedas de categoría.',description:'Intención y descubrimiento.<br>De interés a compra.',tags:['Vida saludable','Suplementos','Rendimiento','Rutinas diarias']},
+    {id:'tiktok',name:'TikTok Ads',short:'TIKTOK ADS',color:'#fc76b6',summary:'Descubrimiento y comunidad en movimiento.',description:'Inspiración, rutinas y<br>comunidad en movimiento.',tags:['Rutinas nocturnas','Mindfulness','Lifestyle','Contenido educativo']},
+    {id:'youtube',name:'YouTube / Google',short:'YOUTUBE',color:'#f15f80',summary:'Contenido para la consideración y educación.',description:'Contenido profundo para<br>una vida más equilibrada.',tags:['Meditación','Sueño y descanso','Salud mental','Equilibrio']}
+  ];
+  const CITIES=[
+    {id:'bogota',name:'Bogotá',potential:3.1e6,x:45.5,y:46.4,dx:18,dy:5,color:'#ff5bd9'},
+    {id:'medellin',name:'Medellín',potential:1.9e6,x:35.6,y:38.1,dx:-111,dy:-28,color:'#c252ff'},
+    {id:'cali',name:'Cali',potential:1.4e6,x:29.3,y:53.3,dx:-77,dy:16,color:'#ef63fc'},
+    {id:'barranquilla',name:'Barranquilla',potential:.72e6,x:40.7,y:12.4,dx:18,dy:-38,color:'#40c9ff'},
+    {id:'cartagena',name:'Cartagena',potential:.52e6,x:36.2,y:15.5,dx:-119,dy:7,color:'#b158ff'},
+    {id:'bucaramanga',name:'Bucaramanga',potential:.48e6,x:51.8,y:33.3,dx:17,dy:-23,color:'#3eacff'},
+    {id:'pereira',name:'Pereira',potential:.64e6,x:34.8,y:45.9,dx:-126,dy:3,color:'#68e4ff'}
+  ];
+  const darkLogo=id=>id==='tiktok'?LOGOS[id].replace('fill="#17132e"','fill="#fff"'):LOGOS[id];
+  function productMatch(row,id) { return id==='all'||(id==='day'?norm(row.product).includes('dia'):norm(row.product).includes('noche')); }
+  function mediaBaseRows() { return rows.filter(d=>productMatch(d,filters.product)&&(filters.person==='all'||d.cluster===filters.person)); }
+  function renderSidebar() {
+    $$('[data-product]').forEach(b=>{const active=b.dataset.product===filters.product;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
+    $('#sidebarPersonas').innerHTML=PERSONAS.map((p,idx)=>`<button class="sidebar-person ${filters.person===p.name?'active':''}" data-focus-person="${p.name}" aria-pressed="${filters.person===p.name}"><img src="assets/${p.image}.webp" alt=""><span><b><i style="background:${PERSONA_COLORS[idx]}"></i>${p.name}</b><small>${['Wellness','Vida activa','Equilibrio'][idx]} · ${p.age}</small></span><strong>${p.count}</strong></button>`).join('');
+  }
+  function showProductMethod() {
+    showDialog('MODELO DÍA + NOCHE',`<h2>Una intersección <span class="purple">estimada.</span></h2><p class="dialog-description">Los universos de 8,6 M para Día y 7,8 M para Noche, y la intersección de 2,4 M, son supuestos tomados de la referencia visual. No son estimaciones verificadas de plataformas ni datos de campañas.</p><div class="detail-section"><h3>Una sola persona, una sola vez</h3><code>Universo único = 8,6 M + 7,8 M − 2,4 M = 14,0 M<br>Alcance combinado = alcance Día + alcance Noche − intersección estimada<br>Frecuencia combinada = impresiones totales / alcance único<br>Cobertura = alcance único / 14,0 M</code><p>La intersección de cada ola se escala por la fracción de ambos universos que ya se alcanzó. El alcance único nunca supera los 14,0 M. La frecuencia combinada se calcula con las impresiones de ambos productos; no es el promedio simple de las dos frecuencias.</p></div><div class="detail-section"><h3>Qué cambia al mover la inversión</h3><p>Los porcentajes siempre suman 100%. Modifican el ritmo de cobertura en las 12 olas. El escenario 60/40 alcanza los universos de referencia al cierre; un producto con 0% no genera alcance, frecuencia ni intersección. Se usan curvas exponenciales de saturación con coeficientes de 3 para Día y 2,1 para Noche, normalizadas al escenario base.</p><p>Frecuencias finales del escenario base: Día 2,2; Noche 4,1. La frecuencia combinada resultante es aproximadamente 3,6. Alcanzar 14,0 M sobre 14,0 M equivale a 100% de cobertura.</p></div><div class="detail-section"><h3>Editor de inversión por medio</h3><p>La pestaña «Inversión por medio» conserva el modelo de presupuesto y CPM del atlas. Es un ejercicio diferente al modelo por producto: no son dos vistas del mismo cálculo.</p></div>`);
+  }
+  function renderProductSimulator() {
+    const plan=ProductModel.calculate(productState),r=plan.final;
+    $('#productDayShare').value=plan.dayShare;$('#productNightShare').value=plan.nightShare;
+    $('#productDayShareValue').textContent=plan.dayShare+'%';$('#productNightShareValue').textContent=plan.nightShare+'%';
+    $('#productDayShare').style.setProperty('--value',plan.dayShare+'%');$('#productNightShare').style.setProperty('--value',plan.nightShare+'%');
+    $('#productUniqueReach').textContent=millions(r.reach);
+    $('#productVenn').innerHTML=`<title>Alcance estimado: Día ${millions(r.day)}, Noche ${millions(r.night)}, intersección ${millions(r.overlap)}</title><defs><linearGradient id="vennDay" x2=".6" y2="1"><stop stop-color="#88bdff"/><stop offset="1" stop-color="#1559e8"/></linearGradient><linearGradient id="vennNight" x2=".3" y2="1"><stop stop-color="#ce8eff"/><stop offset="1" stop-color="#7414e4"/></linearGradient><clipPath id="vennClip"><circle cx="119" cy="105" r="93"/></clipPath></defs><circle cx="119" cy="105" r="93" fill="url(#vennDay)" stroke="white" stroke-width="1.5"/><circle cx="222" cy="105" r="93" fill="url(#vennNight)" stroke="white" stroke-width="1.5"/><circle cx="222" cy="105" r="93" fill="#32129d" fill-opacity=".78" clip-path="url(#vennClip)" stroke="#ffffff88"/><g fill="white" text-anchor="middle" font-family="Inter,Arial,sans-serif"><text x="83" y="103" font-weight="850" font-size="22">${millions(r.day)}</text><text x="83" y="125" font-size="11" font-weight="650">Ritual Día</text><text x="171" y="104" font-weight="850" font-size="16">${millions(r.overlap)}</text><text x="171" y="122" font-size="8" font-weight="600">intersección</text><text x="259" y="103" font-weight="850" font-size="22">${millions(r.night)}</text><text x="259" y="125" font-size="11" font-weight="650">Ritual Noche</text></g>`;
+    const metrics=[['people',millions(r.reach),'Audiencia única proyectada<br>en 2027'],['layers',millions(r.overlap),'Intersección estimada<br>entre Día y Noche'],['arrow-up',number(r.coverage*100,0)+'%','Cobertura del universo<br>planeable de 14,0 M'],['target',number(r.frequency,1),'Frecuencia promedio<br>total de Día + Noche']];
+    $('#productResults').innerHTML=metrics.map(([ic,value,label])=>`<div>${i(ic)}<span><b>${value}</b><small>${label}</small></span></div>`).join('');
+    drawWaveChart('reach',plan);drawWaveChart('frequency',plan);
+  }
+  function drawWaveChart(kind,plan) {
+    const svg=$(kind==='reach'?'#productReachChart':'#productFrequencyChart');
+    const w=Math.max(360,svg.clientWidth||580),h=Math.max(210,svg.clientHeight||224),left=47,right=70,top=17,bottom=46,pw=w-left-right,ph=h-top-bottom;
+    svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+    const reach=kind==='reach',mode=waveModes[kind];
+    const series=[{id:'all',key:reach?'reach':'frequency',color:'#211069',name:'Día + Noche'},{id:'day',key:reach?'day':'dayFrequency',color:'#2387ff',name:'Día'},{id:'night',key:reach?'night':'nightFrequency',color:'#ab28ff',name:'Noche'}].filter(x=>mode==='all'||x.id===mode);
+    const max=reach?16:Math.max(5,Math.ceil(Math.max(...plan.waves.flatMap(r=>series.map(s=>r[s.key])))));
+    const val=r=>reach?r/1e6:r;
+    const xy=(idx,v)=>[left+pw*idx/11,top+ph*(1-val(v)/max)];
+    let html=`<title>${reach?'Alcance acumulado estimado':'Frecuencia estimada'} en 12 olas de campaña</title>`;
+    for(let j=0;j<=4;j++){const y=top+ph*j/4;html+=`<line class="wave-grid" x1="${left}" y1="${y}" x2="${w-right}" y2="${y}"/><text class="wave-axis" x="${left-10}" y="${y+4}" text-anchor="end">${number(max*(1-j/4),reach?0:1)}${reach?' M':''}</text>`;}
+    plan.waves.forEach((r,idx)=>{const x=left+pw*idx/11;html+=`<line class="wave-grid wave-vertical" x1="${x}" y1="${top}" x2="${x}" y2="${top+ph}"/><text class="wave-axis" x="${x}" y="${h-25}" text-anchor="middle">${r.wave}</text>`;});
+    series.forEach(line=>{const pts=plan.waves.map((r,idx)=>xy(idx,r[line.key]));html+=`<polyline fill="none" stroke="${line.color}" stroke-width="2.8" stroke-linejoin="round" points="${pts.map(p=>p.join(',')).join(' ')}"/>`;pts.forEach((p,idx)=>{html+=`<circle cx="${p[0]}" cy="${p[1]}" r="3.1" fill="white" stroke="${line.color}" stroke-width="2"><title>${line.name}, ola ${idx+1}: ${reach?millions(plan.waves[idx][line.key]):number(plan.waves[idx][line.key],1)}</title></circle>`;});const [x,y]=pts[11];html+=`<rect x="${x+10}" y="${y-11}" width="53" height="22" rx="11" fill="${line.color}"/><text x="${x+36.5}" y="${y+4}" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="750" fill="white">${reach?millions(plan.final[line.key]):number(plan.final[line.key],1)}</text>`;});
+    html+=`<text class="wave-axis" x="${left+pw/2}" y="${h-4}" text-anchor="middle">Olas de campaña 2027</text>`;svg.innerHTML=html;
+    $$(`[data-wave-chart="${kind}"]`).forEach(b=>{const active=b.dataset.series===mode;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
+  }
+  function changeProductShare(value,night=false) {
+    productState=ProductModel.sanitize({dayShare:night?100-Number(value):Number(value)});renderProductSimulator();
+    try{localStorage.setItem('ritual-product-plan-v1',JSON.stringify(productState));}catch{}
+  }
   function renderSummary() {
-    const kpis = [['14,0 M','Universo de planeación'],['53,7 M','Población · referencia'],['22,5 M','Adultos de 25–54 años'],[millions(Model.calculate(Model.defaults()).reach),'Alcance · escenario base']];
-    $('#summaryKpis').innerHTML = kpis.map(([value,label]) => `<div class="kpi-card"><b>${value}</b><p>${label}</p></div>`).join('');
-    const territories = [['Bogotá',31],['Medellín',17],['Cali',12],['Caribe, Santander y Eje',21],['Otros territorios',19]];
-    $('#territoryRows').innerHTML = territories.map(([name,pct]) => `<div class="territory-row"><span>${name}</span><b>${pct}%</b><div class="territory-track"><span style="width:${pct/31*100}%"></span></div></div>`).join('');
+    const universe=filters.product==='day'?8.6e6:filters.product==='night'?7.8e6:14e6;
+    $('#atlasUniverse').textContent=millions(universe);
+    $('#cityPins').innerHTML=CITIES.map(c=>`<button class="map-pin city-${c.id}" style="left:${c.x}%;top:${c.y}%;--pin-color:${c.color};--label-x:${c.dx}px;--label-y:${c.dy}px" data-city="${c.id}" aria-label="Explorar potencial sugerido de ${c.name}"><span class="map-pin-light"></span><span class="map-pin-label"><b>${c.name}</b><span>${millions(c.potential*universe/14e6)}</span></span></button>`).join('');
+    $('#summaryMedia').innerHTML=MEDIA_ENVIRONMENTS.map(c=>`<button data-media="${c.id}"><span>${darkLogo(c.id)}</span><b>${c.short}</b><i style="--media-color:${c.color};--media-width:${c.id==='meta'?75:c.id==='google'?66:c.id==='tiktok'?57:45}%"></i><p>${c.summary}</p></button>`).join('');
   }
   function renderPersonas() {
     $('#personaCards').innerHTML = PERSONAS.map(p => `<article class="persona-card" style="--tint:${p.tint}"><div class="persona-photo"><img src="assets/${p.image}.webp" alt="Retrato ilustrativo del perfil ${p.name}"></div><div class="persona-info"><div class="persona-title"><h2>${p.name}</h2><span class="persona-age">${p.age}</span></div><h3>${p.subtitle}</h3><p class="persona-description">${p.description}</p><div class="signal-count">${i(p.icon)}<strong>${p.count}</strong><span>señales</span></div><div class="chip-list">${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div><p class="persona-story">${p.story}</p><button class="button button-primary" data-profile="${p.name}">Ver perfil completo${i('arrow-right')}</button><button class="text-button persona-signals-link" data-person-signals="${p.name}">Explorar sus ${p.count} señales${i('arrow-up')}</button></div></article>`).join('');
   }
   function renderMedia() {
-    const result = Model.calculate(state);
-    $('#mediaBudget').textContent = money(result.budget)+' COP';
-    $('#mediaRows').innerHTML = result.channels.map(c => `<tr><td><button class="platform-brand" data-media="${c.id}" aria-label="${c.id==='programmatic'?'Ver contexto de Programmatic':'Explorar señales de '+c.name}">${LOGOS[c.id]}<span>${c.name}</span></button></td><td><div class="platform-role"><b>${ROLES[c.id][0]}</b><p>${ROLES[c.id][1]}</p></div></td><td class="mix-percent"><strong>${c.share}%</strong><small>${money(c.spend)} COP</small></td><td class="media-reach"><strong>${millions(c.reach)}</strong></td></tr>`).join('');
+    const base=mediaBaseRows();
+    $('#mediaSignalCount').textContent=base.length;
+    $('#mediaPersonaCount').textContent=new Set(base.map(d=>d.cluster)).size;
+    $('#platformCards').innerHTML=MEDIA_ENVIRONMENTS.map(c=>{
+      const signals=base.filter(d=>platformMatch(d,c.id));
+      return `<article class="platform-card" style="--platform-color:${c.color}"><div class="platform-card-hero" style="background-image:url('assets/media-${c.id}.webp')"><div class="platform-title"><span class="platform-logo">${darkLogo(c.id)}</span><h2>${c.name}</h2></div><p>${c.description}</p>${c.id==='meta'?'<span class="floating-social social-instagram">◎</span><span class="floating-social social-facebook">f</span>':''}${c.id==='google'?'<span class="floating-search">Ritual bienestar '+i('search')+'</span>':''}${c.id==='tiktok'?'<span class="floating-tiktok">'+darkLogo('tiktok')+'</span>':''}${c.id==='youtube'?'<span class="decorative-player" aria-hidden="true"><b>▶</b><i></i><span>⛶</span></span>':''}</div><div class="platform-details"><div class="platform-details-grid"><div><h3>PRESENCIA DE CLÚSTERES</h3><div class="cluster-presence">${PERSONAS.map((p,idx)=>{const pct=signals.length?Math.round(signals.filter(d=>d.cluster===p.name).length/signals.length*100):0;return `<button data-profile="${p.name}" aria-label="${p.name}: ${pct}% de las señales del canal"><img src="assets/${p.image}.webp" alt=""><b style="color:${PERSONA_COLORS[idx]}">${pct}%</b></button>`;}).join('')}</div></div><div class="platform-interests"><h3>PRINCIPALES INTERESES</h3><div>${c.tags.map(t=>`<span>${t}</span>`).join('')}</div></div></div><div class="platform-card-actions"><button class="text-button" ${signals.length?`data-signal="${signals[0].id}"`:'disabled'}>Ver señal de ejemplo${i('arrow-right')}</button><button class="button button-primary" data-media="${c.id}" ${!signals.length?'disabled':''}>Explorar ${signals.length} señales${i('arrow-up')}</button></div></div></article>`;
+    }).join('');
   }
   function filteredRows() {
-    return rows.filter(d => (filters.person==='all'||d.cluster===filters.person) && (filters.category==='all'||d.category===filters.category) && (filters.platform==='all'||platformMatch(d,filters.platform)) && (!filters.query||norm(`${d.interest} ${d.platform} ${d.territory} ${d.cluster} ${d.product}`).includes(norm(filters.query))));
+    return rows.filter(d => productMatch(d,filters.product) && (filters.person==='all'||d.cluster===filters.person) && (filters.category==='all'||d.category===filters.category) && (filters.platform==='all'||platformMatch(d,filters.platform)) && (!filters.query||norm(`${d.interest} ${d.platform} ${d.territory} ${d.cluster} ${d.product}`).includes(norm(filters.query))));
   }
   function clearFilters() {
-    Object.assign(filters,{query:'',category:'all',person:'all',platform:'all',page:1});
+    Object.assign(filters,{query:'',category:'all',person:'all',platform:'all',product:'all',page:1});
     $('#libSearch').value=''; $('#platformFilter').value='all'; renderLibrary();
   }
   function renderLibrary() {
     const found=filteredRows(), size=filters.view==='grid'?12:18, pages=Math.max(1,Math.ceil(found.length/size));
     filters.page=Math.min(pages,Math.max(1,filters.page));
     const pageRows=found.slice((filters.page-1)*size,filters.page*size);
-    const hasFilters=filters.person!=='all'||filters.category!=='all'||filters.platform!=='all'||!!filters.query;
+    renderSidebar();
+    const hasFilters=filters.product!=='all'||filters.person!=='all'||filters.category!=='all'||filters.platform!=='all'||!!filters.query;
     const browsing=!hasFilters&&filters.view==='grid';
     $('#libCount').textContent=`${found.length} de 119 señales`;
     $('#categoryNav').innerHTML=CATEGORIES.map(c=>`<button class="category-nav-button ${filters.category===c.id?'active':''}" data-category="${c.id}" aria-pressed="${filters.category===c.id}">${i(c.icon)}<span>${c.name}</span></button>`).join('');
     $$('[data-person-filter]').forEach(b=>{const active=b.dataset.personFilter===filters.person;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
     $$('[data-library-view]').forEach(b=>{const active=b.dataset.libraryView===filters.view;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
-    const count=[filters.person!=='all',filters.category!=='all',filters.platform!=='all'].filter(Boolean).length;
+    const count=[filters.product!=='all',filters.person!=='all',filters.category!=='all',filters.platform!=='all'].filter(Boolean).length;
     $('#activeFilterCount').hidden=!count;$('#activeFilterCount').textContent=count;
     $('#clearFilters').hidden=!hasFilters;
     $('#filterStatus').hidden=browsing;
     if(browsing) {
       const tiles=[
         {name:'Bienestar',category:'wellness',image:'yoga',icon:'heart'},
-        {name:'Vida activa',category:'active',image:'running',icon:'activity'},
+        {name:'Vida activa',category:'active',image:'cycling-b',icon:'activity'},
         {name:'Alimentación',category:'nutrition',image:'nutrition',icon:'leaf'},
-        {name:'Belleza',category:'beauty',image:'skincare',icon:'sparkles'},
+        {name:'Belleza',category:'beauty',image:'beauty-b',icon:'sparkles'},
         {name:'Running',query:'running',image:'running',icon:'activity'},
         {name:'Gimnasio',query:'gimnasio',image:'gym',icon:'target'},
-        {name:'Tecnología',category:'technology',image:'technology',icon:'laptop'},
-        {name:'Sueño',category:'rest',image:'rest',icon:'moon'},
+        {name:'Tecnología',category:'technology',image:'technology-b',icon:'laptop'},
+        {name:'Sueño',category:'rest',image:'rest-b',icon:'moon'},
         {name:'Meditación',category:'mental',image:'yoga',icon:'sun'},
         {name:'Familia',category:'family',image:'family',icon:'people'},
-        {name:'Rutinas',category:'lifestyle',image:'skincare',icon:'coffee'},
-        {name:'Ciclismo',query:'ciclismo',image:'running',icon:'activity'}
+        {name:'Rutinas',category:'lifestyle',image:'beauty-b',icon:'coffee'},
+        {name:'Ciclismo',query:'ciclismo',image:'cycling-b',icon:'activity'}
       ];
-      $('#libraryResults').innerHTML=`<div class="category-grid">${tiles.map(t=>{const count=rows.filter(d=>t.category?d.category===t.category:norm(d.interest).includes(t.query)).length;return `<button class="category-tile" ${t.category?`data-category="${t.category}"`:`data-topic="${t.query}"`} aria-label="Explorar ${t.name}, ${count} señales"><img src="assets/${t.image}.jpg" alt=""><span class="category-tile-caption"><strong>${t.name}</strong><span>${i(t.icon)}${count} señales</span></span></button>`;}).join('')}</div>`;
+      $('#libraryResults').innerHTML=`<div class="category-grid">${tiles.map(t=>{const count=rows.filter(d=>t.category?d.category===t.category:norm(d.interest).includes(t.query)).length;return `<button class="category-tile" ${t.category?`data-category="${t.category}"`:`data-topic="${t.query}"`} aria-label="Explorar ${t.name}, ${count} señales"><img src="${imageSrc(t.image)}" alt=""><span class="category-tile-caption"><strong>${t.name}</strong><span>${i(t.icon)}${count} señales</span></span></button>`;}).join('')}</div>`;
       $('#pagination').hidden=true;return;
     }
     if(!found.length) {
       $('#libraryResults').innerHTML=`<div class="empty-state">${i('search')}<h3>No encontramos esa conexión.</h3><p>Prueba otro interés o amplía los filtros para seguir explorando.</p><button class="button button-secondary" data-action="clear-filters">Ver todas las señales</button></div>`;
     } else if(filters.view==='grid') {
-      $('#libraryResults').innerHTML=`<div class="interests-grid">${pageRows.map(d=>{const c=CATEGORIES.find(c=>c.id===d.category);return `<button class="interest-card" data-signal="${d.id}" aria-label="Explorar ${esc(d.interest)} · ${esc(d.cluster)} · ${esc(d.platform)}"><img loading="lazy" src="assets/${imageFor(d)}.jpg" alt=""><span class="interest-platform" title="${esc(d.platform)}">${LOGOS[platformId(d)]}</span><span class="interest-body"><small>${c.name}</small><strong>${esc(d.interest)}</strong><span>${esc(d.cluster)} · ${esc(d.platform)}</span></span></button>`;}).join('')}</div>`;
+      $('#libraryResults').innerHTML=`<div class="interests-grid">${pageRows.map(d=>{const c=CATEGORIES.find(c=>c.id===d.category);return `<button class="interest-card" data-signal="${d.id}" aria-label="Explorar ${esc(d.interest)} · ${esc(d.cluster)} · ${esc(d.platform)}"><img loading="lazy" src="${imageSrc(imageFor(d))}" alt=""><span class="interest-platform" title="${esc(d.platform)}">${LOGOS[platformId(d)]}</span><span class="interest-body"><small>${c.name}</small><strong>${esc(d.interest)}</strong><span>${esc(d.cluster)} · ${esc(d.platform)}</span></span></button>`;}).join('')}</div>`;
     } else {
-      $('#libraryResults').innerHTML=`<div class="table-scroll"><table class="interest-table"><thead><tr><th>Interés</th><th>Persona</th><th>Plataforma</th><th>Prioridad</th></tr></thead><tbody>${pageRows.map(d=>`<tr><td><button data-signal="${d.id}"><img src="assets/${imageFor(d)}.jpg" alt="">${esc(d.interest)}</button></td><td>${esc(d.cluster)}</td><td>${LOGOS[platformId(d)]}${esc(d.platform)}</td><td>${esc(d.priority)}</td></tr>`).join('')}</tbody></table></div>`;
+      $('#libraryResults').innerHTML=`<div class="table-scroll"><table class="interest-table"><thead><tr><th>Interés</th><th>Persona</th><th>Plataforma</th><th>Prioridad</th></tr></thead><tbody>${pageRows.map(d=>`<tr><td><button data-signal="${d.id}"><img src="${imageSrc(imageFor(d))}" alt="">${esc(d.interest)}</button></td><td>${esc(d.cluster)}</td><td>${LOGOS[platformId(d)]}${esc(d.platform)}</td><td>${esc(d.priority)}</td></tr>`).join('')}</tbody></table></div>`;
     }
     $('#pagination').hidden=!found.length;
     $('#pagination').innerHTML=`<span>Mostrando ${(filters.page-1)*size+1}–${Math.min(filters.page*size,found.length)} de ${found.length}</span><div><button data-page="${filters.page-1}" ${filters.page===1?'disabled':''} aria-label="Página anterior">${i('arrow-left')}</button><span>Página ${filters.page} de ${pages}</span><button data-page="${filters.page+1}" ${filters.page===pages?'disabled':''} aria-label="Página siguiente">${i('arrow-right')}</button></div>`;
@@ -229,7 +301,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     showDialog(`SEÑAL ${String(id+1).padStart(3,'0')} / 119`,`<h2>${esc(d.interest)}</h2><p class="dialog-description">Una puerta de entrada al universo de ${esc(d.cluster)}.</p><div class="detail-grid">${details.map(([label,value])=>`<div class="detail-box"><span>${label}</span><b>${esc(value)}</b></div>`).join('')}</div><div class="detail-section"><h3>Rol táctico</h3><p>${esc(d.tactic)}</p></div><div class="detail-section"><h3>Validación en plataforma</h3><p>${esc(d.validation)}</p></div>${related.length?`<div class="detail-section"><h3>Conexiones relacionadas</h3><div class="related-signals">${related.map(x=>`<button data-signal="${x.id}">${esc(x.interest)}</button>`).join('')}</div></div>`:''}<div class="dialog-actions"><button class="button button-secondary" data-person-signals="${esc(d.cluster)}">Ver todas las señales de ${esc(d.cluster)}${i('arrow-right')}</button></div>`);
   }
   function showMethod() {
-    showDialog('CÓMO LEER EL ATLAS',`<h2>Una base para <span class="purple">tomar decisiones.</span></h2><p class="dialog-description">Este atlas organiza hipótesis de audiencias y simula escenarios. No está conectado a cuentas publicitarias ni contiene resultados de campañas.</p><div class="detail-section"><h3>01 · La matriz de afinidades</h3><p>Se conservan las 119 filas originales: 34 de Valeria, 43 de Carlos y 42 de Julián. Una señal puede aparecer en varias plataformas. Los perfiles y las fotografías son ilustrativos; los retratos y el paisaje urbano se generaron a partir de la referencia visual B; las categorías de la biblioteca son una agrupación editorial.</p><p>Google y YouTube comparten 34 señales de la matriz y no constituyen filas adicionales. Programmatic es un canal propuesto; no tiene señales propias en la base original.</p></div><div class="detail-section"><h3>02 · Universo y territorio</h3><p>Los 53,7 M de contexto nacional, 22,5 M de adultos y 14,0 M de base de planeación son supuestos heredados del proyecto sin fuente demográfica verificada adjunta. El simulador permite cambiar el universo. Las participaciones territoriales son una propuesta estratégica, no alcance medido.</p></div><div class="detail-section"><h3>03 · Modelo de alcance</h3><code>Impresionesᵢ = inversiónᵢ / CPMᵢ × 1.000<br>Rᵢ = U × capᵢ × (1 − e^(−impresionesᵢ / (U × capᵢ × kᵢ)))<br>Alcance ≈ U × [1 − ∏(1 − Rᵢ / U)]<br>Frecuencia = impresiones totales / alcance</code><p>El alcance se limita al universo y cada canal tiene una curva de saturación. La combinación supone independencia entre medios: es una aproximación para planeación, no una deduplicación medida.</p><p>CPM iniciales (COP): Meta 9.200; Google 12.500; TikTok 8.200; YouTube 10.500; Programmatic 9.800. Límites de cobertura: 78%, 62%, 58%, 66% y 46%, respectivamente. kᵢ = 1,85 + (1 − capᵢ) × 1,6. Estos valores son supuestos editables o heredados, no cotizaciones.</p></div><div class="detail-section"><h3>04 · Qué exportas</h3><p>En Intereses, el CSV incluye todas las filas filtradas, no solo la página visible. En Medios, exporta la mezcla activa. En el Simulador, incluye el escenario actual, sus canales y los escenarios comparados. Resumen y Audiencias exportan la matriz completa con táctica y validación.</p></div><div class="detail-section"><h3>05 · Guardado</h3><p>El escenario se guarda únicamente en este navegador. La comparación admite hasta tres escenarios. Restablecer devuelve los valores iniciales del simulador; borrar comparación elimina los escenarios guardados.</p></div>`);
+    showDialog('CÓMO LEER EL ATLAS',`<h2>Una base para <span class="purple">tomar decisiones.</span></h2><p class="dialog-description">Este atlas organiza hipótesis de audiencias y simula escenarios. No está conectado a cuentas publicitarias ni contiene resultados de campañas.</p><div class="detail-section"><h3>01 · La matriz de afinidades</h3><p>Se conservan las 119 filas originales: 34 de Valeria, 43 de Carlos y 42 de Julián. Una señal puede aparecer en varias plataformas. Los perfiles y las fotografías son ilustrativos; los retratos y el paisaje urbano se generaron a partir de la referencia visual B; las categorías de la biblioteca son una agrupación editorial.</p><p>Google y YouTube comparten 34 señales de la matriz y no constituyen filas adicionales. Programmatic es un canal propuesto; no tiene señales propias en la base original.</p></div><div class="detail-section"><h3>02 · Universo y territorio</h3><p>Los 53,7 M de contexto nacional, 22,5 M de adultos y 14,0 M de base de planeación son supuestos heredados del proyecto sin fuente demográfica verificada adjunta. La base urbana de 8,9 M y los potenciales por ciudad proceden de la referencia visual proporcionada; son ilustrativos y no tienen fuente demográfica verificada. El editor de medios permite cambiar el universo. La distribución territorial es una propuesta estratégica, no alcance medido.</p></div><div class="detail-section"><h3>03 · Modelo de alcance</h3><code>Impresionesᵢ = inversiónᵢ / CPMᵢ × 1.000<br>Rᵢ = U × capᵢ × (1 − e^(−impresionesᵢ / (U × capᵢ × kᵢ)))<br>Alcance ≈ U × [1 − ∏(1 − Rᵢ / U)]<br>Frecuencia = impresiones totales / alcance</code><p>El alcance se limita al universo y cada canal tiene una curva de saturación. La combinación supone independencia entre medios: es una aproximación para planeación, no una deduplicación medida.</p><p>CPM iniciales (COP): Meta 9.200; Google 12.500; TikTok 8.200; YouTube 10.500; Programmatic 9.800. Límites de cobertura: 78%, 62%, 58%, 66% y 46%, respectivamente. kᵢ = 1,85 + (1 − capᵢ) × 1,6. Estos valores son supuestos editables o heredados, no cotizaciones.</p></div><div class="detail-section"><h3>04 · Qué exportas</h3><p>En Intereses, el CSV incluye todas las filas filtradas, no solo la página visible. En Medios, exporta la distribución de registros por entorno y perfil. En el Simulador, exporta las 12 olas de Día + Noche o el escenario de inversión por medios, según la pestaña activa. Resumen y Audiencias exportan la matriz completa con táctica y validación.</p></div><div class="detail-section"><h3>05 · Guardado</h3><p>El escenario se guarda únicamente en este navegador. La comparación admite hasta tres escenarios. Restablecer devuelve los valores iniciales del simulador; borrar comparación elimina los escenarios guardados.</p></div>`);
   }
   function setupSimulator() {
     $('#mixRows').innerHTML=CHANNELS.map((c,idx)=>`<div class="mix-row"><span class="mix-brand">${LOGOS[c.id]}${c.name}</span><div class="mix-slider"><input type="range" min="0" max="100" step="1" id="share-${c.id}" data-share="${idx}" aria-label="Porcentaje de inversión en ${c.name}" value="${state.shares[idx]}"><output id="shareValue-${c.id}" for="share-${c.id}">${state.shares[idx]}%</output></div><input id="cpm-${c.id}" class="cpm-input" data-cpm="${idx}" aria-label="CPM de ${c.name} en pesos colombianos" type="number" min="100" max="1000000" step="100" value="${state.cpms[idx]}"><span class="mix-spend" id="spend-${c.id}"></span></div>`).join('');
@@ -243,7 +315,8 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     const result=Model.calculate(state);
     const metrics=[['globe',millions(result.universe),'Universo de planeación','Base editable para el escenario'],['people',millions(result.reach),'Alcance estimado',number(result.coverage*100,1)+'% del universo'],['activity',number(result.frequency,1),'Frecuencia media','Impactos por persona alcanzada'],['media',millions(result.impressions),'Impresiones estimadas','Total proyectado de impactos']];
     $('#simKpis').innerHTML=metrics.map(([name,value,label,detail])=>`<div class="sim-kpi" title="${detail}"><strong>${value}</strong><span>${label}</span></div>`).join('');
-    result.channels.forEach((c,idx)=>{$('#share-'+c.id).value=state.shares[idx];$('#shareValue-'+c.id).textContent=state.shares[idx]+'%';$('#spend-'+c.id).textContent=money(c.spend);$('#spend-'+c.id).title='$'+number(c.spend)+' COP';});
+    result.channels.forEach((c,idx)=>{$('#share-'+c.id).value=state.shares[idx];$('#share-'+c.id).style.setProperty('--value',state.shares[idx]+'%');$('#shareValue-'+c.id).textContent=state.shares[idx]+'%';$('#spend-'+c.id).textContent=money(c.spend);$('#spend-'+c.id).title='$'+number(c.spend)+' COP';});
+    $('#budget').style.setProperty('--value',(state.budget/6000*100)+'%');
     const isDefaultMix=JSON.stringify(state.shares)===JSON.stringify(Model.defaults().shares) && JSON.stringify(state.cpms)===JSON.stringify(Model.defaults().cpms) && state.universe===14;
     $$('[data-preset]').forEach(b=>{const active=isDefaultMix&&state.budget==={conservative:300,balanced:600,growth:1200}[b.dataset.preset];b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
     drawChart(result);
@@ -251,7 +324,9 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     renderComparison();
   }
   function drawChart(current) {
-    const w=780,h=300,left=49,right=43,top=29,bottom=47,plotW=w-left-right,plotH=h-top-bottom;
+    const box=$('#curveSvg').parentElement;
+    const w=Math.max(320,box.clientWidth),h=Math.max(180,box.clientHeight),left=49,right=43,top=29,bottom=47,plotW=w-left-right,plotH=h-top-bottom;
+    $('#curveSvg').setAttribute('viewBox',`0 0 ${w} ${h}`);
     const maxBudget=Math.max(100,state.budget)*2;
     const points=Array.from({length:9},(_,idx)=>Model.calculate({...state,budget:maxBudget/2},idx/4));
     const maxFreq=Math.max(4,Math.ceil(Math.max(...points.map(v=>v.frequency))/2)*2);
@@ -275,13 +350,16 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   }
   function exportCSV() {
     let csvRows, filename;
-    if(currentView==='sim'){
+    if(currentView==='sim'&&simMode==='products'){
+      const p=ProductModel.calculate(productState);
+      csvRows=[['Modelo','Día + Noche · proyección ilustrativa, no medición'],['Inversión Día (%)',p.dayShare],['Inversión Noche (%)',p.nightShare],['Universo Día',p.assumptions.day],['Universo Noche',p.assumptions.night],['Intersección supuesta',p.assumptions.overlap],['Universo único',p.universe],[],['Ola','Alcance Día','Alcance Noche','Intersección estimada','Alcance único','Frecuencia Día','Frecuencia Noche','Frecuencia combinada','Impresiones','Cobertura (%)'],...p.waves.map(r=>[r.wave,Math.round(r.day),Math.round(r.night),Math.round(r.overlap),Math.round(r.reach),r.dayFrequency.toFixed(3),r.nightFrequency.toFixed(3),r.frequency.toFixed(3),Math.round(r.impressions),(r.coverage*100).toFixed(2)])];filename='Ritual_Plan_Dia_Noche_2027.csv';
+    }else if(currentView==='sim'){
       const result=Model.calculate(state);
       csvRows=[['Escenario','Metrica','Valor','Unidad'],['Actual','Inversión',result.budget,'COP'],['Actual','Universo de planeación',result.universe,'personas'],['Actual','Alcance estimado',Math.round(result.reach),'personas'],['Actual','Frecuencia estimada',result.frequency.toFixed(3),'impactos/persona'],['Actual','Impresiones estimadas',Math.round(result.impressions),'impresiones'],[],['Canal','Participación (%)','CPM COP','Inversión COP','Impresiones estimadas','Alcance estimado del canal (no sumable)'],...result.channels.map(c=>[c.name,c.share,c.cpm,c.spend,Math.round(c.impressions),Math.round(c.reach)]),[],['Escenario guardado','Inversión COP','Universo','Alcance estimado','Frecuencia','Impresiones estimadas'],...saved.map(e=>{const r=Model.calculate(e.state);return[e.name,r.budget,r.universe,Math.round(r.reach),r.frequency.toFixed(3),Math.round(r.impressions)];}),[],['Metodología','Supuestos de planeación, independencia entre canales; no es alcance medido.']];filename='Ritual_Escenario_2027.csv';
     }else if(currentView==='media'){
-      csvRows=[['Canal','Rol','Inversión (%)','Inversión COP','CPM COP','Observación'],...Model.calculate(state).channels.map(c=>[c.name,ROLES[c.id][0],c.share,c.spend,c.cpm,'Proyección de planeación, no cotización'])];filename='Ritual_Mix_Medios_2027.csv';
+      const base=mediaBaseRows();csvRows=[['Entorno','Persona','Señales','Participación de registros (%)'],...MEDIA_ENVIRONMENTS.flatMap(c=>{const selected=base.filter(d=>platformMatch(d,c.id));return PERSONAS.map(p=>{const count=selected.filter(d=>d.cluster===p.name).length;return [c.name,p.name,count,selected.length?(count/selected.length*100).toFixed(2):0];});}),[],['Nota','Google y YouTube comparten filas; los porcentajes describen la matriz, no alcance medido.']];filename='Ritual_Medios_Afinidades_2027.csv';
     }else{
-      const selected=currentView==='library'?filteredRows():rows;
+      const selected=currentView==='library'?filteredRows():mediaBaseRows();
       csvRows=[['ID','Persona','Plataforma','Territorio','Interés','Tipo','Prioridad','Producto','Táctica','Validación'],...selected.map(d=>[d.id+1,d.cluster,d.platform,d.territory,d.interest,d.type,d.priority,d.product,d.tactic,d.validation])];filename=currentView==='library'?'Ritual_Intereses_Filtrados_2027.csv':'Ritual_Audience_Atlas_2027.csv';
     }
     const cell=value=>{let text=String(value??'');if(typeof value==='string'&&/^[=+@-]/.test(text))text="'"+text;return '"'+text.replaceAll('"','""')+'"';};
@@ -292,6 +370,12 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     const button=event.target.closest('button');if(!button)return;
     const d=button.dataset;
     if(d.goto)navigate(d.goto);
+    if(d.product){filters.product=d.product;filters.page=1;renderSidebar();renderSummary();renderMedia();renderLibrary();}
+    if(d.focusPerson){filters.person=d.focusPerson;filters.page=1;renderSidebar();if(currentView==='media')renderMedia();else openLibrary({person:d.focusPerson});}
+    if(d.allPersonas!==undefined){filters.person='all';renderSidebar();if(currentView==='media')renderMedia();else if(currentView==='library')renderLibrary();else navigate('audiences');}
+    if(d.city){const c=CITIES.find(x=>x.id===d.city);showDialog('GEOGRAFÍA DE OPORTUNIDAD',`<h2>${c.name}</h2><p class="dialog-description">${millions(c.potential*(filters.product==='day'?8.6:filters.product==='night'?7.8:14)/14)} de potencial ilustrativo en la referencia de planeación.</p><div class="detail-section"><h3>Cómo leer esta cifra</h3><p>Es un supuesto visual propuesto para priorizar la exploración territorial. No representa población censada ni alcance medido. Debe validarse con datos demográficos e inventarios de medios antes de activar una campaña.</p></div><div class="dialog-actions"><button class="button button-primary" data-goto="library">Explorar intereses</button></div>`);}
+    if(d.simMode){simMode=d.simMode;$('#productsSimulator').hidden=simMode!=='products';$('#channelsSimulator').hidden=simMode!=='channels';$$('[data-sim-mode]').forEach(b=>{const active=b.dataset.simMode===simMode;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});if(simMode==='products')renderProductSimulator();else renderSimulator();}
+    if(d.waveChart){waveModes[d.waveChart]=d.series;drawWaveChart(d.waveChart,ProductModel.calculate(productState));}
     if(d.profile)showProfile(d.profile);
     if(d.personSignals)openLibrary({person:d.personSignals});
     if(d.signal!==undefined)showSignal(Number(d.signal));
@@ -301,12 +385,15 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     if(d.libraryView){filters.view=d.libraryView;filters.page=1;renderLibrary();}
     if(d.page){filters.page=Number(d.page);renderLibrary();$('#libraryTitle').scrollIntoView({block:'start'});}
     if(d.action==='method')showMethod();
+    if(d.action==='product-method')showProductMethod();
     if(d.action==='clear-filters')clearFilters();
-    if(d.media){if(d.media==='programmatic')showDialog('CONTEXTO INCREMENTAL','<h2>Programmatic</h2><p class="dialog-description">Canal propuesto para ampliar la presencia en entornos contextuales de bienestar, lifestyle y retail. No tiene filas propias en la matriz original de 119 señales.</p><div class="detail-section"><h3>Antes de activar</h3><p>Validar inventario, categorías contextuales, CPM y alcance incremental con el proveedor.</p></div><div class="dialog-actions"><button class="button button-primary" data-goto="sim">Ajustar inversión</button></div>');else openLibrary({platform:d.media==='youtube'?'google':d.media});}
+    if(d.media){if(d.media==='programmatic')showDialog('CONTEXTO INCREMENTAL','<h2>Programmatic</h2><p class="dialog-description">Canal propuesto para ampliar la presencia en entornos contextuales de bienestar, lifestyle y retail. No tiene filas propias en la matriz original de 119 señales.</p><div class="detail-section"><h3>Antes de activar</h3><p>Validar inventario, categorías contextuales, CPM y alcance incremental con el proveedor.</p></div><div class="dialog-actions"><button class="button button-primary" data-goto="sim">Ajustar inversión</button></div>');else openLibrary({person:filters.person,platform:d.media==='youtube'?'google':d.media});}
     if(d.preset){state={...Model.defaults(),budget:{conservative:300,balanced:600,growth:1200}[d.preset]};syncInputs();renderSimulator();persist();}
     if(d.loadScenario!==undefined){state=Model.sanitize(saved[Number(d.loadScenario)].state);syncInputs();renderSimulator();persist();toast('Escenario cargado en el simulador.');}
     if(d.deleteScenario!==undefined){saved.splice(Number(d.deleteScenario),1);renderComparison();persist();}
   });
+  $('#productDayShare').addEventListener('input',e=>changeProductShare(e.target.value));
+  $('#productNightShare').addEventListener('input',e=>changeProductShare(e.target.value,true));
   $('#libSearch').addEventListener('input',event=>{filters.query=event.target.value.trim();filters.page=1;renderLibrary();});
   $('#platformFilter').addEventListener('change',event=>{filters.platform=event.target.value;filters.page=1;renderLibrary();});
   $('#filterToggle').addEventListener('click',()=>{const panel=$('#libraryFilters');panel.hidden=!panel.hidden;$('#filterToggle').setAttribute('aria-expanded',String(!panel.hidden));});
@@ -345,6 +432,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     $('#comparisonPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
   });
   $('#clearScenarios').addEventListener('click',()=>{saved=[];renderComparison();persist();toast('Comparación vaciada.');});
+  window.addEventListener('resize',()=>{if(currentView==='sim'){if(simMode==='products')renderProductSimulator();else drawChart(Model.calculate(state));}});
   window.addEventListener('hashchange',()=>{renderRoute();window.scrollTo({top:0,behavior:'instant'});});
-  renderSummary();renderPersonas();renderMedia();renderLibrary();setupSimulator();renderSimulator();hydrateIcons();renderRoute();persist();
+  renderSidebar();renderSummary();renderPersonas();renderMedia();renderLibrary();renderProductSimulator();setupSimulator();renderSimulator();hydrateIcons();renderRoute();persist();
 })();

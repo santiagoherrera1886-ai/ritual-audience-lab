@@ -1,64 +1,50 @@
 # Ritual Audience Atlas 2027
 
-Aplicación estática de planeación de audiencias de Ritual Día (Hidrapro) y Ritual Noche (Noche Plena). Diseño **Editorial Moderno — opción B**: navegación azul oscuro, paneles claros, acentos violetas y adaptación a móvil.
+Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz sigue las tres referencias entregadas el 30 de septiembre de 2026: resumen oscuro con productos y mapa, tarjetas fotográficas de medios y simulador claro de Día + Noche.
 
-![Diseño Editorial Moderno de Ritual](docs/Ritual_Editorial_Moderno_2027.jpg)
+**Sitio:** https://ritual-audience-lab.vercel.app
 
-## Abrir
+## Funciones
 
-Abre `index.html` directamente, o inicia un servidor local:
+- Resumen con universo de planeación, mapa de Colombia con siete ciudades y ecosistema de medios.
+- Panel lateral permanente con filtros de producto y los tres perfiles: Valeria, Carlos y Julián.
+- Medios: Meta, Google, TikTok y YouTube, con porcentajes derivados de las señales de la matriz y accesos a sus intereses.
+- Audiencias: perfiles completos y acceso a sus señales.
+- Intereses: 119 registros originales, búsqueda sin sensibilidad a tildes, filtros combinables, categorías, tarjetas, tabla, paginación y detalle.
+- Simulador Día + Noche: mezcla ajustable, intersección, alcance y frecuencia en 12 olas, y exportación del escenario.
+- Inversión por medio: se conserva el modelo de presupuesto/CPM, asignación total de 100%, escenarios y comparación de hasta tres planes.
+- CSV contextual y persistencia local de los simuladores. Navegación por URL y menú para pantallas pequeñas.
+
+## Datos y supuestos
+
+`data.js` conserva las 119 filas originales y sus nueve campos: Valeria 34, Carlos 43 y Julián 42. Las fotografías, perfiles editoriales y categorías son ilustrativos. Google y YouTube comparten las mismas 34 filas; no son 68 señales diferentes. Los porcentajes de medios representan registros, no alcance publicitario.
+
+Los valores demográficos, territoriales y universos que aparecen en la referencia visual se presentan como supuestos de planeación sin fuente demográfica verificada. El mapa utiliza un contorno geográfico de Colombia; su iluminación es decorativa. Los valores de ciudades no son mediciones de campañas ni proyecciones censales.
+
+El nuevo modelo usa universos de 8,6 M (Día), 7,8 M (Noche) e intersección de 2,4 M. El escenario base 60/40 alcanza 14,0 M únicos al cierre de 12 olas: 100% de un universo de 14,0 M. La frecuencia combinada se calcula con las impresiones totales divididas por el alcance único (aproximadamente 3,6), no mediante un promedio simple. Cambiar los porcentajes altera las curvas de saturación; una asignación de 0% no genera alcance del producto. Los supuestos se explican en el simulador.
+
+El modelo de inversión por medio conserva su fórmula de presupuesto, CPM y saturación, con independencia supuesta entre canales. Es un ejercicio separado del modelo por producto. Ninguno está conectado a cuentas publicitarias ni representa resultados medidos.
+
+## Ejecutar y verificar
+
+No necesita compilación ni dependencias de aplicación. Abre `index.html` o ejecuta:
 
 ```sh
 python -m http.server 4173
+node --test tests/*.test.cjs
 ```
 
-Visita `http://localhost:4173`. No requiere compilación, instalación de dependencias ni servicios externos. Todas las fotografías y marcas se sirven desde `assets/`.
+Las diez pruebas verifican redistribución, presupuesto, límites de alcance, sanitización de estados, intersección, frecuencia y las 101 combinaciones de inversión en 12 olas. Se comprobó también la navegación, filtros, detalles, tablas, exportación por producto y la conservación del simulador por medios mediante una prueba de integración de DOM.
 
-## Vistas y funciones
+## Archivos principales
 
-- **Resumen:** propuesta Ritual, universo de planeación, distribución territorial y accesos a las personas.
-- **Audiencias:** Valeria, Carlos y Julián, con perfiles y acceso a sus señales.
-- **Medios:** roles, inversión por canal y señales asociadas, sincronizados con el simulador.
-- **Intereses:** las 119 filas originales, búsqueda sin sensibilidad a tildes, filtros por persona/plataforma/categoría, tarjetas o tabla, paginación y detalle de táctica/validación.
-- **Simulador:** presupuesto y universo editables, asignación por canal que suma 100%, CPM editables, curvas de alcance y frecuencia, tres presets y comparación de hasta tres escenarios.
-- **CSV:** matriz completa desde Resumen/Audiencias; todas las filas filtradas desde Intereses; mezcla activa desde Medios; escenario y comparación desde Simulador. Incluye BOM UTF-8 para Excel.
-- Navegación por URL (`#summary`, `#audiences`, `#media`, `#library`, `#sim`), menú móvil, navegación con teclado y diálogos con cierre mediante Escape.
-- Persistencia local del simulador y escenarios mediante `localStorage`; si no está disponible, la aplicación sigue funcionando durante la sesión.
+- `index.html`: cinco vistas y diálogos.
+- `styles.css` y `atlas.css`: estilos de base y diseño de las nuevas referencias; reglas responsive.
+- `data.js`: matriz original.
+- `model.js`: inversión por medios.
+- `product-model.js`: simulación por producto y olas.
+- `app.js`: interacción, gráficos SVG, exportación y persistencia.
+- `assets/SOURCES.md`: procedencia de imágenes, tipografía y mapa.
+- `docs/atlas-assets.md`: prompts de los nuevos recursos generados.
 
-## Datos y límites
-
-Se conservan íntegramente las **119 señales originales** y sus nueve campos: 34 de Valeria, 43 de Carlos y 42 de Julián. `data.js` contiene la matriz original. Las categorías de la biblioteca y los textos de los perfiles son organización editorial; las personas y fotografías son ilustrativas.
-
-Google y YouTube comparten 34 filas de la matriz: no son 68 señales diferentes. Programmatic es un canal propuesto sin filas propias en la matriz original. La disponibilidad de cada señal debe validarse en la plataforma correspondiente.
-
-Los 53,7 M, 22,5 M y 14,0 M del resumen son **supuestos heredados sin fuente demográfica verificada adjunta**. La distribución territorial es una propuesta estratégica. No representan alcance medido ni ventas.
-
-El simulador conserva los supuestos del modelo anterior: CPM iniciales, límites de cobertura por canal y una curva exponencial de saturación. Combina los alcances bajo un supuesto de independencia entre canales. Es una proyección de planeación, no deduplicación medida. Los supuestos y fórmulas pueden consultarse en «Sobre este atlas». No hay conexión con cuentas publicitarias ni un backend de reportes.
-
-## Archivos
-
-- `index.html`: estructura de las cinco vistas.
-- `styles.css`: sistema visual y estilos responsive.
-- `data.js`: datos originales de afinidad.
-- `model.js`: cálculos y redistribución del presupuesto.
-- `app.js`: navegación, filtros, diálogos, exportación y persistencia.
-- `assets/`: marcas heredadas y fotografías ilustrativas; procedencia en `assets/SOURCES.md`.
-- `tests/model.test.cjs`: invariantes del simulador.
-
-## Verificar los cálculos
-
-```sh
-node --test tests/model.test.cjs
-```
-
-Verifica conservación de presupuesto, suma exacta del mix, cero inversión, cobertura máxima, monotonicidad de alcance y protección frente a datos almacenados inválidos.
-
-## Publicación
-
-Es un sitio estático compatible con la configuración existente de Vercel y con GitHub Pages. No necesita variables de entorno. URL declarada por el repositorio: https://ritual-audience-lab.vercel.app
-
-## Verificación de interfaz
-
-La versión publicada se revisó en navegador de escritorio: navegación de las cinco vistas, búsqueda y combinación de filtros, vaciado de filtros, vista de tabla, detalle de señales, descarga real de CSV y validación de sus cuatro filas filtradas, cambios de presupuesto/CPM/mix, persistencia al recargar, comparación de escenarios y sincronización de Medios. No se detectaron imágenes rotas ni desbordamiento horizontal en la vista revisada.
-
-Las reglas responsive están implementadas. La inspección visual de un viewport móvil no pudo completarse por restricciones del entorno de navegador.
+La versión B previa permanece disponible en el historial de Git. El proyecto se publica automáticamente desde `main` mediante la configuración existente de Vercel.

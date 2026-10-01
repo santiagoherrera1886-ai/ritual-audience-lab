@@ -1,5 +1,22 @@
 # Recursos para reconstruir la opción B
 
+## Prompt de rest-b
+
+Use the attached UI montage only as a visual style reference, middle row option B, photographic library tiles. Generate one standalone realistic editorial lifestyle photograph, not a UI: a woman aged around 35 sleeping peacefully on her side with closed eyes, white cotton bedding, soft blue morning light, serene navy and warm neutral palette, natural unretouched skin texture. Intimate side profile, medium close composition with her face in the top half and bedding below, portrait 4:5. No cat, no other people, no labels, text, graphic elements, logos, borders or watermark.
+
+## Prompt de beauty-b
+
+Use attached UI montage only as a visual style reference, middle row option B, photographic library tile Belleza. Generate one standalone realistic editorial lifestyle photograph, not a UI: woman around 30 with warm tan skin and long brown hair, calmly applying face moisturizer to her cheek with fingertips in a softly sunlit cream bathroom, white casual top, natural and relaxed expression, three-quarter profile, warm side light, authentic skin detail, portrait 4:5 framing, face in upper half of composition. No text, logos, product labels, bottles in foreground, UI, border or watermark.
+
+## Prompt de technology-b
+
+Use attached UI montage only as a visual style reference, middle row option B, photographic library tile Tecnologia. Generate one standalone realistic editorial lifestyle photograph, not a UI: a young adult woman wearing a clean white virtual reality headset, shown from waist up with arms gently raised interacting with a virtual environment in a softly lit modern living room. Light gray casual outfit, pale blue daylight, navy teal accents, authentic editorial photography. Portrait 4:5 framing with head and raised hands in upper two thirds. No visible text, logos, floating graphics, UI, border, or watermark.
+
+## Prompt de cycling-b
+
+Generate one realistic editorial lifestyle photograph for a wellness website interest tile: adult cyclist with a helmet and dark teal athletic outfit riding a bicycle on a paved mountain road in a lush green Andean valley at golden hour. Show the entire bicycle and rider, three quarter side view, winding road, hazy forested mountains in background, natural warm sunlight, candid professional outdoor photography. Portrait 4:5 composition with subject center upper two thirds so white UI text can later be placed in bottom third. No text, letters, watermark, logos or UI.
+
+
 Referencia: montaje de tres propuestas suministrado por el usuario; únicamente la fila central, «OPCIÓN B — EDITORIAL MODERNO».
 
 Método: herramienta integrada `image_gen`, una generación por recurso con la imagen de referencia adjunta; salida sin transparencia. Codificación WebP sin alterar la composición. La implementación de las cinco vistas sigue siendo HTML, CSS y JavaScript funcional.

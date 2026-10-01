@@ -28,3 +28,11 @@ Los recursos `valeria-b.webp`, `carlos-b.webp`, `julian-b.webp` y `city-b.webp` 
 Prompts finales: `docs/option-b-assets.md`.
 
 Inter Variable: https://github.com/rsms/inter — licencia SIL Open Font License, incluida en `Inter-LICENSE.txt`. Fuente local: `inter-latin.woff2`.
+
+Corrección de fotografías de la biblioteca: `rest-b.webp`, `beauty-b.webp`, `technology-b.webp` y `cycling-b.webp`, también generadas con la herramienta integrada a partir de la referencia. Sustituyen fotografías cuya temática no correspondía a la categoría.
+
+## Nuevas referencias: Atlas, Medios y Simulador
+
+`atlas-hero.webp`, `media-meta.webp`, `media-google.webp`, `media-tiktok.webp` y `media-youtube.webp` se generaron con la herramienta integrada usando las tres referencias nuevas del usuario. El hero usa los empaques originales como referencia; las personas son ilustrativas. Prompts completos en `docs/atlas-assets.md`.
+
+`colombia-atlas.svg` utiliza el mismo contorno geográfico de Colombia indicado arriba. Las capas de relieve, curvas y brillos son decorativos; no representan departamentos, clima ni intensidad medida.
