@@ -48,3 +48,13 @@ Las diez pruebas verifican redistribución, presupuesto, límites de alcance, sa
 - `docs/atlas-assets.md`: prompts de los nuevos recursos generados.
 
 La versión B previa permanece disponible en el historial de Git. El proyecto se publica automáticamente desde `main` mediante la configuración existente de Vercel.
+
+## Vistas publicadas
+
+![Resumen de Ritual Audience Atlas](docs/Ritual_Atlas_Resumen.jpg)
+
+![Tarjetas de medios](docs/Ritual_Atlas_Medios.jpg)
+
+![Simulador Día y Noche](docs/Ritual_Atlas_Simulador.jpg)
+
+Verificación final en navegador de escritorio (1363 px): las cinco vistas, fotografías sin fallos de carga, búsqueda de Yoga con cuatro resultados, controles del simulador por producto, caso 100% Día y persistencia al recargar. Se corrigieron solapamientos de etiquetas en los gráficos y la cabecera del mapa. El diseño responsive está implementado; el entorno no permitió inspección visual con un viewport móvil.
