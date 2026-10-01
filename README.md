@@ -2,6 +2,8 @@
 
 Aplicación estática de planeación de audiencias de Ritual Día (Hidrapro) y Ritual Noche (Noche Plena). Diseño **Editorial Moderno — opción B**: navegación azul oscuro, paneles claros, acentos violetas y adaptación a móvil.
 
+![Diseño Editorial Moderno de Ritual](docs/Ritual_Editorial_Moderno_2027.jpg)
+
 ## Abrir
 
 Abre `index.html` directamente, o inicia un servidor local:
@@ -54,3 +56,9 @@ Verifica conservación de presupuesto, suma exacta del mix, cero inversión, cob
 ## Publicación
 
 Es un sitio estático compatible con la configuración existente de Vercel y con GitHub Pages. No necesita variables de entorno. URL declarada por el repositorio: https://ritual-audience-lab.vercel.app
+
+## Verificación de interfaz
+
+La versión publicada se revisó en navegador de escritorio: navegación de las cinco vistas, búsqueda y combinación de filtros, vaciado de filtros, vista de tabla, detalle de señales, descarga real de CSV y validación de sus cuatro filas filtradas, cambios de presupuesto/CPM/mix, persistencia al recargar, comparación de escenarios y sincronización de Medios. No se detectaron imágenes rotas ni desbordamiento horizontal en la vista revisada.
+
+Las reglas responsive están implementadas. La inspección visual de un viewport móvil no pudo completarse por restricciones del entorno de navegador.
