@@ -13,6 +13,7 @@
   <script defer src="data.js"></script>
   <script defer src="model.js"></script>
   <script defer src="product-model.js"></script>
+  <script defer src="segmentation.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body data-view="summary">
@@ -62,6 +63,7 @@
 
     <section id="library" class="view" aria-labelledby="libraryTitle" hidden>
       <div class="atlas-page-heading library-heading"><div class="atlas-eyebrow">INTERESES / SEÑALES DE AFINIDAD</div><h1 id="libraryTitle">Conexiones que se vuelven <span>rituales.</span></h1><p>Explora los 119 registros originales por persona, plataforma y momento de consumo.</p></div>
+      <details class="segmentation-panel" id="segmentationGuide"><summary><i data-icon="target"></i><span><strong>Cómo segmentar por medio</strong><small>Convierte estas señales en una configuración de campaña.</small></span><span class="guide-summary-action">Ver guía<i data-icon="plus"></i></span></summary><div class="segmentation-panel-body" id="librarySegmentationGuide"></div></details>
       <div class="library-content">
         <div class="library-toolbar"><label class="search-field"><i data-icon="search"></i><input type="search" id="libSearch" placeholder="Explorar tus intereses favoritos…" aria-label="Buscar intereses"></label><button class="button filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="libraryFilters"><i data-icon="sliders"></i>Filtros<span id="activeFilterCount" hidden></span></button></div>
         <div class="category-panel library-categories" id="categoryPanel"><h2 class="sr-only">Categorías</h2><div id="categoryNav"></div></div><div class="library-filters" id="libraryFilters" hidden><div class="segmented" id="personaFilters"><button class="active" data-person-filter="all" aria-pressed="true">Todos</button><button data-person-filter="Valeria" aria-pressed="false">Valeria</button><button data-person-filter="Carlos" aria-pressed="false">Carlos</button><button data-person-filter="Julián" aria-pressed="false">Julián</button></div><select id="platformFilter" aria-label="Filtrar por plataforma"><option value="all">Todas las plataformas</option><option value="meta">Meta</option><option value="google">Google / YouTube</option><option value="tiktok">TikTok</option></select><div class="view-switch" aria-label="Vista de intereses"><button class="active icon-button" data-library-view="grid" aria-label="Ver tarjetas" aria-pressed="true"><i data-icon="grid"></i></button><button class="icon-button" data-library-view="table" aria-label="Ver tabla" aria-pressed="false"><i data-icon="list"></i></button></div></div>

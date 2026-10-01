@@ -11,6 +11,7 @@ Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz si
 - Medios: Meta, Google, TikTok y YouTube, con porcentajes derivados de las señales de la matriz y accesos a sus intereses.
 - Audiencias: perfiles completos y acceso a sus señales.
 - Intereses: 119 registros originales, búsqueda sin sensibilidad a tildes, filtros combinables, categorías, tarjetas, tabla, paginación y detalle.
+- Guía «Cómo segmentar por medio»: pasos, ejemplos del perfil o interés, validación, fuentes oficiales y copia del texto; disponible en Intereses, fichas y Medios.
 - Simulador Día + Noche: mezcla ajustable, intersección, alcance y frecuencia en 12 olas, y exportación del escenario.
 - Inversión por medio: se conserva el modelo de presupuesto/CPM, asignación total de 100%, escenarios y comparación de hasta tres planes.
 - CSV contextual y persistencia local de los simuladores. Navegación por URL y menú para pantallas pequeñas.
@@ -44,6 +45,8 @@ Las diez pruebas verifican redistribución, presupuesto, límites de alcance, sa
 - `model.js`: inversión por medios.
 - `product-model.js`: simulación por producto y olas.
 - `app.js`: interacción, gráficos SVG, exportación y persistencia.
+- `segmentation.js`: guías editoriales de Meta, Google Search, TikTok y YouTube/Video.
+- `docs/segmentation-guide.md`: alcance, fuentes y verificación de las guías.
 - `assets/SOURCES.md`: procedencia de imágenes, tipografía y mapa.
 - `docs/atlas-assets.md`: prompts de los nuevos recursos generados.
 

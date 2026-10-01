@@ -10,6 +10,7 @@
   const DATA = window.RITUAL_SIGNALS;
   const Model = window.RitualModel;
   const ProductModel = window.RitualProductModel;
+  const Segmentation = window.RITUAL_SEGMENTATION;
   const CHANNELS = Model.CHANNELS;
   const ICONS = {
     overview:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',
@@ -124,6 +125,8 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   let productState={dayShare:60};
   let simMode='products';
   const waveModes={reach:'all',frequency:'all'};
+  let libraryGuideChannel='meta';
+  let dialogGuide={channel:'meta',signalId:null};
   try { productState=ProductModel.sanitize(JSON.parse(localStorage.getItem('ritual-product-plan-v1')||'null')); } catch {}
   let toastTimeout;
   function toast(message) { clearTimeout(toastTimeout); $('#toast').textContent = message; $('#toast').classList.add('visible'); toastTimeout = setTimeout(() => $('#toast').classList.remove('visible'), 3200); }
@@ -154,6 +157,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   function openLibrary({person:who='all', platform='all'} = {}) {
     Object.assign(filters,{query:'',category:'all',platform,page:1});
     selectPerson(who);
+    if(Segmentation.channels[platform])libraryGuideChannel=platform;
     $('#libSearch').value = ''; $('#platformFilter').value = platform;
     $('#libraryFilters').hidden = false; $('#filterToggle').setAttribute('aria-expanded','true');
     navigate('library'); renderLibrary();
@@ -194,6 +198,47 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     toast(`${previousPerson} no tiene señales de ${PRODUCT_LABELS[product]}. Mostrando todos los clústeres.`);
   }
   function mediaBaseRows() { return rows.filter(d=>productMatch(d,filters.product)&&(filters.person==='all'||d.cluster===filters.person)); }
+  function guideContext(channel, signalId=null) {
+    const signal=Number.isInteger(signalId)?rows[signalId]:null;
+    const name=signal?.cluster||filters.person;
+    const profile=PERSONAS.find(p=>p.name===name);
+    const candidates=rows.filter(d=>(!profile||d.cluster===name)&&productMatch(d,filters.product)&&platformMatch(d,channel));
+    const focus=signal?.interest||filters.query;
+    const seedValues=[focus,...candidates.map(d=>d.interest),...(profile?.tags||['Bienestar','Rutinas diarias'])].filter(Boolean);
+    const seen=new Set();
+    let seeds=seedValues.filter(value=>{const key=norm(value);if(seen.has(key))return false;seen.add(key);return true;}).slice(0,3);
+    if(channel==='google') {
+      const topic=signal?.category||filters.category;
+      const night=filters.product==='night'||topic==='rest'||(name==='Julián'&&filters.product!=='day'&&!signal);
+      seeds=night?['ritual noche plena','rutina de descanso nocturno','hábitos antes de dormir']:(name==='Carlos'||topic==='active'||filters.product==='day')?['hidratación para entrenar','electrolitos para ejercicio','ritual hidrapro']:['ritual jgb','rutina de bienestar','ritual hidrapro'];
+    }
+    const age=profile?.age||'25–54';
+    const buckets=name==='Valeria'?'25–34':name==='Carlos'?'25–34 y 35–44':name==='Julián'?'35–44 y 45–54':'25–34, 35–44 y 45–54';
+    const ageNote=channel==='tiktok'?`TikTok: ${buckets}.${name==='Carlos'?' Esto cubre 25–44 e incluye 25–29; no replica exactamente 30–44.':''}`:'El rango del perfil orienta la planeación; revisa los controles de edad del formato elegido.';
+    return {signal,name:profile?.name||'Audiencias Ritual',image:profile?.image,age,ageNote,seeds,focus:signal?.interest||filters.query||'Afinidades del perfil'};
+  }
+  function guideTabs(channel, scope, signalId=null) {
+    return `<div class="guide-tabs" role="group" aria-label="Medio de la guía">${Object.entries(Segmentation.channels).map(([id,g])=>`<button class="${id===channel?'active':''}" data-guide-tab="${id}" data-guide-scope="${scope}" ${signalId!==null?`data-guide-signal="${signalId}"`:''} aria-pressed="${id===channel}"><span>${scope==='library'?darkLogo(id):LOGOS[id]}</span>${g.short}</button>`).join('')}</div>`;
+  }
+  function guideContent(channel, context, scope) {
+    const g=Segmentation.channels[channel];
+    return `<div class="guide-intro"><span class="guide-kicker">${g.kind}</span><h3>${g.name}</h3><p>${g.explanation}</p><div class="guide-route">${i('target')}<span>${g.route}</span></div></div><div class="guide-columns"><ol class="guide-steps">${g.steps.map(([title,body],idx)=>`<li><span>${idx+1}</span><div><h4>${title}</h4><p>${body}</p></div></li>`).join('')}</ol><aside class="guide-example"><div class="guide-example-person">${context.image?`<img src="assets/${context.image}.webp" alt="">`:i('people')}<div><small>EJEMPLO PROPUESTO</small><strong>${esc(context.name)}</strong><span>Colombia · perfil ${context.age}</span></div></div><p class="guide-focus">Señal de partida: <b>${esc(context.focus)}</b></p><h4>${g.exampleLabel}</h4><div class="guide-seeds">${context.seeds.map(s=>`<span>${esc(s)}</span>`).join('')}</div><p>${esc(context.ageNote)}</p><div class="guide-validation">${i('info')}<span>${g.validation}</span></div></aside></div><div class="guide-test">${i('chart')}<p>${g.measure}</p></div><div class="guide-footer"><div><span>Documentación oficial · consultada ${Segmentation.reviewed}</span><div class="guide-sources">${g.sources.map(([name,url])=>`<a href="${url}" target="_blank" rel="noopener noreferrer">${name}${i('arrow-up')}</a>`).join('')}</div></div><button class="button button-primary" data-copy-guide="${channel}" data-guide-scope="${scope}">${i('list')}Copiar guía</button></div><p class="guide-footnote">Guía de planeación. Los ejemplos no certifican disponibilidad, volumen ni resultados; revisa las opciones del objetivo y la cuenta antes de activar.</p>`;
+  }
+  function renderLibraryGuide() {
+    $('#librarySegmentationGuide').innerHTML=guideTabs(libraryGuideChannel,'library')+guideContent(libraryGuideChannel,guideContext(libraryGuideChannel),'library');
+  }
+  function showSegmentationGuide(channel, signalId=null) {
+    if(!Segmentation.channels[channel])return;
+    dialogGuide={channel,signalId};
+    const context=guideContext(channel,signalId);
+    showDialog('GUÍA DE ACTIVACIÓN POR MEDIO',`<h2>Cómo segmentar<span class="purple">.</span></h2><p class="dialog-description">${esc(context.signal?`${context.signal.interest} · ${context.name}`:`Ejemplo para ${context.name}`)}</p>${guideTabs(channel,'dialog',signalId)}${guideContent(channel,context,'dialog')}`,true);
+  }
+  async function copySegmentationGuide(channel,scope) {
+    const context=guideContext(channel,scope==='dialog'?dialogGuide.signalId:null),g=Segmentation.channels[channel];
+    const text=[`RITUAL · ${g.name}`,`Ejemplo propuesto para ${context.name} · perfil ${context.age} · Colombia`,`Señal: ${context.focus}`,g.explanation,g.route,...g.steps.map(([title,body],idx)=>`${idx+1}. ${title}: ${body}`),`${g.exampleLabel}: ${context.seeds.join('; ')}`,context.ageNote,g.validation,g.measure,`Fuentes (${Segmentation.reviewed}):`,...g.sources.map(([title,url])=>`${title}: ${url}`),'Ejemplos sin disponibilidad ni volumen certificados.'].join('\n\n');
+    try {await navigator.clipboard.writeText(text);toast('Guía copiada con pasos, ejemplo y fuentes.');}
+    catch {showDialog('COPIAR GUÍA',`<h2>Tu guía de <span class="purple">${g.short}.</span></h2><p class="dialog-description">Selecciona y copia el texto para llevarlo a tu plan de medios.</p><textarea id="guideCopyText" class="guide-copy-text" readonly aria-label="Guía lista para copiar">${esc(text)}</textarea>`);$('#guideCopyText').focus();$('#guideCopyText').select();}
+  }
   function renderSidebar() {
     $$('[data-product]').forEach(b=>{const active=b.dataset.product===filters.product;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
     $('#sidebarPersonas').innerHTML=PERSONAS.map((p,idx)=>`<button class="sidebar-person ${filters.person===p.name?'active':''}" data-focus-person="${p.name}" aria-pressed="${filters.person===p.name}"><img src="assets/${p.image}.webp" alt=""><span><b><i style="background:${PERSONA_COLORS[idx]}"></i>${p.name}</b><small>${['Wellness','Vida activa','Equilibrio'][idx]} · ${p.age}</small></span><strong>${p.count}</strong></button>`).join('');
@@ -251,7 +296,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     $('#mediaPersonaCount').textContent=new Set(base.map(d=>d.cluster)).size;
     $('#platformCards').innerHTML=MEDIA_ENVIRONMENTS.map(c=>{
       const signals=base.filter(d=>platformMatch(d,c.id));
-      return `<article class="platform-card" style="--platform-color:${c.color}"><div class="platform-card-hero" style="background-image:url('assets/media-${c.id}.webp')"><div class="platform-title"><span class="platform-logo">${darkLogo(c.id)}</span><h2>${c.name}</h2></div><p>${c.description}</p>${c.id==='meta'?'<span class="floating-social social-instagram">◎</span><span class="floating-social social-facebook">f</span>':''}${c.id==='google'?'<span class="floating-search">Ritual bienestar '+i('search')+'</span>':''}${c.id==='tiktok'?'<span class="floating-tiktok">'+darkLogo('tiktok')+'</span>':''}${c.id==='youtube'?'<span class="decorative-player" aria-hidden="true"><b>▶</b><i></i><span>⛶</span></span>':''}</div><div class="platform-details"><div class="platform-details-grid"><div><h3>PRESENCIA DE CLÚSTERES</h3><div class="cluster-presence">${PERSONAS.map((p,idx)=>{const pct=signals.length?Math.round(signals.filter(d=>d.cluster===p.name).length/signals.length*100):0;return `<button data-profile="${p.name}" aria-label="${p.name}: ${pct}% de las señales del canal"><img src="assets/${p.image}.webp" alt=""><b style="color:${PERSONA_COLORS[idx]}">${pct}%</b></button>`;}).join('')}</div></div><div class="platform-interests"><h3>PRINCIPALES INTERESES</h3><div>${c.tags.map(t=>`<span>${t}</span>`).join('')}</div></div></div><div class="platform-card-actions"><button class="text-button" ${signals.length?`data-signal="${signals[0].id}"`:'disabled'}>Ver señal de ejemplo${i('arrow-right')}</button><button class="button button-primary" data-media="${c.id}" ${!signals.length?'disabled':''}>Explorar ${signals.length} señales${i('arrow-up')}</button></div></div></article>`;
+      return `<article class="platform-card" style="--platform-color:${c.color}"><div class="platform-card-hero" style="background-image:url('assets/media-${c.id}.webp')"><div class="platform-title"><span class="platform-logo">${darkLogo(c.id)}</span><h2>${c.name}</h2></div><p>${c.description}</p>${c.id==='meta'?'<span class="floating-social social-instagram">◎</span><span class="floating-social social-facebook">f</span>':''}${c.id==='google'?'<span class="floating-search">Ritual bienestar '+i('search')+'</span>':''}${c.id==='tiktok'?'<span class="floating-tiktok">'+darkLogo('tiktok')+'</span>':''}${c.id==='youtube'?'<span class="decorative-player" aria-hidden="true"><b>▶</b><i></i><span>⛶</span></span>':''}</div><div class="platform-details"><div class="platform-details-grid"><div><h3>PRESENCIA DE CLÚSTERES</h3><div class="cluster-presence">${PERSONAS.map((p,idx)=>{const pct=signals.length?Math.round(signals.filter(d=>d.cluster===p.name).length/signals.length*100):0;return `<button data-profile="${p.name}" aria-label="${p.name}: ${pct}% de las señales del canal"><img src="assets/${p.image}.webp" alt=""><b style="color:${PERSONA_COLORS[idx]}">${pct}%</b></button>`;}).join('')}</div></div><div class="platform-interests"><h3>PRINCIPALES INTERESES</h3><div>${c.tags.map(t=>`<span>${t}</span>`).join('')}</div></div></div><div class="platform-card-actions"><button class="text-button" data-guide-open="${c.id}">Cómo segmentar${i('target')}</button><button class="text-button" ${signals.length?`data-signal="${signals[0].id}"`:'disabled'}>Ver señal de ejemplo${i('arrow-right')}</button><button class="button button-primary" data-media="${c.id}" ${!signals.length?'disabled':''}>Explorar ${signals.length} señales${i('arrow-up')}</button></div></div></article>`;
     }).join('');
   }
   function filteredRows() {
@@ -266,6 +311,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     filters.page=Math.min(pages,Math.max(1,filters.page));
     const pageRows=found.slice((filters.page-1)*size,filters.page*size);
     renderSidebar();
+    renderLibraryGuide();
     const hasFilters=filters.product!=='all'||filters.person!=='all'||filters.category!=='all'||filters.platform!=='all'||!!filters.query;
     const browsing=!hasFilters&&filters.view==='grid';
     $('#libCount').textContent=`${found.length} de 119 señales · ${filters.person==='all'?'Todos los clústeres':filters.person} · ${PRODUCT_LABELS[filters.product]}`;
@@ -297,14 +343,15 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     if(!found.length) {
       $('#libraryResults').innerHTML=`<div class="empty-state">${i('search')}<h3>No encontramos esa conexión.</h3><p>Prueba otro interés o amplía los filtros para seguir explorando.</p><button class="button button-secondary" data-action="clear-filters">Ver todas las señales</button></div>`;
     } else if(filters.view==='grid') {
-      $('#libraryResults').innerHTML=`<div class="interests-grid">${pageRows.map(d=>{const c=CATEGORIES.find(c=>c.id===d.category);return `<button class="interest-card" data-signal="${d.id}" aria-label="Explorar ${esc(d.interest)} · ${esc(d.cluster)} · ${esc(d.platform)}"><img loading="lazy" src="${imageSrc(imageFor(d))}" alt=""><span class="interest-platform" title="${esc(d.platform)}">${LOGOS[platformId(d)]}</span><span class="interest-body"><small>${c.name}</small><strong>${esc(d.interest)}</strong><span>${esc(d.cluster)} · ${esc(d.platform)}</span></span></button>`;}).join('')}</div>`;
+      $('#libraryResults').innerHTML=`<div class="interests-grid">${pageRows.map(d=>{const c=CATEGORIES.find(c=>c.id===d.category);return `<button class="interest-card" data-signal="${d.id}" aria-label="Explorar ${esc(d.interest)} · ${esc(d.cluster)} · ${esc(d.platform)}"><img loading="lazy" src="${imageSrc(imageFor(d))}" alt=""><span class="interest-platform" title="${esc(d.platform)}">${LOGOS[platformId(d)]}</span><span class="interest-body"><small>${c.name}</small><strong>${esc(d.interest)}</strong><span>${esc(d.cluster)} · ${esc(d.platform)}</span><small class="interest-guide-hint">Cómo segmentar${i('arrow-up')}</small></span></button>`;}).join('')}</div>`;
     } else {
       $('#libraryResults').innerHTML=`<div class="table-scroll"><table class="interest-table"><thead><tr><th>Interés</th><th>Persona</th><th>Plataforma</th><th>Prioridad</th></tr></thead><tbody>${pageRows.map(d=>`<tr><td><button data-signal="${d.id}"><img src="${imageSrc(imageFor(d))}" alt="">${esc(d.interest)}</button></td><td>${esc(d.cluster)}</td><td>${LOGOS[platformId(d)]}${esc(d.platform)}</td><td>${esc(d.priority)}</td></tr>`).join('')}</tbody></table></div>`;
     }
     $('#pagination').hidden=!found.length;
     $('#pagination').innerHTML=`<span>Mostrando ${(filters.page-1)*size+1}–${Math.min(filters.page*size,found.length)} de ${found.length}</span><div><button data-page="${filters.page-1}" ${filters.page===1?'disabled':''} aria-label="Página anterior">${i('arrow-left')}</button><span>Página ${filters.page} de ${pages}</span><button data-page="${filters.page+1}" ${filters.page===pages?'disabled':''} aria-label="Página siguiente">${i('arrow-right')}</button></div>`;
   }
-  function showDialog(eyebrow, html) {
+  function showDialog(eyebrow, html, wide=false) {
+    $('#detailDialog').classList.toggle('segmentation-dialog',wide);
     $('#dialogEyebrow').textContent=eyebrow;
     $('#dialogContent').innerHTML=html;
     if(!$('#detailDialog').open) $('#detailDialog').showModal();
@@ -319,8 +366,9 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   function showSignal(id) {
     const d=rows[id];if(!d)return;
     const related=rows.filter(x=>x.id!==d.id&&x.cluster===d.cluster&&x.category===d.category).slice(0,6);
+    const guideChannel=platformId(d),guide=Segmentation.channels[guideChannel];
     const details=[['Persona',d.cluster],['Plataforma',d.platform],['Territorio',d.territory],['Prioridad',d.priority],['Producto',d.product],['Tipo de señal',d.type]];
-    showDialog(`SEÑAL ${String(id+1).padStart(3,'0')} / 119`,`<h2>${esc(d.interest)}</h2><p class="dialog-description">Una puerta de entrada al universo de ${esc(d.cluster)}.</p><div class="detail-grid">${details.map(([label,value])=>`<div class="detail-box"><span>${label}</span><b>${esc(value)}</b></div>`).join('')}</div><div class="detail-section"><h3>Rol táctico</h3><p>${esc(d.tactic)}</p></div><div class="detail-section"><h3>Validación en plataforma</h3><p>${esc(d.validation)}</p></div>${related.length?`<div class="detail-section"><h3>Conexiones relacionadas</h3><div class="related-signals">${related.map(x=>`<button data-signal="${x.id}">${esc(x.interest)}</button>`).join('')}</div></div>`:''}<div class="dialog-actions"><button class="button button-secondary" data-person-signals="${esc(d.cluster)}">Ver todas las señales de ${esc(d.cluster)}${i('arrow-right')}</button></div>`);
+    showDialog(`SEÑAL ${String(id+1).padStart(3,'0')} / 119`,`<h2>${esc(d.interest)}</h2><p class="dialog-description">Una puerta de entrada al universo de ${esc(d.cluster)}.</p><section class="signal-guide-preview"><div><span class="guide-kicker">DE LA SEÑAL A LA CAMPAÑA</span><h3>Cómo segmentar en ${guide.short}</h3><p>${guide.explanation}</p></div><button class="button button-primary" data-guide-open="${guideChannel}" data-guide-signal="${d.id}">Ver pasos y ejemplo${i('arrow-right')}</button></section><div class="detail-grid">${details.map(([label,value])=>`<div class="detail-box"><span>${label}</span><b>${esc(value)}</b></div>`).join('')}</div><div class="detail-section"><h3>Rol táctico</h3><p>${esc(d.tactic)}</p></div><div class="detail-section"><h3>Validación en plataforma</h3><p>${esc(d.validation)}</p></div>${related.length?`<div class="detail-section"><h3>Conexiones relacionadas</h3><div class="related-signals">${related.map(x=>`<button data-signal="${x.id}">${esc(x.interest)}</button>`).join('')}</div></div>`:''}<div class="dialog-actions"><button class="button button-secondary" data-person-signals="${esc(d.cluster)}">Ver todas las señales de ${esc(d.cluster)}${i('arrow-right')}</button></div>`);
   }
   function showMethod() {
     showDialog('CÓMO LEER EL ATLAS',`<h2>Una base para <span class="purple">tomar decisiones.</span></h2><p class="dialog-description">Este atlas organiza hipótesis de audiencias y simula escenarios. No está conectado a cuentas publicitarias ni contiene resultados de campañas.</p><div class="detail-section"><h3>01 · La matriz de afinidades</h3><p>Se conservan las 119 filas originales: 34 de Valeria, 43 de Carlos y 42 de Julián. Una señal puede aparecer en varias plataformas. Los perfiles y las fotografías son ilustrativos; los retratos y el paisaje urbano se generaron a partir de la referencia visual B; las categorías de la biblioteca son una agrupación editorial.</p><p>Google y YouTube comparten 34 señales de la matriz y no constituyen filas adicionales. Programmatic es un canal propuesto; no tiene señales propias en la base original.</p></div><div class="detail-section"><h3>02 · Universo y territorio</h3><p>Los 53,7 M de contexto nacional, 22,5 M de adultos y 14,0 M de base de planeación son supuestos heredados del proyecto sin fuente demográfica verificada adjunta. La base urbana de 8,9 M y los potenciales por ciudad proceden de la referencia visual proporcionada; son ilustrativos y no tienen fuente demográfica verificada. El editor de medios permite cambiar el universo. La distribución territorial es una propuesta estratégica, no alcance medido.</p></div><div class="detail-section"><h3>03 · Modelo de alcance</h3><code>Impresionesᵢ = inversiónᵢ / CPMᵢ × 1.000<br>Rᵢ = U × capᵢ × (1 − e^(−impresionesᵢ / (U × capᵢ × kᵢ)))<br>Alcance ≈ U × [1 − ∏(1 − Rᵢ / U)]<br>Frecuencia = impresiones totales / alcance</code><p>El alcance se limita al universo y cada canal tiene una curva de saturación. La combinación supone independencia entre medios: es una aproximación para planeación, no una deduplicación medida.</p><p>CPM iniciales (COP): Meta 9.200; Google 12.500; TikTok 8.200; YouTube 10.500; Programmatic 9.800. Límites de cobertura: 78%, 62%, 58%, 66% y 46%, respectivamente. kᵢ = 1,85 + (1 − capᵢ) × 1,6. Estos valores son supuestos editables o heredados, no cotizaciones.</p></div><div class="detail-section"><h3>04 · Qué exportas</h3><p>En Intereses, el CSV incluye todas las filas filtradas, no solo la página visible. En Medios, exporta la distribución de registros por entorno y perfil. En el Simulador, exporta las 12 olas de Día + Noche o el escenario de inversión por medios, según la pestaña activa. Resumen y Audiencias exportan la matriz completa con táctica y validación.</p></div><div class="detail-section"><h3>05 · Guardado</h3><p>El escenario se guarda únicamente en este navegador. La comparación admite hasta tres escenarios. Restablecer devuelve los valores iniciales del simulador; borrar comparación elimina los escenarios guardados.</p></div>`);
@@ -392,6 +440,13 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     const button=event.target.closest('button');if(!button)return;
     const d=button.dataset;
     if(d.goto)navigate(d.goto);
+    if(d.guideOpen)showSegmentationGuide(d.guideOpen,d.guideSignal!==undefined?Number(d.guideSignal):null);
+    if(d.guideTab&&Segmentation.channels[d.guideTab]){
+      if(d.guideScope==='library'){libraryGuideChannel=d.guideTab;renderLibraryGuide();}
+      else showSegmentationGuide(d.guideTab,dialogGuide.signalId);
+      $(`[data-guide-tab="${d.guideTab}"][data-guide-scope="${d.guideScope}"]`).focus({preventScroll:true});
+    }
+    if(d.copyGuide&&Segmentation.channels[d.copyGuide])copySegmentationGuide(d.copyGuide,d.guideScope);
     if(d.product){selectProduct(d.product);renderSidebar();renderSummary();renderMedia();renderLibrary();}
     if(d.focusPerson){if(currentView==='media'){selectPerson(d.focusPerson);renderSidebar();renderMedia();}else openLibrary({person:d.focusPerson});}
     if(d.allPersonas!==undefined){filters.person='all';renderSidebar();if(currentView==='media')renderMedia();else if(currentView==='library')renderLibrary();else navigate('audiences');}
@@ -417,7 +472,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
   $('#productDayShare').addEventListener('input',e=>changeProductShare(e.target.value));
   $('#productNightShare').addEventListener('input',e=>changeProductShare(e.target.value,true));
   $('#libSearch').addEventListener('input',event=>{filters.query=event.target.value.trim();filters.page=1;renderLibrary();});
-  $('#platformFilter').addEventListener('change',event=>{filters.platform=event.target.value;filters.page=1;renderLibrary();});
+  $('#platformFilter').addEventListener('change',event=>{filters.platform=event.target.value;filters.page=1;if(Segmentation.channels[filters.platform])libraryGuideChannel=filters.platform;renderLibrary();});
   $('#filterToggle').addEventListener('click',()=>{const panel=$('#libraryFilters');panel.hidden=!panel.hidden;$('#filterToggle').setAttribute('aria-expanded',String(!panel.hidden));});
   $('#clearFilters').addEventListener('click',clearFilters);
   $('#exportBtn').addEventListener('click',exportCSV);
