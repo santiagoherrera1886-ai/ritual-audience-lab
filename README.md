@@ -58,3 +58,11 @@ La versión B previa permanece disponible en el historial de Git. El proyecto se
 ![Simulador Día y Noche](docs/Ritual_Atlas_Simulador.jpg)
 
 Verificación final en navegador de escritorio (1363 px): las cinco vistas, fotografías sin fallos de carga, búsqueda de Yoga con cuatro resultados, controles del simulador por producto, caso 100% Día y persistencia al recargar. Se corrigieron solapamientos de etiquetas en los gráficos y la cabecera del mapa. El diseño responsive está implementado; el entorno no permitió inspección visual con un viewport móvil.
+
+## Corrección de filtros de Carlos · 1 de octubre de 2026
+
+Las 43 señales originales de Carlos corresponden a Día / recuperación. Al seleccionarlo desde Noche Plena, el atlas libera el filtro de producto incompatible y muestra un aviso; conserva los otros filtros activos en la barra de Intereses. Al elegir un producto incompatible con el perfil seleccionado, da prioridad al producto y libera el perfil. Los filtros compatibles se conservan y el contador de Intereses muestra la persona y el producto activos.
+
+Verificado en el sitio publicado: Carlos con Meta muestra 22 señales; Carlos en Medios muestra 43, distribuidas en Meta 22, TikTok 10 y Google/YouTube 11 compartidas. Seleccionar Valeria conserva Noche Plena y muestra 34 señales. No se modificó la matriz original.
+
+![Carlos con sus 43 señales visibles](docs/Ritual_Carlos_Filtros_Corregidos.jpg)
