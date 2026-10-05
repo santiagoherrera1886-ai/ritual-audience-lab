@@ -2415,6 +2415,163 @@ body{
   #library .category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   #library .interests-grid{grid-template-columns:1fr}
 }
+
+/* =========================================================
+   KW SEARCH JOURNEY · PERSON-CENTRIC RESEARCH
+   ========================================================= */
+#library .kw-research-panel{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  margin:0 0 18px;
+  padding:16px;
+  border:1px solid #2a4965;
+  border-radius:18px;
+  background:
+    radial-gradient(430px 180px at 0% 0%,#1c78b41c,transparent 70%),
+    linear-gradient(145deg,#0b1828,#08131f);
+  box-shadow:inset 0 1px #ffffff08;
+}
+#library .kw-research-panel[hidden]{display:none!important}
+.kw-journey-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:18px;
+}
+.kw-journey-head h3{
+  font-size:20px;
+  letter-spacing:-.035em;
+  margin-top:3px;
+}
+.kw-journey-head p{
+  max-width:720px;
+  color:#8e9db1;
+  font-size:10px;
+  line-height:1.55;
+}
+.kw-total{
+  text-align:right;
+  flex:none;
+}
+.kw-total b{
+  display:block;
+  font-size:30px;
+  line-height:1;
+  color:#68e9e3;
+}
+.kw-total span{
+  font-size:8px;
+  color:#72839a;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+.kw-stages{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:8px;
+}
+.kw-stage{
+  min-height:84px;
+  padding:11px 12px;
+  border:1px solid #273e59;
+  border-radius:13px;
+  background:#0a1725;
+  text-align:left;
+}
+.kw-stage:hover,.kw-stage.active{
+  border-color:#52a9c4;
+  background:#0d2132;
+}
+.kw-stage .n{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:#6d7e95;
+  font-size:8px;
+  letter-spacing:.1em;
+}
+.kw-stage b{
+  display:block;
+  font-size:12px;
+  color:#e9f0f8;
+  margin:5px 0 3px;
+}
+.kw-stage small{
+  color:#74849a;
+  font-size:8px;
+  line-height:1.35;
+}
+.kw-stage .count{
+  color:#63e6df;
+  font-weight:800;
+}
+.kw-families{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+.kw-family{
+  padding:7px 10px;
+  border:1px solid #2c405a;
+  border-radius:999px;
+  background:#091522;
+  color:#9cabbe;
+  font-size:9px;
+  font-weight:700;
+}
+.kw-family:hover,.kw-family.active{
+  border-color:#59e2d7;
+  color:#eafefd;
+  background:#0c282f;
+}
+.interest-card.kw-card{
+  min-height:214px!important;
+}
+.kw-card .kw-taxonomy{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:2px;
+}
+.kw-card .kw-taxonomy span{
+  display:inline-flex;
+  padding:4px 7px;
+  border-radius:999px;
+  border:1px solid #29435f;
+  color:#92a3b8;
+  background:#0a1624;
+  font-size:7.5px;
+  font-weight:750;
+}
+.kw-card .kw-taxonomy .stage{
+  color:#61e6df;
+  border-color:#2b6b6b;
+}
+.kw-card .kw-program{
+  margin-top:1px;
+  padding-top:8px;
+  border-top:1px solid #1d3047;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+  font-size:8px;
+}
+.kw-card .kw-program b{
+  font-size:9px;
+  color:#b7c5d6;
+}
+.kw-card .kw-program span{
+  color:#718198;
+}
+@media(max-width:1100px){
+  .kw-stages{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .kw-stages{grid-template-columns:1fr 1fr}
+  .kw-journey-head{display:block}
+  .kw-total{text-align:left;margin-top:10px}
+}
 </style></head><body data-view="summary"><a class="skip-link" href="#main">Saltar al contenido</a><header class="topbar"><button class="mobile-menu icon-button" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false"><i data-icon="menu"></i></button><a class="brand" href="#summary" data-nav="summary" aria-label="Universidad Ean, Audience Atlas 2027"><img class="ean-logo" src="https://raw.githubusercontent.com/santiagoherrera1886-ai/ritual-audience-lab/ean-audience-atlas-preview/assets/ean-logo-white.png?v=4" alt="Universidad Ean — Acreditada en Alta Calidad"><span class="brand-sub">AUDIENCE<br>ATLAS / 2027</span></a><nav class="top-nav" aria-label="Secciones del atlas"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="top-actions"><span class="country">COLOMBIA <span>·</span> 2027</span><button class="button button-primary export-button" id="exportTop" type="button"><i data-icon="download"></i>Exportar CSV</button></div></header><div class="mobile-scrim" id="scrim"></div><aside class="sidebar" id="sidebar" aria-label="Momentos y clústeres"><nav class="mobile-nav" aria-label="Navegación principal"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="side-label">01 / Momento de decisión</div><div id="sideMoments"></div><button class="all-button" type="button" data-nav="audiences" data-m="all"><i data-icon="target"></i>Explorar ambos momentos<i data-icon="arrow-right"></i></button><div class="side-divider"></div><div class="side-label">02 / Clústeres de audiencia</div><div id="sidePersonas"></div><button class="all-button all-clusters" type="button" data-nav="audiences" data-m="all"><i data-icon="arrow-up-right"></i>Ver todos los clústeres</button><div class="side-note"><div><i data-icon="chart"></i><strong>Matriz estratégica,<br>no alcance medido</strong></div><p><span id="sideLibCount">—</span> registros sugeridos. La disponibilidad exacta de cada interés y el tamaño de audiencia se verifican en cada plataforma.</p></div></aside><div class="app-body"><main id="main" tabindex="-1"><!-- ================= RESUMEN ================= --><section id="summary" class="view active" aria-labelledby="summaryTitle"><div class="atlas-grid"><div class="summary-primary"><section class="hero" aria-label="Portada"><div class="hero-copy"><div class="eyebrow">Universidad Ean · Audience Atlas 2027</div><h1 id="summaryTitle">La universidad<br><span>del emprendimiento,</span><br>donde se decide.</h1><p>Dos momentos de decisión, pregrado y posgrado. Un universo de personas, señales y afinidades para conectar la Ean con quien está eligiendo dónde estudiar.</p><div class="hero-actions"><button class="button button-primary" type="button" data-nav="audiences" data-m="all">Explorar audiencias<i data-icon="arrow-right"></i></button><button class="button button-ghost" type="button" data-nav="sim">Abrir el simulador</button></div></div><div class="hero-labels" id="heroLabels"></div><span class="hero-caption">Vista ilustrativa · ciudad andina al atardecer</span></section><section class="panel geo" aria-labelledby="geoTitle"><div class="geo-head"><div><div class="eyebrow">Colombia · Geografía de oportunidad</div><h2 id="geoTitle">¿Dónde están estas personas?</h2><p>Ciudades prioritarias para explorar afinidad con la Ean.</p></div><div class="segmented" role="group" aria-label="Capa del mapa"><button type="button" data-layer="pre" aria-pressed="true">Pregrado</button><button type="button" data-layer="pos" aria-pressed="false">Posgrado</button></div></div><div class="map-canvas" id="mapCanvas"></div><div class="geo-side"><div class="city-detail" id="cityDetail"></div><div class="city-list" id="cityList"></div></div></section></div><div class="summary-secondary"><section class="panel universe"><div class="panel-overline"><span class="eyebrow">Universo Ean · 2027</span><button class="text-button" type="button" data-action="method">Supuestos de planeación</button></div><h2>Audiencia única planeable</h2><div class="universe-main"><div><strong id="uniqTotal">5,0 M</strong><span><i data-icon="people"></i>personas en Colombia</span></div><p>Un universo de oportunidades para llegar a quien decide estudiar, en el momento en que lo decide.</p></div><div class="context-kpis" id="contextKpis"></div></section><section class="panel ecosystem"><div class="eyebrow">Ecosistema de medios</div><div class="ecosystem-grid" id="ecosystem"></div></section><section class="panel audience-funnel"><div class="eyebrow">Contexto de audiencia · De Colombia a la Ean</div><p>Referencias de planeación para dimensionar la oportunidad. Supuestos, no mediciones.</p><div class="funnel-layout"><div class="funnel-rows" id="funnelRows"></div><div class="funnel-target"><i data-icon="target"></i><strong id="funnelTotal">5,0 M</strong><b>personas planeables</b><p>Pregrado y posgrado se superponen: los universos no se suman.</p><button class="text-button" type="button" data-nav="sim">Ver intersección<i data-icon="arrow-up-right"></i></button></div></div></section><section class="panel panel-pad" aria-labelledby="calTitle"><div class="eyebrow">Calendario de admisiones</div><h2 id="calTitle" style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 2px">Cuatro olas en 2027</h2><div id="calendar"></div></section></div></div></section><!-- ================= AUDIENCIAS ================= --><section id="audiences" class="view" aria-labelledby="audiencesTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Clústeres / Momentos</div><h1 id="audiencesTitle">Doce perfiles, <span>dos momentos.</span></h1><p>Cada clúster trae edad, tamaño ilustrativo, qué lo activa, programas afines, afinidad por plataforma y el mensaje que debería recibir.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters" id="audCounters"></div><div class="segmented" role="group" aria-label="Filtrar por momento" id="audFilter"><button type="button" data-m="all" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button></div></div></div><div class="note" style="margin-bottom:16px">Los aspirantes de 16 y 17 años no se pueden segmentar por intereses en Meta, TikTok ni Google (solo edad, ubicación y género; en varias plataformas la edad mínima para pauta es 18). Por eso pregrado se planea sobre 18 a 21 años más padres y madres decisores.</div><div class="persona-cards" id="personaCards"></div></section><!-- ================= MEDIOS ================= --><section id="media" class="view" aria-labelledby="mediaTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Canales / Territorios</div><h1 id="mediaTitle">Cada audiencia, <span>su plataforma.</span></h1><p>Explora las señales por entorno y descubre qué clúster está presente en cada uno. Selecciona un canal para ver sus señales y oportunidades.</p></div><div class="counters" id="mediaCounters"></div></div><div class="platform-cards" id="platformCards"></div><div class="heading-row" style="margin-top:28px;margin-bottom:0"><div class="page-heading"><div class="eyebrow">Mix sugerido por momento</div><h2 style="font-size:26px;font-weight:900;letter-spacing:-.04em;margin:6px 0 4px">Dónde va cada peso</h2></div></div><div class="mix-cards" id="mixSuggested"></div><section class="panel panel-pad" style="margin-top:16px"><div class="eyebrow">Embudo de admisiones</div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 6px">De la impresión a la matrícula</h2><p class="small muted" style="max-width:66ch">Supuestos de planeación por plataforma: CPM, tasa de clics y conversión a lead. Las conversiones de lead a inscrito y de inscrito a matriculado se ajustan en el simulador.</p><div class="table-scroll" style="margin-top:10px"><table id="funnelTable"></table></div></section></section><!-- ================= INTERESES ================= --><section id="library" class="view" aria-labelledby="libraryTitle" hidden>
   <div class="library-hero">
     <div class="page-heading">
@@ -2427,7 +2584,7 @@ body{
       <span><b>Encuentra y combina audiencias</b><small>Explora las señales sugeridas y cruza filtros para construir segmentos más precisos.</small></span>
     </aside>
     <button id="exportLib" type="button" hidden aria-hidden="true">Exportar CSV</button>
-  </div><div class="library-toolbar"><label class="search-field"><i data-icon="search"></i><input type="search" id="q" placeholder="Buscar interés, cargo, palabra clave o clúster…" autocomplete="off" aria-label="Buscar en la biblioteca"></label><button class="button button-ghost button-small" type="button" id="clearFilters"><i data-icon="close"></i>Limpiar filtros</button><div class="view-switch" aria-label="Vista"><button class="icon-button active" type="button" data-lib-view="grid" aria-label="Ver tarjetas" aria-pressed="true"><i data-icon="grid"></i></button><button class="icon-button" type="button" data-lib-view="table" aria-label="Ver tabla" aria-pressed="false"><i data-icon="list"></i></button></div></div><div class="filters-row"><div class="segmented" id="libMoment" role="group" aria-label="Momento"><button type="button" data-m="" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button><button type="button" data-m="ambos" aria-pressed="false">Ambos</button></div><select id="fPlat" aria-label="Plataforma"><option value="">Todas las plataformas</option></select><select id="fCluster" aria-label="Clúster"><option value="">Todos los clústeres</option></select></div><div class="category-grid" id="categoryGrid"></div><div class="result-row"><span class="result-count" id="resultCount"></span><span class="small muted">Las tarjetas muestran 24 por página.</span></div><div id="libGrid" class="interests-grid"></div><div id="libTable" class="table-scroll" hidden><table class="lib-table" id="libTableEl"></table></div><div class="pagination" id="pagination"></div></section><!-- ================= SIMULADOR ================= --><section id="sim" class="view" aria-labelledby="simTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Simulador / Pregrado + Posgrado</div><h1 id="simTitle">Alcance, frecuencia <span>y admisiones.</span></h1><p>Modelo de planificación con universos e intersección supuestos. No representa mediciones de campañas.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters sim-context" id="simContext"></div><div style="display:flex;gap:8px"><button class="button button-ghost button-small" type="button" data-action="method"><i data-icon="info"></i>Ver supuestos</button><button class="button button-ghost button-small" type="button" id="resetSim">Restablecer</button></div></div></div><div class="sim-grid"><section class="panel config-panel" aria-label="Configuración del escenario"><div><div class="eyebrow">Configura tu escenario</div><p class="small muted" style="margin-top:4px">Define la inversión y el peso entre los dos momentos.</p></div><div class="ctrl-row"><div class="lbl"><span>Inversión total 2027</span><output id="oBudget">$1.800 M COP</output></div><input type="range" id="iBudget" min="300" max="5000" step="50" value="1800" aria-label="Inversión total en millones de pesos"><div class="hint">Millones de pesos en pauta, sin producción ni fee.</div></div><div id="allocations"></div><div class="ctrl-row"><div class="lbl"><span>Lead a inscrito</span><output id="oR1">Pre 10% · Pos 12%</output></div><input type="range" id="iR1pre" min="3" max="30" step="1" value="10" aria-label="Conversión de lead a inscrito en pregrado"><input type="range" id="iR1pos" min="3" max="30" step="1" value="12" aria-label="Conversión de lead a inscrito en posgrado"></div><div class="ctrl-row"><div class="lbl"><span>Inscrito a matriculado</span><output id="oR2">Pre 40% · Pos 45%</output></div><input type="range" id="iR2pre" min="10" max="80" step="1" value="40" aria-label="Conversión de inscrito a matriculado en pregrado"><input type="range" id="iR2pos" min="10" max="80" step="1" value="45" aria-label="Conversión de inscrito a matriculado en posgrado"></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix pregrado</div><div class="mix-table" id="mixPre"></div></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix posgrado</div><div class="mix-table" id="mixPos"></div></div><p class="small muted" style="font-size:10px">Cada mix suma 100%. Los demás canales se ajustan al mover un porcentaje.</p></section><div class="sim-right"><div class="kpis" id="kpis"></div><section class="panel panel-pad"><div class="eyebrow">Audiencia única estimada</div><div class="venn-wrap" style="margin-top:8px"><div id="venn"></div><div class="venn-text"><strong>Audiencia única =<br>Pregrado + Posgrado<br>− intersección</strong><b id="vennUnique">—</b><span>personas únicas proyectadas al cierre de las cuatro olas</span></div></div></section><div class="charts"><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Curva de alcance acumulado</div><p>Personas únicas por ola de campaña · proyección.</p></div></div><div id="chartReach"></div><div class="legend"><span><i style="background:#fff"></i>Pregrado + posgrado</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Frecuencia promedio</div><p>Exposiciones por persona alcanzada · proyección.</p></div></div><div id="chartFreq"></div><div class="legend"><span><i style="background:#fff"></i>Total</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section></div><section class="panel panel-pad"><div class="eyebrow">Embudo de admisiones proyectado</div><div id="funnels" style="display:grid;gap:14px;margin-top:10px"></div></section><section class="panel panel-pad"><div class="eyebrow">Alcance y frecuencia por plataforma</div><div class="table-scroll" style="margin-top:8px"><table id="platTable"></table></div></section><section class="panel panel-pad"><div class="heading-row" style="margin-bottom:12px"><div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em">Escenarios rápidos</h2><p class="small muted">Encuentra tu punto de partida. Al elegir uno se aplican su inversión, reparto y mix.</p></div><button class="button button-primary button-small" type="button" id="compareBtn">Aplicar y comparar<i data-icon="arrow-right"></i></button></div><div class="scen" id="scenarios"></div><div id="compare" style="margin-top:14px"></div></section><div class="method-note"><i data-icon="sparkles"></i><div><b>Modelo de planificación</b><p>Proyección con universos e intersección supuestos. No representa mediciones de campañas. Los CPM, CTR y conversiones son supuestos de planeación editables en <code>data.js</code>.</p><button class="text-button" type="button" data-action="method">Ver supuestos<i data-icon="arrow-up-right"></i></button></div></div></div></div></section></main></div><dialog id="dialog" aria-labelledby="dialogTitle"><div class="dialog-top"><span class="eyebrow" id="dialogEyebrow"></span><button class="icon-button" type="button" id="closeDialog" aria-label="Cerrar"><i data-icon="close"></i></button></div><div class="dialog-body" id="dialogBody"></div></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div><script>/* =====================================================================
+  </div><div class="library-toolbar"><label class="search-field"><i data-icon="search"></i><input type="search" id="q" placeholder="Buscar interés, cargo, palabra clave o clúster…" autocomplete="off" aria-label="Buscar en la biblioteca"></label><button class="button button-ghost button-small" type="button" id="clearFilters"><i data-icon="close"></i>Limpiar filtros</button><div class="view-switch" aria-label="Vista"><button class="icon-button active" type="button" data-lib-view="grid" aria-label="Ver tarjetas" aria-pressed="true"><i data-icon="grid"></i></button><button class="icon-button" type="button" data-lib-view="table" aria-label="Ver tabla" aria-pressed="false"><i data-icon="list"></i></button></div></div><div class="filters-row"><div class="segmented" id="libMoment" role="group" aria-label="Momento"><button type="button" data-m="" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button><button type="button" data-m="ambos" aria-pressed="false">Ambos</button></div><select id="fPlat" aria-label="Plataforma"><option value="">Todas las plataformas</option></select><select id="fCluster" aria-label="Clúster"><option value="">Todos los clústeres</option></select></div><div class="category-grid" id="categoryGrid"></div><div id="kwResearchPanel" class="kw-research-panel" hidden></div><div class="result-row"><span class="result-count" id="resultCount"></span><span class="small muted">Las tarjetas muestran 24 por página.</span></div><div id="libGrid" class="interests-grid"></div><div id="libTable" class="table-scroll" hidden><table class="lib-table" id="libTableEl"></table></div><div class="pagination" id="pagination"></div></section><!-- ================= SIMULADOR ================= --><section id="sim" class="view" aria-labelledby="simTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Simulador / Pregrado + Posgrado</div><h1 id="simTitle">Alcance, frecuencia <span>y admisiones.</span></h1><p>Modelo de planificación con universos e intersección supuestos. No representa mediciones de campañas.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters sim-context" id="simContext"></div><div style="display:flex;gap:8px"><button class="button button-ghost button-small" type="button" data-action="method"><i data-icon="info"></i>Ver supuestos</button><button class="button button-ghost button-small" type="button" id="resetSim">Restablecer</button></div></div></div><div class="sim-grid"><section class="panel config-panel" aria-label="Configuración del escenario"><div><div class="eyebrow">Configura tu escenario</div><p class="small muted" style="margin-top:4px">Define la inversión y el peso entre los dos momentos.</p></div><div class="ctrl-row"><div class="lbl"><span>Inversión total 2027</span><output id="oBudget">$1.800 M COP</output></div><input type="range" id="iBudget" min="300" max="5000" step="50" value="1800" aria-label="Inversión total en millones de pesos"><div class="hint">Millones de pesos en pauta, sin producción ni fee.</div></div><div id="allocations"></div><div class="ctrl-row"><div class="lbl"><span>Lead a inscrito</span><output id="oR1">Pre 10% · Pos 12%</output></div><input type="range" id="iR1pre" min="3" max="30" step="1" value="10" aria-label="Conversión de lead a inscrito en pregrado"><input type="range" id="iR1pos" min="3" max="30" step="1" value="12" aria-label="Conversión de lead a inscrito en posgrado"></div><div class="ctrl-row"><div class="lbl"><span>Inscrito a matriculado</span><output id="oR2">Pre 40% · Pos 45%</output></div><input type="range" id="iR2pre" min="10" max="80" step="1" value="40" aria-label="Conversión de inscrito a matriculado en pregrado"><input type="range" id="iR2pos" min="10" max="80" step="1" value="45" aria-label="Conversión de inscrito a matriculado en posgrado"></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix pregrado</div><div class="mix-table" id="mixPre"></div></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix posgrado</div><div class="mix-table" id="mixPos"></div></div><p class="small muted" style="font-size:10px">Cada mix suma 100%. Los demás canales se ajustan al mover un porcentaje.</p></section><div class="sim-right"><div class="kpis" id="kpis"></div><section class="panel panel-pad"><div class="eyebrow">Audiencia única estimada</div><div class="venn-wrap" style="margin-top:8px"><div id="venn"></div><div class="venn-text"><strong>Audiencia única =<br>Pregrado + Posgrado<br>− intersección</strong><b id="vennUnique">—</b><span>personas únicas proyectadas al cierre de las cuatro olas</span></div></div></section><div class="charts"><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Curva de alcance acumulado</div><p>Personas únicas por ola de campaña · proyección.</p></div></div><div id="chartReach"></div><div class="legend"><span><i style="background:#fff"></i>Pregrado + posgrado</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Frecuencia promedio</div><p>Exposiciones por persona alcanzada · proyección.</p></div></div><div id="chartFreq"></div><div class="legend"><span><i style="background:#fff"></i>Total</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section></div><section class="panel panel-pad"><div class="eyebrow">Embudo de admisiones proyectado</div><div id="funnels" style="display:grid;gap:14px;margin-top:10px"></div></section><section class="panel panel-pad"><div class="eyebrow">Alcance y frecuencia por plataforma</div><div class="table-scroll" style="margin-top:8px"><table id="platTable"></table></div></section><section class="panel panel-pad"><div class="heading-row" style="margin-bottom:12px"><div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em">Escenarios rápidos</h2><p class="small muted">Encuentra tu punto de partida. Al elegir uno se aplican su inversión, reparto y mix.</p></div><button class="button button-primary button-small" type="button" id="compareBtn">Aplicar y comparar<i data-icon="arrow-right"></i></button></div><div class="scen" id="scenarios"></div><div id="compare" style="margin-top:14px"></div></section><div class="method-note"><i data-icon="sparkles"></i><div><b>Modelo de planificación</b><p>Proyección con universos e intersección supuestos. No representa mediciones de campañas. Los CPM, CTR y conversiones son supuestos de planeación editables en <code>data.js</code>.</p><button class="text-button" type="button" data-action="method">Ver supuestos<i data-icon="arrow-up-right"></i></button></div></div></div></div></section></main></div><dialog id="dialog" aria-labelledby="dialogTitle"><div class="dialog-top"><span class="eyebrow" id="dialogEyebrow"></span><button class="icon-button" type="button" id="closeDialog" aria-label="Cerrar"><i data-icon="close"></i></button></div><div class="dialog-body" id="dialogBody"></div></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div><script>/* =====================================================================
    DATOS DEL ATLAS — todo son supuestos de planeación (ilustrativos).
    Para cambiar números, clústeres, ciudades o señales, edita solo este archivo.
    ===================================================================== */
@@ -2969,7 +3126,36 @@ POS_KW_PROGRAMS.forEach(([p,cl])=>{
   ].forEach(([kw,note])=>addKW('pos',kw,cl,note));
 });
 
-const LIB = LIB_RAW.map((r,i)=>({ id:i+1, m:r[0], plat:r[1], tipo:r[2], nombre:r[3], clusters:r[4].split(',').map(s=>s.trim()).filter(Boolean), nota:r[5] }));
+
+/* KW_OFERTA_EAN_2026 · búsquedas exactas y modificadores de oferta oficial */
+const KW_OFERTA_EAN_2026=[
+  // pregrado
+  ['pre','administración en salud','c1,c3'],['pre','administración en salud bogotá','c1,c3'],
+  ['pre','comunicación universidad bogotá','c5'],['pre','estudios y gestión cultural','c5'],
+  ['pre','ingeniería de producción bogotá','c2'],['pre','turismo sostenible universidad','c5,c6'],
+  // especializaciones
+  ['pos','especialización gerencia de ciberseguridad','p2'],['pos','especialización gerencia de procesos de calidad e innovación','p1,p3'],
+  ['pos','especialización gerencia logística global y digital','p3'],['pos','especialización gestión de sistemas y tecnologías de información','p2'],
+  ['pos','especialización inteligencia comercial y de mercadeo','p1'],['pos','especialización gestión humana','p6'],
+  ['pos','especialización fintech bogotá','p2,p3'],['pos','especialización machine learning bogotá','p2'],
+  // maestrías
+  ['pos','maestría administración de empresas mba','p1'],['pos','mba one year colombia','p1'],
+  ['pos','maestría administración de empresas de salud','p4,p1'],['pos','mba en ingeniería','p2,p1'],
+  ['pos','maestría ciencia de datos','p2'],['pos','maestría comunicación estratégica','p5,p1'],
+  ['pos','maestría creación de contenido y social listening','p1,p5'],
+  ['pos','maestría emprendimiento sostenible con tecnología','p3,p1'],
+  ['pos','maestría gerencia de la bioeconomía','p3,p4'],
+  ['pos','maestría gerencia cadena de abastecimiento','p3'],
+  ['pos','maestría gerencia sostenibilidad transformación regenerativa','p3,p4'],
+  ['pos','maestría gerencia de proyectos','p1'],['pos','maestría sistemas de información proyectos tecnológicos','p2'],
+  ['pos','maestría gerencia inteligencia artificial','p2,p1'],['pos','maestría gestión educación virtual','p5'],
+  ['pos','maestría gestión financiera','p3,p1'],['pos','maestría gobierno y gestión pública','p4'],
+  ['pos','maestría ingeniería de procesos','p2'],['pos','maestría innovación','p1,p3'],
+  ['pos','maestría inteligencia de negocios','p2,p1'],['pos','maestría mercadeo digital','p1']
+];
+KW_OFERTA_EAN_2026.forEach(([m,kw,cl])=>addKW(m,kw,cl,'Oferta oficial Ean · keyword de programa; validar volumen/CPC en Keyword Planner.'));
+
+const LIB = LIB_RAW.map((r,i)=>{ const row={ id:i+1, m:r[0], plat:r[1], tipo:r[2], nombre:r[3], clusters:r[4].split(',').map(s=>s.trim()).filter(Boolean), nota:r[5] }; if(row.plat==='Google'&&row.tipo==='Palabra clave') row.kw=kwMetaOf(row.nombre,row.m); return row; });
 const CL = Object.fromEntries(CLUSTERS.map(c=>[c.id,c]));
 return { UNIVERSE, MOMENTS, PLATFORMS, PLAT, PLAT_LIB, DEFAULT_MIX, WAVES, CLUSTERS, CL, CITIES, ROLE_LABEL, SCENARIOS, CALENDAR, LIB };
 })();
@@ -3264,14 +3450,121 @@ function platDialog(id){
 }
 
 /* ---------- biblioteca ---------- */
-const lib = { q:'', m:'', plat:'', cluster:'', tipo:'', view:'grid', page:1, per:24 };
+const lib = { q:'', m:'', plat:'', cluster:'', tipo:'', kwStage:'', kwFamily:'', view:'grid', page:1, per:24 };
+
+const KW_PROGRAM_CATALOG=[
+  // Pregrados oficiales Ean
+  ['Administración de Empresas','Pregrado','Negocios'],['Administración en Salud','Pregrado','Salud y gestión'],
+  ['Administración Pública','Pregrado','Negocios'],['Comunicación','Pregrado','Humanidades'],
+  ['Contaduría Pública','Pregrado','Negocios'],['Diseño','Pregrado','Creatividad'],
+  ['Economía','Pregrado','Negocios'],['Estudios y Gestión Cultural','Pregrado','Creatividad'],
+  ['Ingeniería Ambiental','Pregrado','Ingenierías'],['Ingeniería de Producción','Pregrado','Ingenierías'],
+  ['Ingeniería de Sistemas','Pregrado','Ingenierías'],['Ingeniería en Ciencia de Datos','Pregrado','Ingenierías'],
+  ['Ingeniería en Energías','Pregrado','Ingenierías'],['Ingeniería en Inteligencia Artificial','Pregrado','Ingenierías'],
+  ['Ingeniería Industrial','Pregrado','Ingenierías'],['Ingeniería Mecatrónica','Pregrado','Ingenierías'],
+  ['Ingeniería Química','Pregrado','Ingenierías'],['Lenguas Modernas','Pregrado','Humanidades'],
+  ['Mercadeo y Estrategia Comercial','Pregrado','Negocios'],['Negocios Internacionales','Pregrado','Negocios'],
+  ['Psicología','Pregrado','Humanidades'],['Turismo Sostenible','Pregrado','Sostenibilidad'],
+
+  // Especializaciones oficiales Ean
+  ['Administración Financiera','Especialización','Negocios'],['Auditoría y Garantía de Calidad en Salud','Especialización','Salud y gestión'],
+  ['Fintech','Especialización','Tecnología y finanzas'],['Gerencia de Ciberseguridad','Especialización','Tecnología'],
+  ['Gerencia de Mercadeo','Especialización','Negocios'],['Gerencia de Procesos de Calidad e Innovación','Especialización','Gerencia'],
+  ['Gerencia de Proyectos','Especialización','Gerencia'],['Gerencia de Tecnología','Especialización','Tecnología'],
+  ['Gerencia Logística Global y Digital','Especialización','Logística'],['Gestión de Sistemas y Tecnologías de la Información en la Empresa','Especialización','Tecnología'],
+  ['Gestión Humana','Especialización','Talento'],['Gobierno y Gerencia Pública','Especialización','Sector público'],
+  ['Inteligencia Comercial y de Mercadeo','Especialización','Negocios'],['Machine Learning','Especialización','Tecnología'],
+
+  // Maestrías oficiales Ean
+  ['Administración de Empresas MBA','Maestría / MBA','Negocios'],['MBA One Year','Maestría / MBA','Negocios'],
+  ['Administración de Empresas de Salud','Maestría','Salud y gestión'],['MBA en Ingeniería','Maestría / MBA','Ingenierías'],
+  ['Ciencia de Datos','Maestría','Tecnología'],['Comunicación Estratégica','Maestría','Humanidades'],
+  ['Creación de Contenido y Social Listening','Maestría','Marketing y contenidos'],
+  ['Emprendimiento Sostenible con Tecnología','Maestría','Emprendimiento'],
+  ['Gerencia de la Bioeconomía y Gobernanza Biotecnológica','Maestría','Sostenibilidad'],
+  ['Gerencia de la Cadena de Abastecimiento','Maestría','Logística'],
+  ['Gerencia de la Sostenibilidad y Transformación Regenerativa','Maestría','Sostenibilidad'],
+  ['Gerencia de Proyectos','Maestría','Gerencia'],
+  ['Gerencia de Sistemas de Información y Proyectos Tecnológicos','Maestría','Tecnología'],
+  ['Gerencia en Inteligencia Artificial','Maestría','Tecnología'],
+  ['Gestión de la Educación Virtual','Maestría','Educación'],['Gestión Financiera','Maestría','Negocios'],
+  ['Gobierno y Gestión Pública','Maestría','Sector público'],['Ingeniería de Procesos','Maestría','Ingenierías'],
+  ['Innovación','Maestría','Innovación'],['Inteligencia de Negocios','Maestría','Tecnología'],
+  ['Mercadeo Digital','Maestría','Marketing y contenidos']
+];
+
+const KW_STAGES=[
+  ['Descubrimiento','La persona todavía está definiendo qué estudiar o qué necesita.','01'],
+  ['Exploración','Ya busca universidad, carrera, posgrado, modalidad o ciudad.','02'],
+  ['Comparación','Evalúa calidad, reputación, empleabilidad y diferenciales.','03'],
+  ['Decisión','Busca precio, financiación, becas, inscripción o matrícula.','04'],
+  ['Marca','Ya conoce Ean y navega directamente hacia la oferta o admisiones.','05']
+];
+
+function kwProgramMatch(keyword){
+  const q=norm(keyword);
+  const aliases=[
+    ['mba','Administración de Empresas MBA','Maestría / MBA','Negocios'],
+    ['inteligencia artificial','Ingeniería en Inteligencia Artificial','Pregrado / Posgrado','Tecnología'],
+    ['ciencia de datos','Ingeniería en Ciencia de Datos','Pregrado / Posgrado','Tecnología'],
+    ['ciberseguridad','Gerencia de Ciberseguridad','Especialización','Tecnología'],
+    ['machine learning','Machine Learning','Especialización','Tecnología'],
+    ['fintech','Fintech','Especialización','Tecnología y finanzas']
+  ];
+  for(const a of aliases) if(q.includes(norm(a[0]))) return {program:a[1],level:a[2],area:a[3]};
+  const sorted=[...KW_PROGRAM_CATALOG].sort((a,b)=>b[0].length-a[0].length);
+  for(const p of sorted) if(q.includes(norm(p[0]))) return {program:p[0],level:p[1],area:p[2]};
+  return null;
+}
+function kwMetaOf(keyword,moment=''){
+  const q=norm(keyword);
+  const program=kwProgramMatch(keyword);
+  let stage='Exploración', intent='Comercial', family='Categoría / institución';
+
+  if(/\bean\b|universidad ean/.test(q)){
+    stage='Marca'; intent='Navegacional'; family='Marca Ean';
+  } else if(/inscripcion|admisiones|matricula|formulario|admitidos/.test(q)){
+    stage='Decisión'; intent='Transaccional'; family='Admisiones';
+  } else if(/precio|costo|costos|valor|financi|beca|credito educativo|cuanto vale/.test(q)){
+    stage='Decisión'; intent='Comercial alta'; family='Precio y financiación';
+  } else if(/mejor|mejores|acreditad|alta calidad|ranking|doble titul|doble grado|acca|empleabilidad|con futuro/.test(q)){
+    stage='Comparación'; intent='Comercial'; family='Calidad y diferenciales';
+  } else if(/que estudiar|qué estudiar|despues del colegio|orientacion|carreras con futuro|para emprender|para emprendedores/.test(q)){
+    stage='Descubrimiento'; intent='Informacional'; family='Orientación vocacional';
+  } else if(program){
+    stage='Exploración'; intent='Comercial'; family='Programa';
+  } else if(/virtual|online|presencial|bogota|colombia|regional/.test(q)){
+    stage='Exploración'; intent='Comercial'; family=/virtual|online|presencial/.test(q)?'Modalidad':'Ubicación';
+  } else if(/universidad|universidades|carrera|carreras|pregrado|posgrado|posgrados|especializacion|maestria|mba/.test(q)){
+    stage='Exploración'; intent='Comercial'; family='Categoría / institución';
+  }
+
+  if(stage==='Marca' && /inscripcion|admisiones|matricula|costo|precio|beca|financi/.test(q)){
+    intent='Transaccional';
+  }
+
+  return {
+    stage,intent,family,
+    program:program?.program||'—',
+    level:program?.level||(moment==='pre'?'Pregrado':moment==='pos'?'Posgrado':'Ambos'),
+    area:program?.area||'General'
+  };
+}
+
 const TIPO_TILES = {
   'Interés':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E','Palabra clave':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E','Cargo':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E','Hashtag':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E','Demográfico':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2311183c%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%238a5cff%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EAUDIENCIA%3C%2Ftext%3E%3C%2Fsvg%3E','Remarketing':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E','Lookalike':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2311183c%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%238a5cff%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EAUDIENCIA%3C%2Ftext%3E%3C%2Fsvg%3E','En el mercado':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E','Comportamiento':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E','Segmento personalizado':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E','Aptitud':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2311183c%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%238a5cff%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EAUDIENCIA%3C%2Ftext%3E%3C%2Fsvg%3E','Sector':'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230b1535%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2316665d%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3ECOLOMBIA%202027%3C%2Ftext%3E%3C%2Fsvg%3E'
 };
 function libFiltered(){
-  const q = norm(lib.q.trim());
-  return LIB.filter(r => (!lib.m || r.m===lib.m) && (!lib.plat || PLAT_LIB[lib.plat].includes(r.plat)) && (!lib.cluster || r.clusters.includes(lib.cluster)) && (!lib.tipo || r.tipo===lib.tipo) &&
-    (!q || norm(r.nombre+' '+r.nota+' '+r.plat+' '+r.tipo+' '+r.clusters.map(c=>CL[c].name).join(' ')).includes(q)));
+  const q=norm(lib.q.trim());
+  return LIB.filter(r=>
+    (!lib.m||r.m===lib.m) &&
+    (!lib.plat||PLAT_LIB[lib.plat].includes(r.plat)) &&
+    (!lib.cluster||r.clusters.includes(lib.cluster)) &&
+    (!lib.tipo||r.tipo===lib.tipo) &&
+    (!lib.kwStage||r.kw?.stage===lib.kwStage) &&
+    (!lib.kwFamily||r.kw?.family===lib.kwFamily) &&
+    (!q||norm(r.nombre+' '+r.nota+' '+r.plat+' '+r.tipo+' '+r.clusters.map(c=>CL[c].name).join(' ')+' '+(r.kw?Object.values(r.kw).join(' '):'')).includes(q))
+  );
 }
 function initLibrary(){
   $('#fPlat').innerHTML += PLATFORMS.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');
@@ -3281,7 +3574,7 @@ function initLibrary(){
   $('#fCluster').addEventListener('change', e => { lib.cluster=e.target.value; lib.page=1; renderLibrary(); });
   $('#libMoment').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; lib.m=b.dataset.m; lib.page=1; renderLibrary(); });
   $$('[data-lib-view]').forEach(b => b.addEventListener('click', () => { lib.view=b.dataset.libView; renderLibrary(); }));
-  $('#clearFilters').addEventListener('click', () => { Object.assign(lib,{q:'',m:'',plat:'',cluster:'',tipo:'',page:1}); renderLibrary(); });
+  $('#clearFilters').addEventListener('click', () => { Object.assign(lib,{q:'',m:'',plat:'',cluster:'',tipo:'',kwStage:'',kwFamily:'',page:1}); renderLibrary(); });
   $('#exportLib').addEventListener('click', () => exportCSV(false));
   $('#exportTop').addEventListener('click', () => exportCSV(true));
   renderLibrary();
@@ -3324,7 +3617,34 @@ function renderLibrary(){
       <span class="cap"><strong>${esc(t)}</strong><span>${n} señales</span></span>
     </button>`;
   }).join('');
-  $$('#categoryGrid .category-tile').forEach(b=>b.addEventListener('click',()=>{lib.tipo=lib.tipo===b.dataset.tipo?'':b.dataset.tipo;lib.page=1;renderLibrary();}));
+  $('#categoryGrid .category-tile').forEach(b=>b.addEventListener('click',()=>{lib.tipo=lib.tipo===b.dataset.tipo?'':b.dataset.tipo;lib.kwStage='';lib.kwFamily='';lib.page=1;renderLibrary();}));
+
+  const kwPanel=$('#kwResearchPanel');
+  const isKW=lib.tipo==='Palabra clave';
+  kwPanel.hidden=!isKW;
+  if(isKW){
+    const keywordBase=LIB.filter(r=>r.plat==='Google'&&r.tipo==='Palabra clave'&&(!lib.m||r.m===lib.m)&&(!lib.cluster||r.clusters.includes(lib.cluster)));
+    const stageCounts=Object.fromEntries(KW_STAGES.map(([name])=>[name,keywordBase.filter(r=>r.kw?.stage===name).length]));
+    const families={};
+    keywordBase.forEach(r=>{const k=r.kw?.family||'Otros';families[k]=(families[k]||0)+1;});
+    const familyList=Object.entries(families).sort((a,b)=>b[1]-a[1]);
+    kwPanel.innerHTML=\`<div class="kw-journey-head">
+      <div><div class="eyebrow">Search journey / cómo llega la persona</div><h3>De “¿qué estudio?” a “quiero matricularme”.</h3><p>Clasificación estratégica por momento mental de búsqueda. No son volúmenes de Keyword Planner: sirven para estructurar campañas, grupos de anuncios, landing pages y mensajes.</p></div>
+      <div class="kw-total"><b>\${keywordBase.length}</b><span>keywords mapeadas</span></div>
+    </div>
+    <div class="kw-stages">\${KW_STAGES.map(([name,desc,no])=>\`<button type="button" class="kw-stage \${lib.kwStage===name?'active':''}" data-kw-stage="\${name}">
+      <span class="n"><span>\${no}</span><span class="count">\${stageCounts[name]||0}</span></span>
+      <b>\${name}</b><small>\${desc}</small>
+    </button>\`).join('')}</div>
+    <div class="kw-families">
+      <button type="button" class="kw-family \${!lib.kwFamily?'active':''}" data-kw-family="">Todas las familias</button>
+      \${familyList.map(([name,n])=>\`<button type="button" class="kw-family \${lib.kwFamily===name?'active':''}" data-kw-family="\${esc(name)}">\${esc(name)} · \${n}</button>\`).join('')}
+    </div>\`;
+    $('[data-kw-stage]',kwPanel).forEach(b=>b.addEventListener('click',()=>{lib.kwStage=lib.kwStage===b.dataset.kwStage?'':b.dataset.kwStage;lib.page=1;renderLibrary();}));
+    $('[data-kw-family]',kwPanel).forEach(b=>b.addEventListener('click',()=>{lib.kwFamily=b.dataset.kwFamily;lib.page=1;renderLibrary();}));
+  }else{
+    lib.kwStage='';lib.kwFamily='';
+  }
 
   const rows=libFiltered();
   const pages=Math.max(1,Math.ceil(rows.length/lib.per)); lib.page=Math.min(lib.page,pages);
@@ -3339,17 +3659,30 @@ function renderLibrary(){
       const pm=PLAT_META[r.plat]||[r.plat.slice(0,1),'#8eb1cf'];
       const note=r.nota||`${r.tipo} sugerido para ${MLABEL[r.m].toLowerCase()}.`;
       const linked=r.clusters.length;
+      if(r.kw){
+        return `<button class="interest-card kw-card" type="button" data-signal="${r.id}" style="--accent:${pm[1]};--plat-color:${pm[1]}">
+          <div class="top">
+            <span class="chip ${r.m}">${MLABEL[r.m]}</span>
+            <span class="plat-badge"><span class="plat-mark">${pm[0]}</span>GOOGLE</span>
+          </div>
+          <strong>${esc(r.nombre)}</strong>
+          <div class="kw-taxonomy">
+            <span class="stage">${esc(r.kw.stage)}</span>
+            <span>${esc(r.kw.intent)}</span>
+            <span>${esc(r.kw.family)}</span>
+          </div>
+          <span class="signal-sub">${esc(note)}</span>
+          <div class="kw-program"><span><b>${esc(r.kw.level)}</b><br>${esc(r.kw.program)}</span><span>${esc(r.kw.area)}</span></div>
+          <div class="signal-footer">
+            <span class="signal-stat"><b>${linked}</b><small>clúster${linked===1?'':'es'} vinculados</small></span>
+            <span class="who">${r.clusters.slice(0,4).map(cid=>`<img src="${portrait(CL[cid])}" alt="" title="${esc(CL[cid].name)}">`).join('')}${linked>4?`<span>+${linked-4}</span>`:''}</span>
+          </div>
+        </button>`;
+      }
       return `<button class="interest-card" type="button" data-signal="${r.id}" style="--accent:${pm[1]};--plat-color:${pm[1]}">
-        <div class="top">
-          <span class="chip ${r.m}">${MLABEL[r.m]}</span>
-          <span class="plat-badge"><span class="plat-mark">${pm[0]}</span>${esc(r.plat).toUpperCase()}</span>
-        </div>
-        <strong>${esc(r.nombre)}</strong>
-        <span class="signal-sub">${esc(note)}</span>
-        <div class="signal-footer">
-          <span class="signal-stat"><b>${linked}</b><small>clúster${linked===1?'':'es'} vinculados</small></span>
-          <span class="who">${r.clusters.slice(0,4).map(cid=>`<img src="${portrait(CL[cid])}" alt="" title="${esc(CL[cid].name)}">`).join('')}${linked>4?`<span>+${linked-4}</span>`:''}</span>
-        </div>
+        <div class="top"><span class="chip ${r.m}">${MLABEL[r.m]}</span><span class="plat-badge"><span class="plat-mark">${pm[0]}</span>${esc(r.plat).toUpperCase()}</span></div>
+        <strong>${esc(r.nombre)}</strong><span class="signal-sub">${esc(note)}</span>
+        <div class="signal-footer"><span class="signal-stat"><b>${linked}</b><small>clúster${linked===1?'':'es'} vinculados</small></span><span class="who">${r.clusters.slice(0,4).map(cid=>`<img src="${portrait(CL[cid])}" alt="" title="${esc(CL[cid].name)}">`).join('')}${linked>4?`<span>+${linked-4}</span>`:''}</span></div>
       </button>`;
     }).join('')||`<p class="muted">Ningún registro coincide. Prueba con otra palabra o limpia los filtros.</p>`;
     $$('#libGrid .interest-card').forEach(b=>b.addEventListener('click',()=>signalDialog(+b.dataset.signal)));
