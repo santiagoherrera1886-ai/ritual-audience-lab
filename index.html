@@ -2789,6 +2789,186 @@ const LIB_RAW = [
   ['pos','LinkedIn','Audiencia coincidente','Lista de egresados Ean (con consentimiento)','p1,p2','Cerca de 50.000 graduados: la base natural de pregrado a posgrado.']
 ];
 
+
+/* ---------- KW RESEARCH EXPANDIDO · GOOGLE SEARCH ----------
+   Banco estratégico de términos. No representa volumen de Keyword Planner.
+   Validar volumen, CPC, concordancias y términos de búsqueda antes de activar.
+*/
+const KW_EXISTING = new Set(
+  LIB_RAW
+    .filter(r => r[1]==='Google' && r[2]==='Palabra clave')
+    .map(r => String(r[3]).toLowerCase().trim())
+);
+const addKW = (m, nombre, clusters, nota='KW Research ampliado · validar volumen/CPC en Keyword Planner.') => {
+  const key=String(nombre).toLowerCase().trim();
+  if(!KW_EXISTING.has(key)){
+    LIB_RAW.push([m,'Google','Palabra clave',nombre,clusters,nota]);
+    KW_EXISTING.add(key);
+  }
+};
+
+/* Intención genérica / decisión */
+[
+ ['pre','mejores universidades en bogotá','c3,c1','Intención alta · comparación de universidades.'],
+ ['pre','mejores universidades privadas bogotá','c3,c1','Intención alta · comparación de universidades privadas.'],
+ ['pre','universidad privada bogotá','c3,c1','Categoría genérica · alta competencia.'],
+ ['pre','universidad presencial bogotá','c3,c1,c2,c5,c6','Modalidad + ciudad.'],
+ ['pre','universidades virtuales colombia','c4','Modalidad virtual · validar programas disponibles.'],
+ ['pre','universidad virtual colombia','c4','Modalidad virtual · intención alta.'],
+ ['pre','carreras profesionales bogotá','c1,c2,c5,c6','Exploración de oferta.'],
+ ['pre','carreras universitarias bogotá','c1,c2,c5,c6','Exploración de oferta.'],
+ ['pre','qué carrera estudiar','c1,c2,c5','Upper/mid funnel · orientación vocacional.'],
+ ['pre','qué estudiar después del colegio','c1,c2,c5','Orientación vocacional.'],
+ ['pre','carreras con futuro colombia','c1,c2','Empleabilidad / futuro profesional.'],
+ ['pre','carreras con mayor empleabilidad colombia','c1,c2,c6','Empleabilidad.'],
+ ['pre','carreras para emprendedores','c1','Territorio natural Ean · emprendimiento.'],
+ ['pre','universidad para emprendedores','c1','Territorio natural Ean · emprendimiento.'],
+ ['pre','universidad con doble titulación','c6,c1','Diferenciador académico.'],
+ ['pre','carrera con doble titulación','c6,c1','Diferenciador académico.'],
+ ['pre','universidad acreditada en alta calidad','c3','Confianza / calidad.'],
+ ['pre','universidades acreditadas bogotá','c3','Confianza / calidad.'],
+ ['pre','universidades con becas bogotá','c3,c4','Precio / apoyo financiero.'],
+ ['pre','becas universidad bogotá','c3,c4','Precio / apoyo financiero.'],
+ ['pre','financiación universidad colombia','c3,c4','Precio / apoyo financiero.'],
+ ['pre','crédito educativo universidad','c3,c4','Precio / apoyo financiero.'],
+ ['pre','costo universidad privada bogotá','c3','Precio · intención alta.'],
+ ['pre','valor semestre universidad bogotá','c3','Precio · intención alta.'],
+ ['pre','inscripciones universidad 2027','c1,c2,c3,c5,c6','Admisiones · intención alta.'],
+ ['pre','admisiones universidad bogotá','c1,c2,c3,c5,c6','Admisiones · intención alta.'],
+ ['pre','universidad emprendimiento bogotá','c1','Posicionamiento Ean.'],
+ ['pre','universidad sostenible colombia','c1,c2,c5','Sostenibilidad / propósito.'],
+ ['ambos','universidad ean bogotá','c1,c2,c3,c4,c5,c6,p1,p2,p3,p4,p5,p6','Marca + ubicación.'],
+ ['ambos','universidad ean virtual','c4,p1,p2,p3,p4,p5,p6','Marca + modalidad.'],
+ ['pre','universidad ean pregrados','c1,c2,c3,c4,c5,c6','Marca + oferta de pregrado.'],
+ ['ambos','universidad ean programas','c1,c2,c3,c4,c5,c6,p1,p2,p3,p4,p5,p6','Marca + oferta académica.'],
+ ['ambos','universidad ean matrícula','c3,p1','Marca + precio / matrícula.'],
+ ['ambos','universidad ean precio semestre','c3,p1','Marca + precio.'],
+ ['ambos','universidad ean becas','c3,p1','Marca + financiación.'],
+ ['ambos','universidad ean financiación','c3,p1','Marca + financiación.'],
+ ['ambos','ean admisiones','c3,p1','Marca + admisiones.'],
+ ['ambos','ean inscripciones 2027','c3,p1','Marca + admisiones.'],
+ ['pre','ean carreras profesionales','c1,c2,c3,c5,c6','Marca + pregrado.'],
+ ['pre','ean universidad virtual carreras','c4','Marca + virtual.']
+].forEach(k=>addKW(...k));
+
+/* Pregrados: programa + variantes de intención */
+const PRE_KW_PROGRAMS=[
+ ['administración de empresas','c1'],
+ ['administración pública','c1,c3'],
+ ['mercadeo y estrategia comercial','c1,c5'],
+ ['mercadeo','c1,c5'],
+ ['negocios internacionales','c6,c1'],
+ ['contaduría pública','c6,c1'],
+ ['economía','c1,c6'],
+ ['comunicación','c5'],
+ ['psicología','c5'],
+ ['lenguas modernas','c6'],
+ ['estudios y gestión cultural','c5'],
+ ['diseño','c5'],
+ ['ingeniería de sistemas','c2'],
+ ['ingeniería en ciencia de datos','c2'],
+ ['ingeniería en inteligencia artificial','c2'],
+ ['ingeniería industrial','c2,c1'],
+ ['ingeniería mecatrónica','c2'],
+ ['ingeniería ambiental','c2,c5'],
+ ['ingeniería química','c2'],
+ ['ingeniería en energías','c2,c5'],
+ ['ingeniería de producción','c2,c1'],
+ ['turismo sostenible','c5,c6']
+];
+PRE_KW_PROGRAMS.forEach(([p,cl])=>{
+  [
+    [p,'Programa exacto · alta intención.'],
+    [p+' bogotá','Programa + ciudad · alta intención.'],
+    ['estudiar '+p,'Intención de carrera.'],
+    ['carrera de '+p,'Intención de carrera.'],
+    [p+' universidad','Programa + categoría universidad.']
+  ].forEach(([kw,note])=>addKW('pre',kw,cl,note));
+});
+
+/* Modalidad y atributos de programas */
+[
+ ['pre','administración de empresas virtual','c1,c4','Modalidad virtual · validar landing activa.'],
+ ['pre','negocios internacionales virtual','c6,c4','Modalidad virtual · validar landing activa.'],
+ ['pre','contaduría pública virtual','c6,c4','Modalidad virtual · validar landing activa.'],
+ ['pre','ingeniería de sistemas virtual','c2,c4','Modalidad virtual.'],
+ ['pre','ingeniería industrial virtual','c2,c4','Modalidad virtual.'],
+ ['pre','ingeniería inteligencia artificial virtual','c2,c4','Programa + modalidad.'],
+ ['pre','psicología virtual colombia','c5,c4','Programa + modalidad.'],
+ ['pre','mercadeo virtual colombia','c1,c5,c4','Programa + modalidad.'],
+ ['pre','carrera inteligencia artificial colombia','c2','Categoría emergente.'],
+ ['pre','carrera ciencia de datos colombia','c2','Categoría emergente.'],
+ ['pre','ingeniería inteligencia artificial bogotá','c2','Programa emergente + ciudad.'],
+ ['pre','ciencia de datos universidad bogotá','c2','Programa + ciudad.'],
+ ['pre','carrera energías renovables colombia','c2,c5','Sostenibilidad + ingeniería.'],
+ ['pre','ingeniería ambiental universidad bogotá','c2,c5','Programa + ciudad.'],
+ ['pre','ingeniería mecatrónica universidad bogotá','c2','Programa + ciudad.'],
+ ['pre','negocios internacionales doble grado','c6','Diferenciador de doble grado.'],
+ ['pre','administración empresas doble grado','c1,c6','Diferenciador de doble grado.'],
+ ['pre','contaduría pública acca colombia','c6','Diferenciador / cualificación ACCA.']
+].forEach(k=>addKW(...k));
+
+/* Posgrados genéricos y de intención */
+[
+ ['pos','posgrados en bogotá','p1,p2,p3,p4,p5,p6','Categoría posgrado · intención alta.'],
+ ['pos','especializaciones en bogotá','p1,p2,p3,p4,p5,p6','Categoría especialización · intención alta.'],
+ ['pos','maestrías en bogotá','p1,p2,p3,p4,p5,p6','Categoría maestría · intención alta.'],
+ ['pos','posgrados virtuales','p1,p2,p3,p4,p5,p6','Modalidad virtual.'],
+ ['pos','especializaciones virtuales colombia','p1,p2,p3,p4,p5,p6','Modalidad virtual.'],
+ ['pos','maestrías virtuales colombia','p1,p2,p3,p4,p5,p6','Modalidad virtual.'],
+ ['pos','universidad posgrados bogotá','p1,p2,p3,p4,p5,p6','Categoría + ciudad.'],
+ ['pos','posgrados para profesionales','p1,p2,p3,p4,p5,p6','Perfil profesional.'],
+ ['pos','especialización para gerentes','p1,p6','Cargo + intención.'],
+ ['pos','maestría para directivos','p1,p6','Cargo + intención.'],
+ ['pos','mba bogotá','p1','MBA + ciudad.'],
+ ['pos','mba colombia','p1','MBA categoría.'],
+ ['pos','mba online colombia','p1','MBA + modalidad.'],
+ ['pos','mba para emprendedores','p1,p3','MBA + emprendimiento.'],
+ ['pos','mejor mba colombia','p1','Comparación / alta intención.'],
+ ['pos','posgrado gerencia bogotá','p1,p3,p6','Gerencia + ciudad.'],
+ ['pos','financiación posgrados colombia','p1,p2,p3,p4,p5,p6','Precio / financiación.'],
+ ['pos','becas para posgrados colombia','p1,p2,p3,p4,p5,p6','Precio / financiación.'],
+ ['pos','costos especialización bogotá','p1,p2,p3,p4,p5,p6','Precio · intención alta.'],
+ ['pos','precio maestría bogotá','p1,p2,p3,p4,p5,p6','Precio · intención alta.'],
+ ['pos','universidad ean posgrados','p1,p2,p3,p4,p5,p6','Marca + posgrados.'],
+ ['pos','universidad ean especializaciones','p1,p2,p3,p4,p5,p6','Marca + especializaciones.'],
+ ['pos','universidad ean maestrías','p1,p2,p3,p4,p5,p6','Marca + maestrías.'],
+ ['pos','universidad ean mba','p1','Marca + MBA.'],
+ ['pos','universidad ean posgrados virtuales','p1,p2,p3,p4,p5,p6','Marca + modalidad.'],
+ ['pos','costos posgrados universidad ean','p1,p2,p3,p4,p5,p6','Marca + precio.']
+].forEach(k=>addKW(...k));
+
+/* Posgrados: programa + variantes */
+const POS_KW_PROGRAMS=[
+ ['gerencia de proyectos','p1'],
+ ['gerencia comercial y de mercadeo','p1'],
+ ['administración financiera','p3,p1'],
+ ['ciberseguridad','p2'],
+ ['fintech','p2,p3'],
+ ['machine learning','p2'],
+ ['gerencia de tecnología','p2,p1'],
+ ['gestión de sistemas y tecnologías de la información','p2'],
+ ['logística y cadena de suministro','p3'],
+ ['gestión humana','p6'],
+ ['gobierno y gerencia pública','p4'],
+ ['auditoría y garantía de calidad en salud','p4'],
+ ['gestión del aprendizaje digital','p5'],
+ ['psicología educativa','p5'],
+ ['gerencia en inteligencia artificial','p2,p1'],
+ ['creación de contenido y social listening','p1,p5'],
+ ['gerencia de la bioeconomía y gobernanza biotecnológica','p3,p4'],
+ ['administración de empresas de salud','p4,p1'],
+ ['gerencia de la cadena de abastecimiento','p3']
+];
+POS_KW_PROGRAMS.forEach(([p,cl])=>{
+  [
+    ['especialización '+p,'Especialización / programa · alta intención.'],
+    ['maestría '+p,'Maestría / programa · validar nivel académico disponible.'],
+    [p+' virtual','Programa + modalidad · validar oferta vigente.'],
+    [p+' bogotá','Programa + ciudad.']
+  ].forEach(([kw,note])=>addKW('pos',kw,cl,note));
+});
+
 const LIB = LIB_RAW.map((r,i)=>({ id:i+1, m:r[0], plat:r[1], tipo:r[2], nombre:r[3], clusters:r[4].split(',').map(s=>s.trim()).filter(Boolean), nota:r[5] }));
 const CL = Object.fromEntries(CLUSTERS.map(c=>[c.id,c]));
 return { UNIVERSE, MOMENTS, PLATFORMS, PLAT, PLAT_LIB, DEFAULT_MIX, WAVES, CLUSTERS, CL, CITIES, ROLE_LABEL, SCENARIOS, CALENDAR, LIB };
