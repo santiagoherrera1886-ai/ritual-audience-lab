@@ -1640,6 +1640,249 @@ body{
     gap:9px;
   }
 }
+
+/* =========================================================
+   MAP CONTROL CENTER v2 · full redesign
+   ========================================================= */
+#summary .geo{
+  display:grid;
+  grid-template-columns:minmax(0,1.45fr) minmax(300px,.72fr);
+  gap:18px;
+  padding:24px;
+  overflow:hidden;
+}
+#summary .geo-head{
+  grid-column:1/-1;
+  margin-bottom:2px;
+}
+#summary .geo-head h2{
+  font-size:34px;
+  letter-spacing:-.055em;
+}
+#summary .map-canvas{
+  grid-column:1;
+  aspect-ratio:1.18/1;
+  min-height:0;
+  height:auto;
+  border-radius:22px;
+  border:1px solid #21374d;
+  background:
+    radial-gradient(430px 300px at 43% 40%,#143d5948,transparent 70%),
+    radial-gradient(280px 180px at 68% 35%,#264d7540,transparent 75%),
+    linear-gradient(145deg,#06111e,#071422 62%,#050d18);
+  box-shadow:inset 0 0 80px #4fe0d00c,0 22px 48px #0003;
+}
+#summary .map-canvas::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 45%,#ffffff05,transparent 60%),
+    linear-gradient(90deg,#ffffff035 1px,transparent 1px),
+    linear-gradient(#ffffff035 1px,transparent 1px);
+  background-size:auto,64px 64px,64px 64px;
+  pointer-events:none;
+}
+#summary .map-canvas svg{z-index:1}
+#summary .map-land{
+  fill:url(#landControl);
+  stroke:#5fd6cc;
+  stroke-width:1;
+  filter:drop-shadow(0 14px 22px #0007);
+}
+#summary .map-corridor{
+  fill:none;
+  stroke:url(#corridorStroke);
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:3 6;
+  opacity:.42;
+}
+#summary .pin .glow{
+  opacity:.12;
+  filter:blur(8px);
+}
+#summary .pin .ring{
+  opacity:.18;
+  stroke-width:1;
+}
+#summary .pin .core{
+  fill:#07121e;
+  stroke:var(--pin);
+  stroke-width:2;
+}
+#summary .pin:hover .core,#summary .pin:focus .core{
+  fill:var(--pin);
+  stroke:#fff;
+}
+#summary .pin.sel .core{
+  fill:var(--pin);
+  stroke:#fff;
+  stroke-width:3;
+  filter:drop-shadow(0 0 10px var(--pin));
+}
+#summary .selected-map-card .card-bg{
+  fill:#07131ff2;
+  stroke:var(--pin);
+  stroke-width:1;
+}
+#summary .selected-map-card text{
+  stroke:none;
+  paint-order:normal;
+  font-family:Inter,sans-serif;
+}
+#summary .selected-map-card .city{
+  fill:#fff;
+  font-size:12px;
+  font-weight:850;
+}
+#summary .selected-map-card .meta{
+  fill:#91a2b8;
+  font-size:8.5px;
+  font-weight:650;
+}
+#summary .map-legend{
+  left:14px;
+  top:14px;
+  right:auto;
+  padding:7px 10px;
+  gap:10px;
+  border-radius:999px;
+  background:#06111dd9;
+  border-color:#21364e;
+}
+#summary .map-legend span{
+  font-size:7.5px;
+  color:#8090a6;
+}
+#summary .map-source{
+  right:12px;
+  bottom:10px;
+  border:0;
+  background:transparent;
+  padding:0;
+  font-size:6px;
+  color:#536277;
+}
+#summary .geo-side{
+  grid-column:2;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  min-width:0;
+}
+#summary .city-detail{
+  border-radius:20px;
+  border:1px solid #263b55;
+  background:
+    radial-gradient(220px 180px at 100% 0%,#355c8b24,transparent 70%),
+    linear-gradient(155deg,#0c1828,#08131f);
+  overflow:hidden;
+  min-height:208px;
+  box-shadow:inset 0 1px #ffffff07;
+}
+#summary .city-photo{display:none}
+#summary .city-body{
+  padding:20px;
+}
+#summary .city-body .role{
+  display:inline-flex;
+  padding:6px 9px;
+  border:1px solid #34506f;
+  border-radius:999px;
+  color:#7edfd4;
+  background:#0a1b2b;
+  margin-bottom:13px;
+}
+#summary .city-body h3{
+  font-size:34px;
+  letter-spacing:-.055em;
+}
+#summary .city-body .pct b{
+  font-size:42px;
+}
+#summary .city-body .pct span{
+  display:block;
+  max-width:90px;
+  line-height:1.35;
+}
+#summary .city-body p{
+  margin-top:13px;
+  font-size:11px;
+  line-height:1.65;
+  color:#93a1b5;
+}
+#summary .mini-bars{
+  margin-top:15px;
+  gap:8px;
+}
+#summary .mini-bars>div{
+  grid-template-columns:66px minmax(0,1fr) 52px;
+}
+#summary .mini-bars i{
+  height:5px;
+  background:#17253a;
+}
+#summary .city-list{
+  gap:7px;
+  max-height:360px;
+  overflow:auto;
+  padding-right:2px;
+}
+#summary .city-list::-webkit-scrollbar{width:4px}
+#summary .city-list::-webkit-scrollbar-thumb{background:#30465f;border-radius:999px}
+#summary .city-list button{
+  min-height:46px;
+  grid-template-columns:26px minmax(0,1fr) auto auto;
+  gap:9px;
+  padding:8px 10px;
+  border-radius:13px;
+  border:1px solid #1f324a;
+  background:#08131f;
+}
+#summary .city-list button:hover,
+#summary .city-list button[aria-pressed="true"]{
+  background:#0d1d2e;
+  border-color:#385673;
+}
+#summary .city-list .rank{
+  width:24px;height:24px;
+  display:grid;place-items:center;
+  border-radius:8px;
+  background:#101d2f;
+  color:#77869a;
+  font-size:9px;
+  font-weight:800;
+}
+#summary .city-list button[aria-pressed="true"] .rank{
+  color:#07111b;
+  background:#dff45e;
+}
+#summary .city-list .d{
+  display:none;
+}
+#summary .city-list .name{
+  font-weight:750;
+  color:#dce5f1;
+}
+#summary .city-list .v{
+  min-width:38px;
+  font-size:9px;
+}
+@media(max-width:1100px){
+  #summary .geo{
+    grid-template-columns:1fr;
+  }
+  #summary .map-canvas,#summary .geo-side{grid-column:1}
+  #summary .geo-side{
+    grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  }
+}
+@media(max-width:700px){
+  #summary .geo-side{grid-template-columns:1fr}
+  #summary .map-canvas{aspect-ratio:.95/1}
+}
 </style></head><body data-view="summary"><a class="skip-link" href="#main">Saltar al contenido</a><header class="topbar"><button class="mobile-menu icon-button" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false"><i data-icon="menu"></i></button><a class="brand" href="#summary" data-nav="summary" aria-label="Universidad Ean, Audience Atlas 2027"><span class="brand-mark"><span class="u">Universidad</span><span class="e">Ean</span></span><span class="brand-sub">AUDIENCE<br>ATLAS / 2027</span></a><nav class="top-nav" aria-label="Secciones del atlas"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="top-actions"><span class="country">COLOMBIA <span>·</span> 2027</span><button class="button button-primary export-button" id="exportTop" type="button"><i data-icon="download"></i>Exportar CSV</button></div></header><div class="mobile-scrim" id="scrim"></div><aside class="sidebar" id="sidebar" aria-label="Momentos y clústeres"><nav class="mobile-nav" aria-label="Navegación principal"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="side-label">01 / Momento de decisión</div><div id="sideMoments"></div><button class="all-button" type="button" data-nav="audiences" data-m="all"><i data-icon="target"></i>Explorar ambos momentos<i data-icon="arrow-right"></i></button><div class="side-divider"></div><div class="side-label">02 / Clústeres de audiencia</div><div id="sidePersonas"></div><button class="all-button all-clusters" type="button" data-nav="audiences" data-m="all"><i data-icon="arrow-up-right"></i>Ver todos los clústeres</button><div class="side-note"><div><i data-icon="chart"></i><strong>Matriz estratégica,<br>no alcance medido</strong></div><p><span id="sideLibCount">—</span> registros sugeridos. La disponibilidad exacta de cada interés y el tamaño de audiencia se verifican en cada plataforma.</p></div></aside><div class="app-body"><main id="main" tabindex="-1"><!-- ================= RESUMEN ================= --><section id="summary" class="view active" aria-labelledby="summaryTitle"><div class="atlas-grid"><div class="summary-primary"><section class="hero" aria-label="Portada"><div class="hero-copy"><div class="eyebrow">Universidad Ean · Audience Atlas 2027</div><h1 id="summaryTitle">La universidad<br><span>del emprendimiento,</span><br>donde se decide.</h1><p>Dos momentos de decisión, pregrado y posgrado. Un universo de personas, señales y afinidades para conectar la Ean con quien está eligiendo dónde estudiar.</p><div class="hero-actions"><button class="button button-primary" type="button" data-nav="audiences" data-m="all">Explorar audiencias<i data-icon="arrow-right"></i></button><button class="button button-ghost" type="button" data-nav="sim">Abrir el simulador</button></div></div><div class="hero-labels" id="heroLabels"></div><span class="hero-caption">Vista ilustrativa · ciudad andina al atardecer</span></section><section class="panel geo" aria-labelledby="geoTitle"><div class="geo-head"><div><div class="eyebrow">Colombia · Geografía de oportunidad</div><h2 id="geoTitle">¿Dónde están estas personas?</h2><p>Ciudades prioritarias para explorar afinidad con la Ean.</p></div><div class="segmented" role="group" aria-label="Capa del mapa"><button type="button" data-layer="pre" aria-pressed="true">Pregrado</button><button type="button" data-layer="pos" aria-pressed="false">Posgrado</button></div></div><div class="map-canvas" id="mapCanvas"></div><div class="geo-side"><div class="city-detail" id="cityDetail"></div><div class="city-list" id="cityList"></div></div></section></div><div class="summary-secondary"><section class="panel universe"><div class="panel-overline"><span class="eyebrow">Universo Ean · 2027</span><button class="text-button" type="button" data-action="method">Supuestos de planeación</button></div><h2>Audiencia única planeable</h2><div class="universe-main"><div><strong id="uniqTotal">5,0 M</strong><span><i data-icon="people"></i>personas en Colombia</span></div><p>Un universo de oportunidades para llegar a quien decide estudiar, en el momento en que lo decide.</p></div><div class="context-kpis" id="contextKpis"></div></section><section class="panel ecosystem"><div class="eyebrow">Ecosistema de medios</div><div class="ecosystem-grid" id="ecosystem"></div></section><section class="panel audience-funnel"><div class="eyebrow">Contexto de audiencia · De Colombia a la Ean</div><p>Referencias de planeación para dimensionar la oportunidad. Supuestos, no mediciones.</p><div class="funnel-layout"><div class="funnel-rows" id="funnelRows"></div><div class="funnel-target"><i data-icon="target"></i><strong id="funnelTotal">5,0 M</strong><b>personas planeables</b><p>Pregrado y posgrado se superponen: los universos no se suman.</p><button class="text-button" type="button" data-nav="sim">Ver intersección<i data-icon="arrow-up-right"></i></button></div></div></section><section class="panel panel-pad" aria-labelledby="calTitle"><div class="eyebrow">Calendario de admisiones</div><h2 id="calTitle" style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 2px">Cuatro olas en 2027</h2><div id="calendar"></div></section></div></div></section><!-- ================= AUDIENCIAS ================= --><section id="audiences" class="view" aria-labelledby="audiencesTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Clústeres / Momentos</div><h1 id="audiencesTitle">Doce perfiles, <span>dos momentos.</span></h1><p>Cada clúster trae edad, tamaño ilustrativo, qué lo activa, programas afines, afinidad por plataforma y el mensaje que debería recibir.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters" id="audCounters"></div><div class="segmented" role="group" aria-label="Filtrar por momento" id="audFilter"><button type="button" data-m="all" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button></div></div></div><div class="note" style="margin-bottom:16px">Los aspirantes de 16 y 17 años no se pueden segmentar por intereses en Meta, TikTok ni Google (solo edad, ubicación y género; en varias plataformas la edad mínima para pauta es 18). Por eso pregrado se planea sobre 18 a 21 años más padres y madres decisores.</div><div class="persona-cards" id="personaCards"></div></section><!-- ================= MEDIOS ================= --><section id="media" class="view" aria-labelledby="mediaTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Canales / Territorios</div><h1 id="mediaTitle">Cada audiencia, <span>su plataforma.</span></h1><p>Explora las señales por entorno y descubre qué clúster está presente en cada uno. Selecciona un canal para ver sus señales y oportunidades.</p></div><div class="counters" id="mediaCounters"></div></div><div class="platform-cards" id="platformCards"></div><div class="heading-row" style="margin-top:28px;margin-bottom:0"><div class="page-heading"><div class="eyebrow">Mix sugerido por momento</div><h2 style="font-size:26px;font-weight:900;letter-spacing:-.04em;margin:6px 0 4px">Dónde va cada peso</h2></div></div><div class="mix-cards" id="mixSuggested"></div><section class="panel panel-pad" style="margin-top:16px"><div class="eyebrow">Embudo de admisiones</div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 6px">De la impresión a la matrícula</h2><p class="small muted" style="max-width:66ch">Supuestos de planeación por plataforma: CPM, tasa de clics y conversión a lead. Las conversiones de lead a inscrito y de inscrito a matriculado se ajustan en el simulador.</p><div class="table-scroll" style="margin-top:10px"><table id="funnelTable"></table></div></section></section><!-- ================= INTERESES ================= --><section id="library" class="view" aria-labelledby="libraryTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Intereses / Señales</div><h1 id="libraryTitle">Biblioteca de <span>segmentación.</span></h1><p>Intereses, comportamientos, datos demográficos, cargos, palabras clave y audiencias propias, cruzados con los doce clústeres. Verifica disponibilidad y tamaño en cada plataforma antes de pautar.</p></div><button class="button button-primary" type="button" id="exportLib"><i data-icon="download"></i>Exportar CSV</button></div><div class="library-toolbar"><label class="search-field"><i data-icon="search"></i><input type="search" id="q" placeholder="Buscar interés, cargo, palabra clave o clúster…" autocomplete="off" aria-label="Buscar en la biblioteca"></label><button class="button button-ghost button-small" type="button" id="clearFilters"><i data-icon="close"></i>Limpiar filtros</button><div class="view-switch" aria-label="Vista"><button class="icon-button active" type="button" data-lib-view="grid" aria-label="Ver tarjetas" aria-pressed="true"><i data-icon="grid"></i></button><button class="icon-button" type="button" data-lib-view="table" aria-label="Ver tabla" aria-pressed="false"><i data-icon="list"></i></button></div></div><div class="filters-row"><div class="segmented" id="libMoment" role="group" aria-label="Momento"><button type="button" data-m="" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button><button type="button" data-m="ambos" aria-pressed="false">Ambos</button></div><select id="fPlat" aria-label="Plataforma"><option value="">Todas las plataformas</option></select><select id="fCluster" aria-label="Clúster"><option value="">Todos los clústeres</option></select></div><div class="category-grid" id="categoryGrid"></div><div class="result-row"><span class="result-count" id="resultCount"></span><span class="small muted">Las tarjetas muestran 24 por página.</span></div><div id="libGrid" class="interests-grid"></div><div id="libTable" class="table-scroll" hidden><table class="lib-table" id="libTableEl"></table></div><div class="pagination" id="pagination"></div></section><!-- ================= SIMULADOR ================= --><section id="sim" class="view" aria-labelledby="simTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Simulador / Pregrado + Posgrado</div><h1 id="simTitle">Alcance, frecuencia <span>y admisiones.</span></h1><p>Modelo de planificación con universos e intersección supuestos. No representa mediciones de campañas.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters sim-context" id="simContext"></div><div style="display:flex;gap:8px"><button class="button button-ghost button-small" type="button" data-action="method"><i data-icon="info"></i>Ver supuestos</button><button class="button button-ghost button-small" type="button" id="resetSim">Restablecer</button></div></div></div><div class="sim-grid"><section class="panel config-panel" aria-label="Configuración del escenario"><div><div class="eyebrow">Configura tu escenario</div><p class="small muted" style="margin-top:4px">Define la inversión y el peso entre los dos momentos.</p></div><div class="ctrl-row"><div class="lbl"><span>Inversión total 2027</span><output id="oBudget">$1.800 M COP</output></div><input type="range" id="iBudget" min="300" max="5000" step="50" value="1800" aria-label="Inversión total en millones de pesos"><div class="hint">Millones de pesos en pauta, sin producción ni fee.</div></div><div id="allocations"></div><div class="ctrl-row"><div class="lbl"><span>Lead a inscrito</span><output id="oR1">Pre 10% · Pos 12%</output></div><input type="range" id="iR1pre" min="3" max="30" step="1" value="10" aria-label="Conversión de lead a inscrito en pregrado"><input type="range" id="iR1pos" min="3" max="30" step="1" value="12" aria-label="Conversión de lead a inscrito en posgrado"></div><div class="ctrl-row"><div class="lbl"><span>Inscrito a matriculado</span><output id="oR2">Pre 40% · Pos 45%</output></div><input type="range" id="iR2pre" min="10" max="80" step="1" value="40" aria-label="Conversión de inscrito a matriculado en pregrado"><input type="range" id="iR2pos" min="10" max="80" step="1" value="45" aria-label="Conversión de inscrito a matriculado en posgrado"></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix pregrado</div><div class="mix-table" id="mixPre"></div></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix posgrado</div><div class="mix-table" id="mixPos"></div></div><p class="small muted" style="font-size:10px">Cada mix suma 100%. Los demás canales se ajustan al mover un porcentaje.</p></section><div class="sim-right"><div class="kpis" id="kpis"></div><section class="panel panel-pad"><div class="eyebrow">Audiencia única estimada</div><div class="venn-wrap" style="margin-top:8px"><div id="venn"></div><div class="venn-text"><strong>Audiencia única =<br>Pregrado + Posgrado<br>− intersección</strong><b id="vennUnique">—</b><span>personas únicas proyectadas al cierre de las cuatro olas</span></div></div></section><div class="charts"><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Curva de alcance acumulado</div><p>Personas únicas por ola de campaña · proyección.</p></div></div><div id="chartReach"></div><div class="legend"><span><i style="background:#fff"></i>Pregrado + posgrado</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Frecuencia promedio</div><p>Exposiciones por persona alcanzada · proyección.</p></div></div><div id="chartFreq"></div><div class="legend"><span><i style="background:#fff"></i>Total</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section></div><section class="panel panel-pad"><div class="eyebrow">Embudo de admisiones proyectado</div><div id="funnels" style="display:grid;gap:14px;margin-top:10px"></div></section><section class="panel panel-pad"><div class="eyebrow">Alcance y frecuencia por plataforma</div><div class="table-scroll" style="margin-top:8px"><table id="platTable"></table></div></section><section class="panel panel-pad"><div class="heading-row" style="margin-bottom:12px"><div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em">Escenarios rápidos</h2><p class="small muted">Encuentra tu punto de partida. Al elegir uno se aplican su inversión, reparto y mix.</p></div><button class="button button-primary button-small" type="button" id="compareBtn">Aplicar y comparar<i data-icon="arrow-right"></i></button></div><div class="scen" id="scenarios"></div><div id="compare" style="margin-top:14px"></div></section><div class="method-note"><i data-icon="sparkles"></i><div><b>Modelo de planificación</b><p>Proyección con universos e intersección supuestos. No representa mediciones de campañas. Los CPM, CTR y conversiones son supuestos de planeación editables en <code>data.js</code>.</p><button class="text-button" type="button" data-action="method">Ver supuestos<i data-icon="arrow-up-right"></i></button></div></div></div></div></section></main></div><dialog id="dialog" aria-labelledby="dialogTitle"><div class="dialog-top"><span class="eyebrow" id="dialogEyebrow"></span><button class="icon-button" type="button" id="closeDialog" aria-label="Cerrar"><i data-icon="close"></i></button></div><div class="dialog-body" id="dialogBody"></div></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div><script>/* =====================================================================
    DATOS DEL ATLAS — todo son supuestos de planeación (ilustrativos).
    Para cambiar números, clústeres, ciudades o señales, edita solo este archivo.
@@ -2123,72 +2366,61 @@ let mapLayer='pre', selCity='bogota';
 const POLY = `184.68,335.05 170.55,329.13 154.35,320.85 144.98,324.83 116.98,321.36 108.94,310.60 102.78,311.00 69.78,296.73 65.30,288.97 77.61,287.09 76.15,274.57 83.89,265.51 100.26,263.83 114.16,248.12 126.79,235.01 114.62,229.06 120.85,214.55 113.40,191.68 120.48,185.12 115.27,163.97 101.91,150.66 106.14,138.50 116.77,140.30 123.00,132.87 115.33,118.14 119.34,114.49 136.39,115.28 161.15,97.83 174.74,95.17 175.06,86.90 181.15,65.78 200.07,54.17 220.87,53.70 223.49,48.49 249.31,50.57 275.28,37.95 288.14,32.36 304.12,20.32 315.81,21.85 324.46,28.43 318.06,36.84 296.86,41.03 288.49,53.53 275.72,60.70 266.13,69.99 262.09,87.83 252.94,102.45 269.97,118.09 273.42,129.13 286.73,129.96 298.11,141.44 314.11,142.65 313.03,155.95 323.63,167.65 340.27,175.69 357.72,180.57 383.70,184.51 399.52,181.85 412.06,194.78 426.17,198.44 438.95,207.60 450.85,204.73 457.81,216.43 465.08,218.90 456.52,227.78 442.11,243.32 426.65,244.27 421.11,254.96 405.33,262.95 397.29,272.47 388.60,290.37 378.29,300.26 364.03,306.60 360.63,316.42 349.41,328.58 341.90,345.93 334.14,364.19 328.11,383.60 316.23,398.70 306.70,414.84 299.56,430.97 288.42,438.70 282.61,427.37 270.95,420.11 262.68,407.95 248.27,397.03 233.31,392.73 219.43,385.26 203.70,383.90 194.11,374.14 186.51,364.26 179.97,350.98`;
 function cityPos(c){ return [c.x/100*500, c.y/100*500]; }
 function renderMap(){
-  const roleColor = r => r==='sede' ? '#dff45e' : r==='regional' ? '#64e4d2' : '#7aa8ff';
-  const visibleLabels = new Set(['bogota','medellin','cali','barranquilla','bucaramanga']);
-  const LABEL = {
-    bogota:[16,-6,'start'],
-    medellin:[-86,-28,'start'],
-    cali:[-72,16,'start'],
-    barranquilla:[16,-24,'start'],
-    bucaramanga:[18,-20,'start']
-  };
-  const pins = CITIES.filter(c=>c.x!==null).map(c => {
-    const [x,y]=cityPos(c);
-    const selected = c.id===selCity;
-    const share = c[mapLayer];
-    const r = selected ? 10 : c.role==='sede' ? 7 : Math.min(6.2,4.2 + Math.sqrt(share)*.38);
-    const color = roleColor(c.role);
-    const label = visibleLabels.has(c.id) || selected;
-    let labelSvg = '';
-    if(label){
-      const [dx,dy] = LABEL[c.id] || [14,-16,'start'];
-      const lx=x+dx, ly=y+dy;
-      const w=Math.max(68, Math.min(118, c.name.length*6.2+26));
-      const h=selected?38:31;
-      const value=fmtM(UNIVERSE[mapLayer]*share/100,2);
-      const connectX = dx<0 ? lx+w : lx;
-      const connectY = ly+h/2;
-      labelSvg = `<g class="pin-label ${selected?'selected':''}" style="--pin:${color}">
-        <line x1="${x}" y1="${y}" x2="${connectX}" y2="${connectY}" stroke="${color}" stroke-opacity=".32" stroke-width=".8"/>
-        <rect class="label-bg" x="${lx}" y="${ly}" width="${w}" height="${h}" rx="8"/>
-        <text x="${lx+10}" y="${ly+13}">${esc(c.name)}</text>
-        <text class="metric" x="${lx+10}" y="${ly+(selected?28:24)}">${value} · ${share}%</text>
+  const roleColor = r => r==='sede' ? '#dff45e' : r==='regional' ? '#5fe0d0' : '#76a8ff';
+  const mapped = CITIES.filter(c=>c.x!==null);
+  const pos = Object.fromEntries(mapped.map(c=>[c.id,cityPos(c)]));
+  const corridorIds = ['cali','medellin','bogota','bucaramanga','barranquilla'];
+  const corridorPts = corridorIds.map(id=>pos[id].join(',')).join(' ');
+  const pins = mapped.map(c=>{
+    const [x,y]=pos[c.id];
+    const selected=c.id===selCity;
+    const share=c[mapLayer];
+    const color=roleColor(c.role);
+    const r=selected?8:c.role==='sede'?6.3:4.6;
+    let selectedCard='';
+    if(selected){
+      const cardX = x>320 ? x-122 : x+12;
+      const cardY = Math.max(22,y-27);
+      selectedCard=`<g class="selected-map-card" style="--pin:${color}">
+        <rect class="card-bg" x="${cardX}" y="${cardY}" width="110" height="44" rx="10"/>
+        <text class="city" x="${cardX+11}" y="${cardY+17}">${esc(c.name)}</text>
+        <text class="meta" x="${cardX+11}" y="${cardY+32}">${fmtM(UNIVERSE[mapLayer]*share/100,2)} · ${share}%</text>
       </g>`;
     }
     return `<g class="pin ${selected?'sel':''}" data-city="${c.id}" style="--pin:${color}" tabindex="0" role="button" aria-label="${esc(c.name)}: ${share}% del universo de ${MLABEL[mapLayer].toLowerCase()}">
       <title>${esc(c.name)} · ${fmtM(UNIVERSE[mapLayer]*share/100,2)} · ${share}%</title>
-      <circle class="glow" cx="${x}" cy="${y}" r="${r+11}"/>
-      <circle class="ring" cx="${x}" cy="${y}" r="${r+5}"/>
+      <circle class="glow" cx="${x}" cy="${y}" r="${r+10}"/>
+      <circle class="ring" cx="${x}" cy="${y}" r="${r+4}"/>
       <circle class="core" cx="${x}" cy="${y}" r="${r}"/>
-      ${labelSvg}
+      ${selectedCard}
     </g>`;
   }).join('');
-  $('#mapCanvas').innerHTML = `<svg viewBox="58 6 425 442" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa de Colombia con las ciudades del atlas">
+  $('#mapCanvas').innerHTML=`<svg viewBox="80 10 390 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa de Colombia con ciudades prioritarias">
     <defs>
-      <linearGradient id="landFillPremium" x1="100" y1="65" x2="430" y2="410" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stop-color="#15384c"/>
-        <stop offset=".48" stop-color="#0d2b3f"/>
-        <stop offset="1" stop-color="#081b2f"/>
+      <linearGradient id="landControl" x1="120" y1="60" x2="430" y2="390" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#17374a"/>
+        <stop offset=".52" stop-color="#0d2739"/>
+        <stop offset="1" stop-color="#081827"/>
       </linearGradient>
-      <radialGradient id="cityAura" cx="50%" cy="50%" r="50%">
-        <stop offset="0" stop-color="#63e5d3" stop-opacity=".22"/>
-        <stop offset="1" stop-color="#63e5d3" stop-opacity="0"/>
-      </radialGradient>
+      <linearGradient id="corridorStroke" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#76a8ff"/>
+        <stop offset=".5" stop-color="#5fe0d0"/>
+        <stop offset="1" stop-color="#dff45e"/>
+      </linearGradient>
     </defs>
-    <ellipse cx="280" cy="230" rx="170" ry="150" fill="url(#cityAura)" opacity=".22"/>
     <polygon class="map-land" points="${POLY}"/>
+    <polyline class="map-corridor" points="${corridorPts}"/>
     ${pins}
   </svg>
   <div class="map-legend">
-    <b>Rol de la Ean</b>
-    <span><i style="background:#dff45e;color:#dff45e"></i>Sede presencial</span>
-    <span><i style="background:#64e4d2;color:#64e4d2"></i>Presencia regional</span>
-    <span><i style="background:#7aa8ff;color:#7aa8ff"></i>Demanda virtual</span>
+    <span><i style="background:#dff45e;color:#dff45e"></i>Sede</span>
+    <span><i style="background:#5fe0d0;color:#5fe0d0"></i>Regional</span>
+    <span><i style="background:#76a8ff;color:#76a8ff"></i>Virtual</span>
   </div>
   <div class="map-source">Distribución ilustrativa · 2027</div>`;
-  $$('#mapCanvas .pin').forEach(g => {
-    g.addEventListener('click', () => selectCity(g.dataset.city));
-    g.addEventListener('keydown', e => {
+  $$('#mapCanvas .pin').forEach(g=>{
+    g.addEventListener('click',()=>selectCity(g.dataset.city));
+    g.addEventListener('keydown',e=>{
       if(e.key==='Enter'||e.key===' '){
         e.preventDefault();
         selectCity(g.dataset.city);
@@ -2206,9 +2438,16 @@ function renderCityDetail(){
       </div></div>`;
 }
 function renderCityList(){
-  const roleColor = r => r==='sede' ? '#d9ee6b' : r==='regional' ? '#6fdccb' : '#8fb4ff';
-  $('#cityList').innerHTML = CITIES.map(c=>`<button type="button" data-city="${c.id}" aria-pressed="${c.id===selCity}"><i class="d" style="background:${roleColor(c.role)};color:${roleColor(c.role)}"></i><span>${esc(c.name)}</span><span class="v">${pct(c[mapLayer])}</span><span class="v muted">${fmtM(UNIVERSE[mapLayer]*c[mapLayer]/100,2)}</span></button>`).join('');
-  $$('#cityList button').forEach(b => b.addEventListener('click', () => selectCity(b.dataset.city)));
+  const ranked=[...CITIES]
+    .filter(c=>c.id!=='resto')
+    .sort((a,b)=>b[mapLayer]-a[mapLayer]);
+  $('#cityList').innerHTML=ranked.map((c,i)=>`<button type="button" data-city="${c.id}" aria-pressed="${c.id===selCity}">
+    <span class="rank">${String(i+1).padStart(2,'0')}</span>
+    <span class="name">${esc(c.name)}</span>
+    <span class="v">${pct(c[mapLayer])}</span>
+    <span class="v muted">${fmtM(UNIVERSE[mapLayer]*c[mapLayer]/100,2)}</span>
+  </button>`).join('');
+  $$('#cityList button').forEach(b=>b.addEventListener('click',()=>selectCity(b.dataset.city)));
 }
 $$('[data-layer]').forEach(b => b.addEventListener('click', () => { mapLayer=b.dataset.layer; $$('[data-layer]').forEach(x=>x.setAttribute('aria-pressed', x===b)); renderMap(); }));
 
