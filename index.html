@@ -2415,6 +2415,69 @@ body{
   #library .category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   #library .interests-grid{grid-template-columns:1fr}
 }
+
+/* =========================================================
+   SAFE GEO LAYOUT FIX · CSS ONLY
+   Prevents map canvas from covering city detail.
+   ========================================================= */
+#summary .geo{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(300px,340px)!important;
+  grid-template-areas:
+    "head head"
+    "map side"!important;
+  gap:18px!important;
+  align-items:start!important;
+  overflow:hidden!important;
+}
+#summary .geo > .geo-head{
+  grid-area:head!important;
+  min-width:0!important;
+}
+#summary .geo > .map-canvas{
+  grid-area:map!important;
+  min-width:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  contain:layout paint!important;
+}
+#summary .geo > .map-canvas svg{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  height:100%!important;
+  overflow:hidden!important;
+}
+#summary .geo > .geo-side{
+  grid-area:side!important;
+  position:relative!important;
+  z-index:4!important;
+  min-width:0!important;
+  width:100%!important;
+  max-width:340px!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+}
+#summary .geo > .geo-side .city-detail,
+#summary .geo > .geo-side .city-list{
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:1180px){
+  #summary .geo{
+    grid-template-columns:1fr!important;
+    grid-template-areas:
+      "head"
+      "map"
+      "side"!important;
+  }
+  #summary .geo > .geo-side{
+    max-width:none!important;
+  }
+}
 </style></head><body data-view="summary"><a class="skip-link" href="#main">Saltar al contenido</a><header class="topbar"><button class="mobile-menu icon-button" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false"><i data-icon="menu"></i></button><a class="brand" href="#summary" data-nav="summary" aria-label="Universidad Ean, Audience Atlas 2027"><img class="ean-logo" src="https://raw.githubusercontent.com/santiagoherrera1886-ai/ritual-audience-lab/ean-audience-atlas-preview/assets/ean-logo-white.png?v=4" alt="Universidad Ean — Acreditada en Alta Calidad"><span class="brand-sub">AUDIENCE<br>ATLAS / 2027</span></a><nav class="top-nav" aria-label="Secciones del atlas"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="top-actions"><span class="country">COLOMBIA <span>·</span> 2027</span><button class="button button-primary export-button" id="exportTop" type="button"><i data-icon="download"></i>Exportar CSV</button></div></header><div class="mobile-scrim" id="scrim"></div><aside class="sidebar" id="sidebar" aria-label="Momentos y clústeres"><nav class="mobile-nav" aria-label="Navegación principal"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="side-label">01 / Momento de decisión</div><div id="sideMoments"></div><button class="all-button" type="button" data-nav="audiences" data-m="all"><i data-icon="target"></i>Explorar ambos momentos<i data-icon="arrow-right"></i></button><div class="side-divider"></div><div class="side-label">02 / Clústeres de audiencia</div><div id="sidePersonas"></div><button class="all-button all-clusters" type="button" data-nav="audiences" data-m="all"><i data-icon="arrow-up-right"></i>Ver todos los clústeres</button><div class="side-note"><div><i data-icon="chart"></i><strong>Matriz estratégica,<br>no alcance medido</strong></div><p><span id="sideLibCount">—</span> registros sugeridos. La disponibilidad exacta de cada interés y el tamaño de audiencia se verifican en cada plataforma.</p></div></aside><div class="app-body"><main id="main" tabindex="-1"><!-- ================= RESUMEN ================= --><section id="summary" class="view active" aria-labelledby="summaryTitle"><div class="atlas-grid"><div class="summary-primary"><section class="hero" aria-label="Portada"><div class="hero-copy"><div class="eyebrow">Universidad Ean · Audience Atlas 2027</div><h1 id="summaryTitle">La universidad<br><span>del emprendimiento,</span><br>donde se decide.</h1><p>Dos momentos de decisión, pregrado y posgrado. Un universo de personas, señales y afinidades para conectar la Ean con quien está eligiendo dónde estudiar.</p><div class="hero-actions"><button class="button button-primary" type="button" data-nav="audiences" data-m="all">Explorar audiencias<i data-icon="arrow-right"></i></button><button class="button button-ghost" type="button" data-nav="sim">Abrir el simulador</button></div></div><div class="hero-labels" id="heroLabels"></div><span class="hero-caption">Vista ilustrativa · ciudad andina al atardecer</span></section><section class="panel geo" aria-labelledby="geoTitle"><div class="geo-head"><div><div class="eyebrow">Colombia · Geografía de oportunidad</div><h2 id="geoTitle">¿Dónde están estas personas?</h2><p>Ciudades prioritarias para explorar afinidad con la Ean.</p></div><div class="segmented" role="group" aria-label="Capa del mapa"><button type="button" data-layer="pre" aria-pressed="true">Pregrado</button><button type="button" data-layer="pos" aria-pressed="false">Posgrado</button></div></div><div class="map-canvas" id="mapCanvas"></div><div class="geo-side"><div class="city-detail" id="cityDetail"></div><div class="city-list" id="cityList"></div></div></section></div><div class="summary-secondary"><section class="panel universe"><div class="panel-overline"><span class="eyebrow">Universo Ean · 2027</span><button class="text-button" type="button" data-action="method">Supuestos de planeación</button></div><h2>Audiencia única planeable</h2><div class="universe-main"><div><strong id="uniqTotal">5,0 M</strong><span><i data-icon="people"></i>personas en Colombia</span></div><p>Un universo de oportunidades para llegar a quien decide estudiar, en el momento en que lo decide.</p></div><div class="context-kpis" id="contextKpis"></div></section><section class="panel ecosystem"><div class="eyebrow">Ecosistema de medios</div><div class="ecosystem-grid" id="ecosystem"></div></section><section class="panel audience-funnel"><div class="eyebrow">Contexto de audiencia · De Colombia a la Ean</div><p>Referencias de planeación para dimensionar la oportunidad. Supuestos, no mediciones.</p><div class="funnel-layout"><div class="funnel-rows" id="funnelRows"></div><div class="funnel-target"><i data-icon="target"></i><strong id="funnelTotal">5,0 M</strong><b>personas planeables</b><p>Pregrado y posgrado se superponen: los universos no se suman.</p><button class="text-button" type="button" data-nav="sim">Ver intersección<i data-icon="arrow-up-right"></i></button></div></div></section><section class="panel panel-pad" aria-labelledby="calTitle"><div class="eyebrow">Calendario de admisiones</div><h2 id="calTitle" style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 2px">Cuatro olas en 2027</h2><div id="calendar"></div></section></div></div></section><!-- ================= AUDIENCIAS ================= --><section id="audiences" class="view" aria-labelledby="audiencesTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Clústeres / Momentos</div><h1 id="audiencesTitle">Doce perfiles, <span>dos momentos.</span></h1><p>Cada clúster trae edad, tamaño ilustrativo, qué lo activa, programas afines, afinidad por plataforma y el mensaje que debería recibir.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters" id="audCounters"></div><div class="segmented" role="group" aria-label="Filtrar por momento" id="audFilter"><button type="button" data-m="all" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button></div></div></div><div class="note" style="margin-bottom:16px">Los aspirantes de 16 y 17 años no se pueden segmentar por intereses en Meta, TikTok ni Google (solo edad, ubicación y género; en varias plataformas la edad mínima para pauta es 18). Por eso pregrado se planea sobre 18 a 21 años más padres y madres decisores.</div><div class="persona-cards" id="personaCards"></div></section><!-- ================= MEDIOS ================= --><section id="media" class="view" aria-labelledby="mediaTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Canales / Territorios</div><h1 id="mediaTitle">Cada audiencia, <span>su plataforma.</span></h1><p>Explora las señales por entorno y descubre qué clúster está presente en cada uno. Selecciona un canal para ver sus señales y oportunidades.</p></div><div class="counters" id="mediaCounters"></div></div><div class="platform-cards" id="platformCards"></div><div class="heading-row" style="margin-top:28px;margin-bottom:0"><div class="page-heading"><div class="eyebrow">Mix sugerido por momento</div><h2 style="font-size:26px;font-weight:900;letter-spacing:-.04em;margin:6px 0 4px">Dónde va cada peso</h2></div></div><div class="mix-cards" id="mixSuggested"></div><section class="panel panel-pad" style="margin-top:16px"><div class="eyebrow">Embudo de admisiones</div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 6px">De la impresión a la matrícula</h2><p class="small muted" style="max-width:66ch">Supuestos de planeación por plataforma: CPM, tasa de clics y conversión a lead. Las conversiones de lead a inscrito y de inscrito a matriculado se ajustan en el simulador.</p><div class="table-scroll" style="margin-top:10px"><table id="funnelTable"></table></div></section></section><!-- ================= INTERESES ================= --><section id="library" class="view" aria-labelledby="libraryTitle" hidden>
   <div class="library-hero">
     <div class="page-heading">
