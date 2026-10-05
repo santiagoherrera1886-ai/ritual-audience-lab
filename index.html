@@ -910,6 +910,583 @@ body{
 .side-person>img{
   background:linear-gradient(135deg,#19304a,#0a1725);
 }
+
+/* =========================================================
+   EAN AUDIENCE ATLAS · COMPLETE PREMIUM POLISH
+   Summary + Media + Interests + Simulator
+   ========================================================= */
+
+/* ---------- shared page hierarchy ---------- */
+#summary,#media,#library,#sim{
+  background:
+    radial-gradient(1000px 620px at 74% -12%,#173a7138,transparent 62%),
+    linear-gradient(180deg,#06101c 0%,#050d18 62%,#040a14 100%);
+}
+#media .heading-row,#library .heading-row,#sim .heading-row{
+  padding-top:4px;
+  margin-bottom:24px;
+}
+#media .page-heading h1,#library .page-heading h1,#sim .page-heading h1{
+  font-size:clamp(44px,4.4vw,70px);
+  line-height:.96;
+  max-width:900px;
+  letter-spacing:-.066em;
+}
+#media .page-heading h1 span,#library .page-heading h1 span,#sim .page-heading h1 span{
+  background:linear-gradient(120deg,#8999ad,#aab7ca 55%,#708198);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+#media .page-heading p,#library .page-heading p,#sim .page-heading p{
+  color:#8e9caf;
+  font-size:13px;
+  line-height:1.75;
+}
+#media .counters>div,#sim .counters>div{
+  border-radius:18px;
+  border-color:#23354f;
+  background:linear-gradient(145deg,#0a1524,#0c1929);
+  box-shadow:inset 0 1px #ffffff05,0 12px 34px #0003;
+}
+.panel{
+  border-color:#22344e;
+  border-radius:20px;
+  background:linear-gradient(155deg,#0a1423,#09121f 70%);
+  box-shadow:inset 0 1px #ffffff07,0 18px 45px #0002;
+}
+
+/* ---------- SUMMARY ---------- */
+#summary{padding-top:28px}
+#summary .atlas-grid{
+  gap:18px;
+  grid-template-columns:minmax(0,1.56fr) minmax(360px,.8fr);
+}
+#summary .summary-primary,#summary .summary-secondary{gap:18px}
+#summary .hero{
+  min-height:535px;
+  border-radius:26px;
+  border:1px solid #4d718b;
+  background:
+    url('https://images.unsplash.com/photo-1519452575417-564c1401ecc0?auto=format&fit=crop&w=1800&h=1200&q=90') center 45%/cover no-repeat;
+  box-shadow:0 30px 80px #0007,inset 0 1px #ffffff18;
+  align-items:flex-end;
+}
+#summary .hero::after{
+  background:
+    linear-gradient(90deg,#040b16f4 0%,#06111dce 38%,#06111d2c 74%,#06111d0d 100%),
+    linear-gradient(0deg,#06101de8 0%,transparent 50%),
+    radial-gradient(600px 420px at 95% 22%,#3ee3ce28,transparent 68%);
+}
+#summary .hero-copy{
+  width:66%;
+  padding:46px 0 45px 44px;
+}
+#summary .hero .eyebrow{
+  color:#9eb0c8;
+  letter-spacing:.2em;
+}
+#summary .hero h1{
+  font-size:clamp(54px,5.2vw,82px);
+  line-height:.96;
+  letter-spacing:-.072em;
+  margin:14px 0 22px;
+  text-shadow:0 8px 34px #000a;
+}
+#summary .hero h1 span{
+  background:linear-gradient(120deg,#f7fbff 0%,#a8bdd0 70%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+#summary .hero-copy>p{
+  max-width:54ch;
+  font-size:14px;
+  line-height:1.75;
+  color:#bdc8d8;
+}
+#summary .hero-actions .button{
+  min-height:46px;
+  border-radius:999px;
+  padding-inline:18px;
+}
+#summary .hero-actions .button-primary{
+  background:#f6f8fb;
+  color:#07111c;
+  border-color:#fff;
+  box-shadow:0 10px 30px #0005;
+}
+#summary .hero-actions .button-ghost{
+  background:#07121ecf;
+  border-color:#5b718b;
+  backdrop-filter:blur(10px);
+}
+#summary .hero-labels{
+  right:22px;
+  bottom:22px;
+}
+#summary .hero-label{
+  min-width:150px;
+  padding:13px 16px;
+  border-radius:16px;
+  background:#06131ed9;
+  border-color:#456378;
+  backdrop-filter:blur(14px);
+}
+#summary .hero-caption{display:none}
+#summary .universe{
+  padding:25px 26px;
+  min-height:280px;
+}
+#summary .universe h2{
+  margin-top:15px;
+  font-size:20px;
+}
+#summary .universe-main{margin-top:12px}
+#summary .universe-main strong{
+  font-size:clamp(70px,7vw,104px);
+  line-height:.86;
+}
+#summary .universe-main>p{
+  border-radius:15px;
+  border-color:#455a78;
+  background:#ffffff06;
+  color:#8e9aab;
+  padding:15px;
+}
+#summary .context-kpis>div{
+  border-radius:14px;
+  border-color:#223650;
+  background:#0c1725;
+  padding:16px 13px;
+}
+#summary .context-kpis b{font-size:26px}
+#summary .ecosystem{padding:24px}
+#summary .ecosystem-grid{gap:10px}
+#summary .ecosystem-grid>button{
+  min-height:136px;
+  border-radius:15px;
+  border-color:#223550;
+  background:linear-gradient(150deg,#0c1828,#08131f);
+  transition:transform .2s,border-color .2s;
+}
+#summary .ecosystem-grid>button:hover{
+  transform:translateY(-3px);
+  border-color:#496583;
+  background:linear-gradient(150deg,#112239,#0b1828);
+}
+#summary .wordmark{border-radius:999px}
+#summary .audience-funnel{padding:24px}
+#summary .funnel-rows>div{
+  min-height:48px;
+  border-radius:12px;
+  border-color:#22354f;
+  background:#0b1725;
+}
+#summary .funnel-target{
+  border-radius:15px;
+  border-color:#2b675f;
+  background:linear-gradient(160deg,#0b282d,#0a1828);
+}
+#summary .geo{
+  padding:25px;
+  border-radius:24px;
+}
+#summary .geo-head h2{font-size:32px}
+#summary .map-canvas{
+  border-radius:18px;
+  border-color:#21415d;
+  background:
+    radial-gradient(circle at 52% 42%,#11475e88,transparent 62%),
+    linear-gradient(150deg,#071323,#07101d);
+  box-shadow:inset 0 0 60px #3fd5c816;
+}
+#summary .city-detail{
+  border-radius:17px;
+  border-color:#233950;
+  background:#0b1725;
+}
+#summary .city-list button{
+  border-radius:11px;
+  border-color:#21334c;
+  background:#091522;
+}
+
+/* ---------- MEDIA ---------- */
+#media .platform-cards{
+  gap:18px;
+}
+#media .platform-card{
+  border-radius:22px;
+  border-color:#24364e;
+  background:linear-gradient(170deg,#0b1625,#07111d);
+  box-shadow:0 22px 55px #00035,inset 0 1px #ffffff06;
+  transition:transform .22s ease,border-color .22s ease;
+}
+#media .platform-card:hover{
+  transform:translateY(-4px);
+  border-color:#527093;
+}
+#media .platform-hero{
+  height:260px;
+  padding:28px 26px 24px;
+  background-position:center 48%;
+}
+#media .platform-hero::after{
+  background:
+    linear-gradient(90deg,#06111df2 0%,#07121dbd 40%,#07121d2b 82%),
+    linear-gradient(0deg,#07121ded,transparent 58%);
+}
+#media .platform-title{gap:13px}
+#media .platform-title h2{
+  font-size:38px;
+  line-height:1;
+}
+#media .platform-title .wordmark{
+  height:32px;
+  border-radius:999px;
+  padding:0 12px;
+  font-size:11px;
+}
+#media .platform-hero>p{
+  max-width:48%;
+  font-size:14px;
+  line-height:1.6;
+  color:#d4dce9;
+}
+#media .platform-details{padding:19px 22px 16px}
+#media .platform-details-grid{
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr);
+  gap:22px;
+}
+#media .platform-details h3{
+  color:#7488a6;
+  letter-spacing:.18em;
+  margin-bottom:10px;
+}
+#media .presence{gap:11px}
+#media .presence>div{
+  border-radius:999px;
+  background:#0f1b2d;
+  padding:4px 8px 4px 4px;
+  border:1px solid #263a55;
+}
+#media .presence img,#media .presence .avatar{
+  width:34px;height:34px;
+  border-color:#4f6178;
+}
+#media .platform-details .chips .chip{
+  border-radius:999px;
+  border-color:#3c5378;
+  background:#0c1829;
+  padding:7px 11px;
+}
+#media .platform-actions{
+  margin-top:17px;
+  padding-top:14px;
+  border-color:#1d2b42;
+}
+#media .platform-actions .text-button{
+  color:#66e5ef;
+}
+#media .platform-actions .button-primary{
+  border-radius:11px;
+  background:#f5f7f8;
+  color:#07111b;
+  border-color:#fff;
+  box-shadow:none;
+}
+#media .mix-cards .panel{
+  border-radius:20px;
+  padding:20px;
+}
+#media .mix-bar{
+  height:36px;
+  border-radius:12px;
+  border-color:#243750;
+}
+#media .mix-bar span{font-size:10px}
+#media .mix-list{
+  color:#98a6ba;
+  line-height:1.75;
+}
+#media table{
+  border-collapse:separate;
+  border-spacing:0;
+  overflow:hidden;
+  border:1px solid #24364d;
+  border-radius:14px;
+}
+#media th{
+  background:#0c1828;
+  color:#7e8ca2;
+}
+#media td{background:#08131f}
+
+/* ---------- INTEREST LIBRARY ---------- */
+#library .library-toolbar{
+  gap:11px;
+  margin-bottom:13px;
+}
+#library .search-field{
+  height:50px;
+  border-radius:16px;
+  border-color:#253a55;
+  background:#091522;
+  box-shadow:inset 0 1px #ffffff06;
+}
+#library .search-field input{font-size:13px}
+#library #clearFilters{
+  height:50px;
+  border-radius:14px;
+  border-color:#334965;
+}
+#library .filters-row{
+  margin-bottom:18px;
+}
+#library .segmented{
+  border-radius:999px;
+  background:#08131f;
+  border-color:#243751;
+}
+#library .segmented button{
+  border-radius:999px;
+}
+#library select{
+  min-height:42px;
+  border-radius:12px;
+  border-color:#273b56;
+  background:#091523;
+}
+#library .category-grid{
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:20px;
+}
+#library .category-tile{
+  height:132px;
+  border-radius:18px;
+  border-color:#273b55;
+  background:#0a1725;
+  box-shadow:inset 0 1px #ffffff08;
+  transition:transform .2s,border-color .2s;
+}
+#library .category-tile::before{
+  opacity:.42;
+  filter:saturate(.75);
+}
+#library .category-tile::after{
+  background:
+    linear-gradient(0deg,#07101bea 12%,#07101b8a 55%,transparent 100%);
+}
+#library .category-tile:hover,#library .category-tile.active{
+  transform:translateY(-3px);
+  border-color:#56a6a3;
+  box-shadow:0 18px 35px #0004,inset 0 0 0 1px #56a6a329;
+}
+#library .category-tile strong{
+  font-size:16px;
+}
+#library .category-tile .cap{
+  left:14px;bottom:13px;
+}
+#library .result-row{
+  padding:0 2px;
+  margin-bottom:12px;
+}
+#library .interests-grid{
+  gap:14px;
+}
+#library .interest-card{
+  min-height:190px;
+  border-radius:18px;
+  border-color:#22354e;
+  background:
+    radial-gradient(140px 120px at 100% 0%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%),
+    linear-gradient(155deg,#0c1828,#07121e);
+  padding:17px;
+  transition:transform .2s,border-color .2s;
+}
+#library .interest-card::before{
+  width:150px;height:150px;
+  right:-52px;top:-58px;
+  opacity:.28;
+}
+#library .interest-card:hover{
+  transform:translateY(-3px);
+  border-color:#466789;
+  box-shadow:0 18px 45px #0004;
+}
+#library .interest-card strong{
+  font-size:17px;
+  line-height:1.25;
+}
+#library .interest-card .type{
+  color:#8396b3;
+  letter-spacing:.14em;
+}
+#library .interest-card .nota{
+  color:#8794a8;
+  line-height:1.6;
+}
+#library .interest-card .who img{
+  width:26px;height:26px;
+  border-color:#53677f;
+  box-shadow:0 3px 9px #0005;
+}
+#library .pagination button{
+  border-radius:10px;
+  border-color:#304764;
+  background:#091522;
+}
+
+/* ---------- SIMULATOR ---------- */
+#sim .sim-grid{
+  grid-template-columns:390px minmax(0,1fr);
+  gap:18px;
+}
+#sim .config-panel{
+  position:sticky;
+  top:calc(var(--header) + 18px);
+  border-radius:22px;
+  padding:22px;
+  gap:18px;
+  background:
+    radial-gradient(260px 220px at 100% 0%,#3a68a622,transparent 72%),
+    linear-gradient(160deg,#0c1828,#07121f);
+}
+#sim .ctrl-row{
+  border:1px solid #223650;
+  background:#091522;
+  border-radius:14px;
+  padding:13px 14px 10px;
+}
+#sim .ctrl-row .lbl{
+  color:#aab7ca;
+}
+#sim .ctrl-row .lbl output{
+  font-size:20px;
+}
+#sim input[type=range]{
+  accent-color:#6be3d0;
+}
+#sim .allocation{
+  border-radius:15px;
+  border-color:#263a54;
+  background:#0b1726;
+  padding:13px;
+}
+#sim .allocation>img,#sim .allocation>.avatar{
+  border-radius:14px;
+  border-color:#4f6176;
+}
+#sim .mix-table .mrow{
+  background:#091522;
+  border:1px solid #1f324b;
+  border-radius:11px;
+  padding:7px 9px;
+}
+#sim .sim-right{gap:18px}
+#sim .kpis{
+  gap:12px;
+}
+#sim .kpi{
+  min-height:108px;
+  border-radius:18px;
+  border:1px solid #233650;
+  background:
+    radial-gradient(120px 100px at 100% 0%,#447cff1a,transparent 75%),
+    linear-gradient(150deg,#0c1929,#08131f);
+  padding:18px 16px;
+}
+#sim .kpi b{font-size:30px}
+#sim .kpi span{color:#8391a6}
+#sim .kpi.pre{border-top:1px solid #ddec596b}
+#sim .kpi.pos{border-top:1px solid #5be5e36b}
+#sim .venn-wrap{
+  gap:22px;
+}
+#sim .venn-text{
+  padding:14px;
+  border:1px solid #243a55;
+  border-radius:16px;
+  background:#091522;
+}
+#sim .venn-text b{
+  font-size:48px;
+  margin:10px 0 5px;
+}
+#sim .charts{gap:18px}
+#sim .chart-card{
+  border-radius:20px;
+  padding:20px;
+}
+#sim .chart-head p{font-size:11px}
+#sim .funnel-row .f{
+  min-height:84px;
+  border-radius:15px;
+  border-color:#22364f;
+  background:#091522;
+  padding:14px;
+}
+#sim .funnel-row .f b{font-size:23px}
+#sim table{
+  border:1px solid #22364e;
+  border-radius:14px;
+  overflow:hidden;
+  border-collapse:separate;
+  border-spacing:0;
+}
+#sim th{background:#0b1726;color:#8190a7}
+#sim td{background:#08131f}
+#sim .scen{
+  gap:12px;
+}
+#sim .scen button{
+  min-height:115px;
+  border-radius:17px;
+  border-color:#253a55;
+  background:linear-gradient(150deg,#0c1828,#08131f);
+  padding:17px;
+}
+#sim .scen button:hover,#sim .scen button[aria-pressed="true"]{
+  border-color:#5cd5cb;
+  background:linear-gradient(150deg,#102238,#0a1a2a);
+  box-shadow:inset 0 0 0 1px #5cd5cb22;
+}
+#sim .scen .n{font-size:20px}
+#sim .method-note{
+  border-radius:17px;
+  border-color:#285154;
+  background:linear-gradient(135deg,#0d202b,#0a1725);
+  padding:17px 18px;
+}
+
+/* ---------- desktop polish / responsive ---------- */
+@media(max-width:1280px){
+  #summary .atlas-grid{grid-template-columns:1fr}
+  #summary .summary-secondary{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #summary .summary-secondary>.audience-funnel,
+  #summary .summary-secondary>.panel:last-child{grid-column:1/-1}
+  #media .platform-cards{grid-template-columns:1fr}
+  #library .category-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  #sim .sim-grid{grid-template-columns:340px minmax(0,1fr)}
+}
+@media(max-width:1000px){
+  #summary .summary-secondary{grid-template-columns:1fr}
+  #summary .summary-secondary>*{grid-column:auto!important}
+  #summary .hero-copy{width:78%}
+  #library .category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #sim .sim-grid{grid-template-columns:1fr}
+  #sim .config-panel{position:static}
+}
+@media(max-width:700px){
+  #summary .hero{min-height:520px}
+  #summary .hero-copy{width:100%;padding:28px 20px 145px}
+  #summary .hero h1{font-size:42px}
+  #summary .hero-label{min-width:120px}
+  #media .platform-hero{height:230px}
+  #media .platform-title h2{font-size:30px}
+  #media .platform-hero>p{max-width:80%}
+  #library .category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #library .interests-grid{grid-template-columns:1fr}
+}
 </style></head><body data-view="summary"><a class="skip-link" href="#main">Saltar al contenido</a><header class="topbar"><button class="mobile-menu icon-button" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false"><i data-icon="menu"></i></button><a class="brand" href="#summary" data-nav="summary" aria-label="Universidad Ean, Audience Atlas 2027"><span class="brand-mark"><span class="u">Universidad</span><span class="e">Ean</span></span><span class="brand-sub">AUDIENCE<br>ATLAS / 2027</span></a><nav class="top-nav" aria-label="Secciones del atlas"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="top-actions"><span class="country">COLOMBIA <span>·</span> 2027</span><button class="button button-primary export-button" id="exportTop" type="button"><i data-icon="download"></i>Exportar CSV</button></div></header><div class="mobile-scrim" id="scrim"></div><aside class="sidebar" id="sidebar" aria-label="Momentos y clústeres"><nav class="mobile-nav" aria-label="Navegación principal"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="side-label">01 / Momento de decisión</div><div id="sideMoments"></div><button class="all-button" type="button" data-nav="audiences" data-m="all"><i data-icon="target"></i>Explorar ambos momentos<i data-icon="arrow-right"></i></button><div class="side-divider"></div><div class="side-label">02 / Clústeres de audiencia</div><div id="sidePersonas"></div><button class="all-button all-clusters" type="button" data-nav="audiences" data-m="all"><i data-icon="arrow-up-right"></i>Ver todos los clústeres</button><div class="side-note"><div><i data-icon="chart"></i><strong>Matriz estratégica,<br>no alcance medido</strong></div><p><span id="sideLibCount">—</span> registros sugeridos. La disponibilidad exacta de cada interés y el tamaño de audiencia se verifican en cada plataforma.</p></div></aside><div class="app-body"><main id="main" tabindex="-1"><!-- ================= RESUMEN ================= --><section id="summary" class="view active" aria-labelledby="summaryTitle"><div class="atlas-grid"><div class="summary-primary"><section class="hero" aria-label="Portada"><div class="hero-copy"><div class="eyebrow">Universidad Ean · Audience Atlas 2027</div><h1 id="summaryTitle">La universidad<br><span>del emprendimiento,</span><br>donde se decide.</h1><p>Dos momentos de decisión, pregrado y posgrado. Un universo de personas, señales y afinidades para conectar la Ean con quien está eligiendo dónde estudiar.</p><div class="hero-actions"><button class="button button-primary" type="button" data-nav="audiences" data-m="all">Explorar audiencias<i data-icon="arrow-right"></i></button><button class="button button-ghost" type="button" data-nav="sim">Abrir el simulador</button></div></div><div class="hero-labels" id="heroLabels"></div><span class="hero-caption">Vista ilustrativa · ciudad andina al atardecer</span></section><section class="panel geo" aria-labelledby="geoTitle"><div class="geo-head"><div><div class="eyebrow">Colombia · Geografía de oportunidad</div><h2 id="geoTitle">¿Dónde están estas personas?</h2><p>Ciudades prioritarias para explorar afinidad con la Ean.</p></div><div class="segmented" role="group" aria-label="Capa del mapa"><button type="button" data-layer="pre" aria-pressed="true">Pregrado</button><button type="button" data-layer="pos" aria-pressed="false">Posgrado</button></div></div><div class="map-canvas" id="mapCanvas"></div><div class="geo-side"><div class="city-detail" id="cityDetail"></div><div class="city-list" id="cityList"></div></div></section></div><div class="summary-secondary"><section class="panel universe"><div class="panel-overline"><span class="eyebrow">Universo Ean · 2027</span><button class="text-button" type="button" data-action="method">Supuestos de planeación</button></div><h2>Audiencia única planeable</h2><div class="universe-main"><div><strong id="uniqTotal">5,0 M</strong><span><i data-icon="people"></i>personas en Colombia</span></div><p>Un universo de oportunidades para llegar a quien decide estudiar, en el momento en que lo decide.</p></div><div class="context-kpis" id="contextKpis"></div></section><section class="panel ecosystem"><div class="eyebrow">Ecosistema de medios</div><div class="ecosystem-grid" id="ecosystem"></div></section><section class="panel audience-funnel"><div class="eyebrow">Contexto de audiencia · De Colombia a la Ean</div><p>Referencias de planeación para dimensionar la oportunidad. Supuestos, no mediciones.</p><div class="funnel-layout"><div class="funnel-rows" id="funnelRows"></div><div class="funnel-target"><i data-icon="target"></i><strong id="funnelTotal">5,0 M</strong><b>personas planeables</b><p>Pregrado y posgrado se superponen: los universos no se suman.</p><button class="text-button" type="button" data-nav="sim">Ver intersección<i data-icon="arrow-up-right"></i></button></div></div></section><section class="panel panel-pad" aria-labelledby="calTitle"><div class="eyebrow">Calendario de admisiones</div><h2 id="calTitle" style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 2px">Cuatro olas en 2027</h2><div id="calendar"></div></section></div></div></section><!-- ================= AUDIENCIAS ================= --><section id="audiences" class="view" aria-labelledby="audiencesTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Clústeres / Momentos</div><h1 id="audiencesTitle">Doce perfiles, <span>dos momentos.</span></h1><p>Cada clúster trae edad, tamaño ilustrativo, qué lo activa, programas afines, afinidad por plataforma y el mensaje que debería recibir.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters" id="audCounters"></div><div class="segmented" role="group" aria-label="Filtrar por momento" id="audFilter"><button type="button" data-m="all" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button></div></div></div><div class="note" style="margin-bottom:16px">Los aspirantes de 16 y 17 años no se pueden segmentar por intereses en Meta, TikTok ni Google (solo edad, ubicación y género; en varias plataformas la edad mínima para pauta es 18). Por eso pregrado se planea sobre 18 a 21 años más padres y madres decisores.</div><div class="persona-cards" id="personaCards"></div></section><!-- ================= MEDIOS ================= --><section id="media" class="view" aria-labelledby="mediaTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Canales / Territorios</div><h1 id="mediaTitle">Cada audiencia, <span>su plataforma.</span></h1><p>Explora las señales por entorno y descubre qué clúster está presente en cada uno. Selecciona un canal para ver sus señales y oportunidades.</p></div><div class="counters" id="mediaCounters"></div></div><div class="platform-cards" id="platformCards"></div><div class="heading-row" style="margin-top:28px;margin-bottom:0"><div class="page-heading"><div class="eyebrow">Mix sugerido por momento</div><h2 style="font-size:26px;font-weight:900;letter-spacing:-.04em;margin:6px 0 4px">Dónde va cada peso</h2></div></div><div class="mix-cards" id="mixSuggested"></div><section class="panel panel-pad" style="margin-top:16px"><div class="eyebrow">Embudo de admisiones</div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 6px">De la impresión a la matrícula</h2><p class="small muted" style="max-width:66ch">Supuestos de planeación por plataforma: CPM, tasa de clics y conversión a lead. Las conversiones de lead a inscrito y de inscrito a matriculado se ajustan en el simulador.</p><div class="table-scroll" style="margin-top:10px"><table id="funnelTable"></table></div></section></section><!-- ================= INTERESES ================= --><section id="library" class="view" aria-labelledby="libraryTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Intereses / Señales</div><h1 id="libraryTitle">Biblioteca de <span>segmentación.</span></h1><p>Intereses, comportamientos, datos demográficos, cargos, palabras clave y audiencias propias, cruzados con los doce clústeres. Verifica disponibilidad y tamaño en cada plataforma antes de pautar.</p></div><button class="button button-primary" type="button" id="exportLib"><i data-icon="download"></i>Exportar CSV</button></div><div class="library-toolbar"><label class="search-field"><i data-icon="search"></i><input type="search" id="q" placeholder="Buscar interés, cargo, palabra clave o clúster…" autocomplete="off" aria-label="Buscar en la biblioteca"></label><button class="button button-ghost button-small" type="button" id="clearFilters"><i data-icon="close"></i>Limpiar filtros</button><div class="view-switch" aria-label="Vista"><button class="icon-button active" type="button" data-lib-view="grid" aria-label="Ver tarjetas" aria-pressed="true"><i data-icon="grid"></i></button><button class="icon-button" type="button" data-lib-view="table" aria-label="Ver tabla" aria-pressed="false"><i data-icon="list"></i></button></div></div><div class="filters-row"><div class="segmented" id="libMoment" role="group" aria-label="Momento"><button type="button" data-m="" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button><button type="button" data-m="ambos" aria-pressed="false">Ambos</button></div><select id="fPlat" aria-label="Plataforma"><option value="">Todas las plataformas</option></select><select id="fCluster" aria-label="Clúster"><option value="">Todos los clústeres</option></select></div><div class="category-grid" id="categoryGrid"></div><div class="result-row"><span class="result-count" id="resultCount"></span><span class="small muted">Las tarjetas muestran 24 por página.</span></div><div id="libGrid" class="interests-grid"></div><div id="libTable" class="table-scroll" hidden><table class="lib-table" id="libTableEl"></table></div><div class="pagination" id="pagination"></div></section><!-- ================= SIMULADOR ================= --><section id="sim" class="view" aria-labelledby="simTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Simulador / Pregrado + Posgrado</div><h1 id="simTitle">Alcance, frecuencia <span>y admisiones.</span></h1><p>Modelo de planificación con universos e intersección supuestos. No representa mediciones de campañas.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters sim-context" id="simContext"></div><div style="display:flex;gap:8px"><button class="button button-ghost button-small" type="button" data-action="method"><i data-icon="info"></i>Ver supuestos</button><button class="button button-ghost button-small" type="button" id="resetSim">Restablecer</button></div></div></div><div class="sim-grid"><section class="panel config-panel" aria-label="Configuración del escenario"><div><div class="eyebrow">Configura tu escenario</div><p class="small muted" style="margin-top:4px">Define la inversión y el peso entre los dos momentos.</p></div><div class="ctrl-row"><div class="lbl"><span>Inversión total 2027</span><output id="oBudget">$1.800 M COP</output></div><input type="range" id="iBudget" min="300" max="5000" step="50" value="1800" aria-label="Inversión total en millones de pesos"><div class="hint">Millones de pesos en pauta, sin producción ni fee.</div></div><div id="allocations"></div><div class="ctrl-row"><div class="lbl"><span>Lead a inscrito</span><output id="oR1">Pre 10% · Pos 12%</output></div><input type="range" id="iR1pre" min="3" max="30" step="1" value="10" aria-label="Conversión de lead a inscrito en pregrado"><input type="range" id="iR1pos" min="3" max="30" step="1" value="12" aria-label="Conversión de lead a inscrito en posgrado"></div><div class="ctrl-row"><div class="lbl"><span>Inscrito a matriculado</span><output id="oR2">Pre 40% · Pos 45%</output></div><input type="range" id="iR2pre" min="10" max="80" step="1" value="40" aria-label="Conversión de inscrito a matriculado en pregrado"><input type="range" id="iR2pos" min="10" max="80" step="1" value="45" aria-label="Conversión de inscrito a matriculado en posgrado"></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix pregrado</div><div class="mix-table" id="mixPre"></div></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix posgrado</div><div class="mix-table" id="mixPos"></div></div><p class="small muted" style="font-size:10px">Cada mix suma 100%. Los demás canales se ajustan al mover un porcentaje.</p></section><div class="sim-right"><div class="kpis" id="kpis"></div><section class="panel panel-pad"><div class="eyebrow">Audiencia única estimada</div><div class="venn-wrap" style="margin-top:8px"><div id="venn"></div><div class="venn-text"><strong>Audiencia única =<br>Pregrado + Posgrado<br>− intersección</strong><b id="vennUnique">—</b><span>personas únicas proyectadas al cierre de las cuatro olas</span></div></div></section><div class="charts"><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Curva de alcance acumulado</div><p>Personas únicas por ola de campaña · proyección.</p></div></div><div id="chartReach"></div><div class="legend"><span><i style="background:#fff"></i>Pregrado + posgrado</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Frecuencia promedio</div><p>Exposiciones por persona alcanzada · proyección.</p></div></div><div id="chartFreq"></div><div class="legend"><span><i style="background:#fff"></i>Total</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section></div><section class="panel panel-pad"><div class="eyebrow">Embudo de admisiones proyectado</div><div id="funnels" style="display:grid;gap:14px;margin-top:10px"></div></section><section class="panel panel-pad"><div class="eyebrow">Alcance y frecuencia por plataforma</div><div class="table-scroll" style="margin-top:8px"><table id="platTable"></table></div></section><section class="panel panel-pad"><div class="heading-row" style="margin-bottom:12px"><div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em">Escenarios rápidos</h2><p class="small muted">Encuentra tu punto de partida. Al elegir uno se aplican su inversión, reparto y mix.</p></div><button class="button button-primary button-small" type="button" id="compareBtn">Aplicar y comparar<i data-icon="arrow-right"></i></button></div><div class="scen" id="scenarios"></div><div id="compare" style="margin-top:14px"></div></section><div class="method-note"><i data-icon="sparkles"></i><div><b>Modelo de planificación</b><p>Proyección con universos e intersección supuestos. No representa mediciones de campañas. Los CPM, CTR y conversiones son supuestos de planeación editables en <code>data.js</code>.</p><button class="text-button" type="button" data-action="method">Ver supuestos<i data-icon="arrow-up-right"></i></button></div></div></div></div></section></main></div><dialog id="dialog" aria-labelledby="dialogTitle"><div class="dialog-top"><span class="eyebrow" id="dialogEyebrow"></span><button class="icon-button" type="button" id="closeDialog" aria-label="Cerrar"><i data-icon="close"></i></button></div><div class="dialog-body" id="dialogBody"></div></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div><script>/* =====================================================================
    DATOS DEL ATLAS — todo son supuestos de planeación (ilustrativos).
    Para cambiar números, clústeres, ciudades o señales, edita solo este archivo.
@@ -928,22 +1505,22 @@ const MOMENTS = {
 };
 
 const PLATFORMS = [
-  { id:'meta',   name:'Meta Ads', short:'Meta', wordmark:'Meta', cpm:12000, ctr:0.009,  cvr:0.06,  sat:6.0,  color:'#6aa6ff', img:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E',
+  { id:'meta',   name:'Meta Ads', short:'Meta', wordmark:'Meta', cpm:12000, ctr:0.009,  cvr:0.06,  sat:6.0,  color:'#6aa6ff', img:'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&h=900&q=88',
     role:'Alcance y captación de leads con formularios instantáneos en ambos momentos.', tagline:'Alcance y leads<br>en Instagram y Facebook.',
     formats:['Reels 9:16','Historias','Carrusel de programas','Lead ads'], kpi:'CPL y tasa de lead cualificado' },
-  { id:'search', name:'Google Search', short:'Search', wordmark:'Google', cpm:120000, ctr:0.05, cvr:0.08, sat:3.0, color:'#ffd27a', img:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E',
+  { id:'search', name:'Google Search', short:'Search', wordmark:'Google', cpm:120000, ctr:0.05, cvr:0.08, sat:3.0, color:'#ffd27a', img:'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1600&h=900&q=88',
     role:'Intención: quien ya busca carrera, especialización o a la Ean por nombre.', tagline:'Intención pura.<br>De la búsqueda a la inscripción.',
     formats:['Búsqueda por programa','Marca','Competencia (solo posgrado)','Extensiones de formulario'], kpi:'CPL y tasa de conversión' },
-  { id:'yt',     name:'YouTube', short:'YouTube', wordmark:'YouTube', cpm:9000, ctr:0.0035, cvr:0.02, sat:7.0, color:'#ff8a8a', img:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E',
+  { id:'yt',     name:'YouTube', short:'YouTube', wordmark:'YouTube', cpm:9000, ctr:0.0035, cvr:0.02, sat:7.0, color:'#ff8a8a', img:'https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1600&h=900&q=88',
     role:'Alcance en video y consideración: testimonios, campus Ean Legacy, día a día del programa.', tagline:'Video para considerar<br>y recordar la marca.',
     formats:['Video reach (bumper + skippable)','Demand Gen','Shorts'], kpi:'Alcance único, VTR y búsquedas de marca' },
-  { id:'tiktok', name:'TikTok Ads', short:'TikTok', wordmark:'TikTok', cpm:7000, ctr:0.007, cvr:0.025, sat:8.0, color:'#ff7fc1', img:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E',
+  { id:'tiktok', name:'TikTok Ads', short:'TikTok', wordmark:'TikTok', cpm:7000, ctr:0.007, cvr:0.025, sat:8.0, color:'#ff7fc1', img:'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1600&h=900&q=88',
     role:'Descubrimiento en 18 a 24: emprendimiento, vida universitaria y carreras del futuro.', tagline:'Descubrimiento<br>en los de 18 a 24.',
     formats:['In-feed 9:16','Spark Ads con creadores','Lead gen nativo'], kpi:'Alcance en 18–24 y CPL' },
-  { id:'li',     name:'LinkedIn Ads', short:'LinkedIn', wordmark:'LinkedIn', cpm:45000, ctr:0.0045, cvr:0.08, sat:5.0, color:'#7fb8ff', img:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E',
+  { id:'li',     name:'LinkedIn Ads', short:'LinkedIn', wordmark:'LinkedIn', cpm:45000, ctr:0.0045, cvr:0.08, sat:5.0, color:'#7fb8ff', img:'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1600&h=900&q=88',
     role:'Posgrado: cargos, industrias, aptitudes y empresas que financian formación.', tagline:'Posgrado por cargo,<br>sector y aptitud.',
     formats:['Single image','Documento','Lead Gen Forms','Conversation ads'], kpi:'CPL cualificado y costo por inscrito' },
-  { id:'disp',   name:'Display y programática', short:'Display', wordmark:'Display', cpm:5000, ctr:0.0012, cvr:0.015, sat:12.0, color:'#b9c7cf', img:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230d1734%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231fd3ad%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3EMEDIA%3C%2Ftext%3E%3C%2Fsvg%3E',
+  { id:'disp',   name:'Display y programática', short:'Display', wordmark:'Display', cpm:5000, ctr:0.0012, cvr:0.015, sat:12.0, color:'#b9c7cf', img:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&h=900&q=88',
     role:'Frecuencia y remarketing a bajo costo sobre quienes ya visitaron el sitio.', tagline:'Frecuencia y remarketing<br>a bajo costo.',
     formats:['Banners responsivos','Remarketing dinámico por programa'], kpi:'Costo por retorno al sitio' }
 ];
