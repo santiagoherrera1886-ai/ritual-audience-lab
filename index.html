@@ -2048,7 +2048,386 @@ body{
   .ean-logo{width:145px}
   #summary .map-canvas{min-height:500px;aspect-ratio:.92/1}
 }
-</style></head><body data-view="summary"><a class="skip-link" href="#main">Saltar al contenido</a><header class="topbar"><button class="mobile-menu icon-button" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false"><i data-icon="menu"></i></button><a class="brand" href="#summary" data-nav="summary" aria-label="Universidad Ean, Audience Atlas 2027"><img class="ean-logo" src="assets/ean-logo-white.png" alt="Universidad Ean — Acreditada en Alta Calidad"><span class="brand-sub">AUDIENCE<br>ATLAS / 2027</span></a><nav class="top-nav" aria-label="Secciones del atlas"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="top-actions"><span class="country">COLOMBIA <span>·</span> 2027</span><button class="button button-primary export-button" id="exportTop" type="button"><i data-icon="download"></i>Exportar CSV</button></div></header><div class="mobile-scrim" id="scrim"></div><aside class="sidebar" id="sidebar" aria-label="Momentos y clústeres"><nav class="mobile-nav" aria-label="Navegación principal"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="side-label">01 / Momento de decisión</div><div id="sideMoments"></div><button class="all-button" type="button" data-nav="audiences" data-m="all"><i data-icon="target"></i>Explorar ambos momentos<i data-icon="arrow-right"></i></button><div class="side-divider"></div><div class="side-label">02 / Clústeres de audiencia</div><div id="sidePersonas"></div><button class="all-button all-clusters" type="button" data-nav="audiences" data-m="all"><i data-icon="arrow-up-right"></i>Ver todos los clústeres</button><div class="side-note"><div><i data-icon="chart"></i><strong>Matriz estratégica,<br>no alcance medido</strong></div><p><span id="sideLibCount">—</span> registros sugeridos. La disponibilidad exacta de cada interés y el tamaño de audiencia se verifican en cada plataforma.</p></div></aside><div class="app-body"><main id="main" tabindex="-1"><!-- ================= RESUMEN ================= --><section id="summary" class="view active" aria-labelledby="summaryTitle"><div class="atlas-grid"><div class="summary-primary"><section class="hero" aria-label="Portada"><div class="hero-copy"><div class="eyebrow">Universidad Ean · Audience Atlas 2027</div><h1 id="summaryTitle">La universidad<br><span>del emprendimiento,</span><br>donde se decide.</h1><p>Dos momentos de decisión, pregrado y posgrado. Un universo de personas, señales y afinidades para conectar la Ean con quien está eligiendo dónde estudiar.</p><div class="hero-actions"><button class="button button-primary" type="button" data-nav="audiences" data-m="all">Explorar audiencias<i data-icon="arrow-right"></i></button><button class="button button-ghost" type="button" data-nav="sim">Abrir el simulador</button></div></div><div class="hero-labels" id="heroLabels"></div><span class="hero-caption">Vista ilustrativa · ciudad andina al atardecer</span></section><section class="panel geo" aria-labelledby="geoTitle"><div class="geo-head"><div><div class="eyebrow">Colombia · Geografía de oportunidad</div><h2 id="geoTitle">¿Dónde están estas personas?</h2><p>Ciudades prioritarias para explorar afinidad con la Ean.</p></div><div class="segmented" role="group" aria-label="Capa del mapa"><button type="button" data-layer="pre" aria-pressed="true">Pregrado</button><button type="button" data-layer="pos" aria-pressed="false">Posgrado</button></div></div><div class="map-canvas" id="mapCanvas"></div><div class="geo-side"><div class="city-detail" id="cityDetail"></div><div class="city-list" id="cityList"></div></div></section></div><div class="summary-secondary"><section class="panel universe"><div class="panel-overline"><span class="eyebrow">Universo Ean · 2027</span><button class="text-button" type="button" data-action="method">Supuestos de planeación</button></div><h2>Audiencia única planeable</h2><div class="universe-main"><div><strong id="uniqTotal">5,0 M</strong><span><i data-icon="people"></i>personas en Colombia</span></div><p>Un universo de oportunidades para llegar a quien decide estudiar, en el momento en que lo decide.</p></div><div class="context-kpis" id="contextKpis"></div></section><section class="panel ecosystem"><div class="eyebrow">Ecosistema de medios</div><div class="ecosystem-grid" id="ecosystem"></div></section><section class="panel audience-funnel"><div class="eyebrow">Contexto de audiencia · De Colombia a la Ean</div><p>Referencias de planeación para dimensionar la oportunidad. Supuestos, no mediciones.</p><div class="funnel-layout"><div class="funnel-rows" id="funnelRows"></div><div class="funnel-target"><i data-icon="target"></i><strong id="funnelTotal">5,0 M</strong><b>personas planeables</b><p>Pregrado y posgrado se superponen: los universos no se suman.</p><button class="text-button" type="button" data-nav="sim">Ver intersección<i data-icon="arrow-up-right"></i></button></div></div></section><section class="panel panel-pad" aria-labelledby="calTitle"><div class="eyebrow">Calendario de admisiones</div><h2 id="calTitle" style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 2px">Cuatro olas en 2027</h2><div id="calendar"></div></section></div></div></section><!-- ================= AUDIENCIAS ================= --><section id="audiences" class="view" aria-labelledby="audiencesTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Clústeres / Momentos</div><h1 id="audiencesTitle">Doce perfiles, <span>dos momentos.</span></h1><p>Cada clúster trae edad, tamaño ilustrativo, qué lo activa, programas afines, afinidad por plataforma y el mensaje que debería recibir.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters" id="audCounters"></div><div class="segmented" role="group" aria-label="Filtrar por momento" id="audFilter"><button type="button" data-m="all" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button></div></div></div><div class="note" style="margin-bottom:16px">Los aspirantes de 16 y 17 años no se pueden segmentar por intereses en Meta, TikTok ni Google (solo edad, ubicación y género; en varias plataformas la edad mínima para pauta es 18). Por eso pregrado se planea sobre 18 a 21 años más padres y madres decisores.</div><div class="persona-cards" id="personaCards"></div></section><!-- ================= MEDIOS ================= --><section id="media" class="view" aria-labelledby="mediaTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Canales / Territorios</div><h1 id="mediaTitle">Cada audiencia, <span>su plataforma.</span></h1><p>Explora las señales por entorno y descubre qué clúster está presente en cada uno. Selecciona un canal para ver sus señales y oportunidades.</p></div><div class="counters" id="mediaCounters"></div></div><div class="platform-cards" id="platformCards"></div><div class="heading-row" style="margin-top:28px;margin-bottom:0"><div class="page-heading"><div class="eyebrow">Mix sugerido por momento</div><h2 style="font-size:26px;font-weight:900;letter-spacing:-.04em;margin:6px 0 4px">Dónde va cada peso</h2></div></div><div class="mix-cards" id="mixSuggested"></div><section class="panel panel-pad" style="margin-top:16px"><div class="eyebrow">Embudo de admisiones</div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 6px">De la impresión a la matrícula</h2><p class="small muted" style="max-width:66ch">Supuestos de planeación por plataforma: CPM, tasa de clics y conversión a lead. Las conversiones de lead a inscrito y de inscrito a matriculado se ajustan en el simulador.</p><div class="table-scroll" style="margin-top:10px"><table id="funnelTable"></table></div></section></section><!-- ================= INTERESES ================= --><section id="library" class="view" aria-labelledby="libraryTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Intereses / Señales</div><h1 id="libraryTitle">Biblioteca de <span>segmentación.</span></h1><p>Intereses, comportamientos, datos demográficos, cargos, palabras clave y audiencias propias, cruzados con los doce clústeres. Verifica disponibilidad y tamaño en cada plataforma antes de pautar.</p></div><button class="button button-primary" type="button" id="exportLib"><i data-icon="download"></i>Exportar CSV</button></div><div class="library-toolbar"><label class="search-field"><i data-icon="search"></i><input type="search" id="q" placeholder="Buscar interés, cargo, palabra clave o clúster…" autocomplete="off" aria-label="Buscar en la biblioteca"></label><button class="button button-ghost button-small" type="button" id="clearFilters"><i data-icon="close"></i>Limpiar filtros</button><div class="view-switch" aria-label="Vista"><button class="icon-button active" type="button" data-lib-view="grid" aria-label="Ver tarjetas" aria-pressed="true"><i data-icon="grid"></i></button><button class="icon-button" type="button" data-lib-view="table" aria-label="Ver tabla" aria-pressed="false"><i data-icon="list"></i></button></div></div><div class="filters-row"><div class="segmented" id="libMoment" role="group" aria-label="Momento"><button type="button" data-m="" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button><button type="button" data-m="ambos" aria-pressed="false">Ambos</button></div><select id="fPlat" aria-label="Plataforma"><option value="">Todas las plataformas</option></select><select id="fCluster" aria-label="Clúster"><option value="">Todos los clústeres</option></select></div><div class="category-grid" id="categoryGrid"></div><div class="result-row"><span class="result-count" id="resultCount"></span><span class="small muted">Las tarjetas muestran 24 por página.</span></div><div id="libGrid" class="interests-grid"></div><div id="libTable" class="table-scroll" hidden><table class="lib-table" id="libTableEl"></table></div><div class="pagination" id="pagination"></div></section><!-- ================= SIMULADOR ================= --><section id="sim" class="view" aria-labelledby="simTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Simulador / Pregrado + Posgrado</div><h1 id="simTitle">Alcance, frecuencia <span>y admisiones.</span></h1><p>Modelo de planificación con universos e intersección supuestos. No representa mediciones de campañas.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters sim-context" id="simContext"></div><div style="display:flex;gap:8px"><button class="button button-ghost button-small" type="button" data-action="method"><i data-icon="info"></i>Ver supuestos</button><button class="button button-ghost button-small" type="button" id="resetSim">Restablecer</button></div></div></div><div class="sim-grid"><section class="panel config-panel" aria-label="Configuración del escenario"><div><div class="eyebrow">Configura tu escenario</div><p class="small muted" style="margin-top:4px">Define la inversión y el peso entre los dos momentos.</p></div><div class="ctrl-row"><div class="lbl"><span>Inversión total 2027</span><output id="oBudget">$1.800 M COP</output></div><input type="range" id="iBudget" min="300" max="5000" step="50" value="1800" aria-label="Inversión total en millones de pesos"><div class="hint">Millones de pesos en pauta, sin producción ni fee.</div></div><div id="allocations"></div><div class="ctrl-row"><div class="lbl"><span>Lead a inscrito</span><output id="oR1">Pre 10% · Pos 12%</output></div><input type="range" id="iR1pre" min="3" max="30" step="1" value="10" aria-label="Conversión de lead a inscrito en pregrado"><input type="range" id="iR1pos" min="3" max="30" step="1" value="12" aria-label="Conversión de lead a inscrito en posgrado"></div><div class="ctrl-row"><div class="lbl"><span>Inscrito a matriculado</span><output id="oR2">Pre 40% · Pos 45%</output></div><input type="range" id="iR2pre" min="10" max="80" step="1" value="40" aria-label="Conversión de inscrito a matriculado en pregrado"><input type="range" id="iR2pos" min="10" max="80" step="1" value="45" aria-label="Conversión de inscrito a matriculado en posgrado"></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix pregrado</div><div class="mix-table" id="mixPre"></div></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix posgrado</div><div class="mix-table" id="mixPos"></div></div><p class="small muted" style="font-size:10px">Cada mix suma 100%. Los demás canales se ajustan al mover un porcentaje.</p></section><div class="sim-right"><div class="kpis" id="kpis"></div><section class="panel panel-pad"><div class="eyebrow">Audiencia única estimada</div><div class="venn-wrap" style="margin-top:8px"><div id="venn"></div><div class="venn-text"><strong>Audiencia única =<br>Pregrado + Posgrado<br>− intersección</strong><b id="vennUnique">—</b><span>personas únicas proyectadas al cierre de las cuatro olas</span></div></div></section><div class="charts"><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Curva de alcance acumulado</div><p>Personas únicas por ola de campaña · proyección.</p></div></div><div id="chartReach"></div><div class="legend"><span><i style="background:#fff"></i>Pregrado + posgrado</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Frecuencia promedio</div><p>Exposiciones por persona alcanzada · proyección.</p></div></div><div id="chartFreq"></div><div class="legend"><span><i style="background:#fff"></i>Total</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section></div><section class="panel panel-pad"><div class="eyebrow">Embudo de admisiones proyectado</div><div id="funnels" style="display:grid;gap:14px;margin-top:10px"></div></section><section class="panel panel-pad"><div class="eyebrow">Alcance y frecuencia por plataforma</div><div class="table-scroll" style="margin-top:8px"><table id="platTable"></table></div></section><section class="panel panel-pad"><div class="heading-row" style="margin-bottom:12px"><div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em">Escenarios rápidos</h2><p class="small muted">Encuentra tu punto de partida. Al elegir uno se aplican su inversión, reparto y mix.</p></div><button class="button button-primary button-small" type="button" id="compareBtn">Aplicar y comparar<i data-icon="arrow-right"></i></button></div><div class="scen" id="scenarios"></div><div id="compare" style="margin-top:14px"></div></section><div class="method-note"><i data-icon="sparkles"></i><div><b>Modelo de planificación</b><p>Proyección con universos e intersección supuestos. No representa mediciones de campañas. Los CPM, CTR y conversiones son supuestos de planeación editables en <code>data.js</code>.</p><button class="text-button" type="button" data-action="method">Ver supuestos<i data-icon="arrow-up-right"></i></button></div></div></div></div></section></main></div><dialog id="dialog" aria-labelledby="dialogTitle"><div class="dialog-top"><span class="eyebrow" id="dialogEyebrow"></span><button class="icon-button" type="button" id="closeDialog" aria-label="Cerrar"><i data-icon="close"></i></button></div><div class="dialog-body" id="dialogBody"></div></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div><script>/* =====================================================================
+
+/* =========================================================
+   EAN APPROVED CONCEPT · CODE PASS
+   Official brand + premium geo + segmentation library
+   ========================================================= */
+.topbar{
+  background:linear-gradient(90deg,#040b17f9,#06111ff9 66%,#071525f9);
+  border-bottom:1px solid #26364d;
+  border-radius:0;
+  box-shadow:0 12px 36px #0005;
+}
+.brand{min-width:378px;gap:16px}
+.ean-logo{
+  display:block!important;
+  width:232px!important;
+  min-width:232px;
+  height:61px!important;
+  max-height:61px!important;
+  object-fit:contain;
+  object-position:left center;
+  opacity:1!important;
+  visibility:visible!important;
+}
+.brand-sub{
+  font-size:9px;
+  color:#b9c5d5;
+  border-left:1px solid #ffffff24;
+  padding-left:16px;
+  letter-spacing:.19em;
+}
+.top-nav a.active{
+  color:#fff;
+  border-color:#5578b8;
+  background:linear-gradient(135deg,#15284d,#173463);
+  box-shadow:inset 0 0 22px #699cff20;
+}
+.export-button{
+  background:#f7f8fa!important;
+  color:#07111b!important;
+  border-color:#fff!important;
+}
+
+/* map */
+#summary .geo{
+  padding:25px;
+  border-radius:24px;
+  border-color:#263a53;
+  background:linear-gradient(155deg,#091523,#07111d);
+}
+#summary .geo-head{margin-bottom:4px}
+#summary .geo-head h2{font-size:34px}
+#summary .map-canvas{
+  min-height:585px;
+  aspect-ratio:1.08/1;
+  border-radius:23px;
+  border:1px solid #24516b;
+  background:
+    radial-gradient(circle at 50% 49%,#17466355,transparent 43%),
+    radial-gradient(circle at 50% 50%,transparent 0 29%,#4cd8d00b 29.3% 29.8%,transparent 30.1% 39%,#4cd8d008 39.3% 39.8%,transparent 40.1%),
+    linear-gradient(145deg,#06111e,#071725 63%,#050c17);
+  box-shadow:inset 0 0 90px #42e3d010,0 20px 48px #0004;
+}
+#summary .map-canvas::before{
+  background:
+    radial-gradient(circle at 50% 48%,#ffffff035,transparent 62%),
+    radial-gradient(circle,#6b88a31d 1px,transparent 1.2px);
+  background-size:auto,18px 18px;
+  mask-image:linear-gradient(#000 0 88%,transparent);
+}
+#summary .real-map-land{
+  fill:url(#realLandFill);
+  stroke:#4ff2e3;
+  stroke-width:1.45;
+  vector-effect:non-scaling-stroke;
+  filter:drop-shadow(0 0 13px #35d9cf38) drop-shadow(0 18px 24px #0009);
+}
+#summary .real-map-shadow{stroke:#35c9c0;stroke-opacity:.09;stroke-width:10}
+#summary .dept-line{
+  fill:none;
+  stroke:#5dd4cf;
+  stroke-width:.62;
+  stroke-opacity:.22;
+  vector-effect:non-scaling-stroke;
+}
+#summary .map-guide{
+  fill:none;
+  stroke:#66b8c5;
+  stroke-opacity:.08;
+  stroke-width:.8;
+  stroke-dasharray:2 5;
+  vector-effect:non-scaling-stroke;
+}
+#summary .pin .core{fill:#07121e;stroke-width:2.2}
+#summary .pin .ring{opacity:.28}
+#summary .pin .glow{opacity:.18}
+#summary .pin.sel .core{filter:drop-shadow(0 0 13px var(--pin))}
+#summary .map-compass{
+  position:absolute;
+  right:16px;top:16px;
+  width:34px;height:34px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  border:1px solid #36506d;
+  background:#06131fda;
+  color:#a9b8ca;
+  font-size:9px;font-weight:850;
+  box-shadow:0 8px 20px #0005;
+  z-index:3;
+}
+#summary .map-source{
+  left:18px;right:auto;bottom:13px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#6f7d90;
+  letter-spacing:.11em;
+}
+#summary .city-detail{
+  border-radius:19px;
+  border-color:#29455f;
+  background:linear-gradient(155deg,#102238,#091522);
+}
+#summary .city-list button{
+  border-radius:13px;
+  min-height:45px;
+}
+#summary .city-list button[aria-pressed="true"]{
+  border-color:#446987;
+  background:#0e2133;
+}
+
+/* library hero */
+#library{padding-top:32px}
+#library .library-hero{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 410px;
+  align-items:center;
+  gap:34px;
+  margin-bottom:22px;
+}
+#library .page-heading h1{
+  font-size:clamp(52px,5.1vw,78px);
+  line-height:.94;
+  margin:8px 0 15px;
+  letter-spacing:-.07em;
+  max-width:980px;
+}
+#library .page-heading h1 span{
+  background:linear-gradient(120deg,#9db2c9,#77aaff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+#library .page-heading p{
+  font-size:13px;
+  color:#94a2b7;
+  max-width:78ch;
+}
+#library .library-insight{
+  display:grid;
+  grid-template-columns:56px 1fr;
+  gap:15px;
+  align-items:center;
+  min-height:96px;
+  padding:18px 20px;
+  border:1px solid #22647c;
+  border-radius:18px;
+  background:
+    radial-gradient(170px 110px at 0% 50%,#06d8e525,transparent 72%),
+    linear-gradient(145deg,#0a1b2d,#081522);
+  box-shadow:inset 0 1px #ffffff08;
+}
+#library .insight-icon{
+  width:48px;height:48px;
+  display:grid;place-items:center;
+  border-radius:16px;
+  color:#35f0ec;
+  font-size:32px;
+  text-shadow:0 0 18px #21e5df;
+}
+#library .library-insight b{
+  display:block;
+  font-size:14px;
+  margin-bottom:4px;
+}
+#library .library-insight small{
+  display:block;
+  color:#8d9bb0;
+  font-size:11px;
+  line-height:1.5;
+}
+#library .library-toolbar{
+  grid-template-columns:minmax(0,1fr) auto auto;
+  gap:12px;
+  margin-bottom:12px;
+}
+#library .search-field{
+  height:52px;
+  border-radius:16px;
+  border-color:#2c4663;
+  background:#081522;
+}
+#library #clearFilters{
+  min-height:52px;
+  border-radius:15px;
+}
+#library .filters-row{margin-bottom:18px}
+#library .category-grid{
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:20px;
+}
+#library .category-tile{
+  height:104px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:15px 16px;
+  border-radius:16px;
+  border:1px solid #29425d;
+  background:
+    radial-gradient(100px 85px at 100% 0%,var(--tile-glow,#41e4df1b),transparent 72%),
+    linear-gradient(145deg,#0d1e2d,#091725);
+  text-align:left;
+  box-shadow:inset 0 1px #ffffff08;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+#library .category-tile::before,#library .category-tile::after{display:none}
+#library .category-tile:hover{
+  transform:translateY(-3px);
+  border-color:#4a7791;
+  box-shadow:0 16px 30px #0004,inset 0 1px #ffffff0d;
+}
+#library .category-tile.active{
+  border-color:#16eee8;
+  box-shadow:0 0 0 1px #16eee855 inset,0 0 25px #12e3dd14;
+  background:linear-gradient(145deg,#0b2734,#0a1c2b);
+}
+#library .category-tile .cat-icon{
+  width:42px;height:42px;
+  display:grid;place-items:center;
+  flex:none;
+  border-radius:13px;
+  color:var(--icon,#4ee8e0);
+  font-size:29px;
+  font-weight:500;
+  text-shadow:0 0 16px color-mix(in srgb,var(--icon) 65%,transparent);
+}
+#library .category-tile .cap{
+  position:static;
+  min-width:0;
+}
+#library .category-tile strong{
+  font-size:15px;
+  line-height:1.15;
+}
+#library .category-tile .cap span{
+  color:#8d9bae;
+  font-size:9px;
+  margin-top:5px;
+}
+#library .result-row{
+  margin:2px 2px 12px;
+}
+#library .interests-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:13px;
+}
+#library .interest-card{
+  min-height:174px;
+  border-radius:16px;
+  border:1px solid #2a405a;
+  background:
+    radial-gradient(190px 120px at 100% 0%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 75%),
+    linear-gradient(150deg,#0d1b2c,#081522);
+  padding:15px;
+  gap:7px;
+  box-shadow:inset 0 1px #ffffff07;
+}
+#library .interest-card::before{display:none}
+#library .interest-card:hover{
+  transform:translateY(-3px);
+  border-color:#4b7191;
+  box-shadow:0 18px 38px #0004;
+}
+#library .interest-card .top{
+  margin-bottom:1px;
+}
+#library .interest-card .plat-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:.14em;
+  color:var(--plat-color,#9db3c8);
+}
+#library .interest-card .plat-mark{
+  font-size:17px;
+  line-height:1;
+  letter-spacing:0;
+}
+#library .interest-card strong{
+  font-size:16px;
+  letter-spacing:-.025em;
+}
+#library .interest-card .signal-sub{
+  display:block;
+  min-height:30px;
+  color:#96a5b8;
+  font-size:10px;
+  line-height:1.45;
+}
+#library .interest-card .signal-footer{
+  margin-top:auto;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:10px;
+}
+#library .interest-card .signal-stat b{
+  display:block;
+  font-size:21px;
+  color:#61e6e5;
+  line-height:1;
+  letter-spacing:-.045em;
+}
+#library .interest-card .signal-stat small{
+  display:block;
+  font-size:8px;
+  color:#77879c;
+  margin-top:3px;
+}
+#library .interest-card .who{margin-top:0}
+#library .interest-card .who img{
+  width:25px;height:25px;
+  margin-left:-5px;
+  border:2px solid #0a1724;
+}
+#library .interest-card .who img:first-child{margin-left:0}
+#library .interest-card .who span{
+  width:25px;height:25px;
+  display:grid;place-items:center;
+  margin-left:-5px;
+  border-radius:50%;
+  border:1px solid #38506c;
+  background:#102033;
+  color:#9eb0c4;
+  font-size:8px;
+}
+@media(max-width:1320px){
+  .brand{min-width:320px}.ean-logo{width:200px!important;min-width:200px}
+  #library .library-hero{grid-template-columns:1fr 330px}
+  #library .category-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  #library .interests-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:1000px){
+  .brand{min-width:auto}.ean-logo{width:175px!important;min-width:175px}
+  .brand-sub{display:none}
+  #library .library-hero{grid-template-columns:1fr}
+  #library .library-insight{max-width:520px}
+  #library .category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .ean-logo{width:145px!important;min-width:145px;height:42px!important}
+  #library .page-heading h1{font-size:42px}
+  #library .category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #library .interests-grid{grid-template-columns:1fr}
+}
+</style></head><body data-view="summary"><a class="skip-link" href="#main">Saltar al contenido</a><header class="topbar"><button class="mobile-menu icon-button" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false"><i data-icon="menu"></i></button><a class="brand" href="#summary" data-nav="summary" aria-label="Universidad Ean, Audience Atlas 2027"><img class="ean-logo" src="https://raw.githubusercontent.com/santiagoherrera1886-ai/ritual-audience-lab/ean-audience-atlas-preview/assets/ean-logo-white.png?v=4" alt="Universidad Ean — Acreditada en Alta Calidad"><span class="brand-sub">AUDIENCE<br>ATLAS / 2027</span></a><nav class="top-nav" aria-label="Secciones del atlas"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="top-actions"><span class="country">COLOMBIA <span>·</span> 2027</span><button class="button button-primary export-button" id="exportTop" type="button"><i data-icon="download"></i>Exportar CSV</button></div></header><div class="mobile-scrim" id="scrim"></div><aside class="sidebar" id="sidebar" aria-label="Momentos y clústeres"><nav class="mobile-nav" aria-label="Navegación principal"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav><div class="side-label">01 / Momento de decisión</div><div id="sideMoments"></div><button class="all-button" type="button" data-nav="audiences" data-m="all"><i data-icon="target"></i>Explorar ambos momentos<i data-icon="arrow-right"></i></button><div class="side-divider"></div><div class="side-label">02 / Clústeres de audiencia</div><div id="sidePersonas"></div><button class="all-button all-clusters" type="button" data-nav="audiences" data-m="all"><i data-icon="arrow-up-right"></i>Ver todos los clústeres</button><div class="side-note"><div><i data-icon="chart"></i><strong>Matriz estratégica,<br>no alcance medido</strong></div><p><span id="sideLibCount">—</span> registros sugeridos. La disponibilidad exacta de cada interés y el tamaño de audiencia se verifican en cada plataforma.</p></div></aside><div class="app-body"><main id="main" tabindex="-1"><!-- ================= RESUMEN ================= --><section id="summary" class="view active" aria-labelledby="summaryTitle"><div class="atlas-grid"><div class="summary-primary"><section class="hero" aria-label="Portada"><div class="hero-copy"><div class="eyebrow">Universidad Ean · Audience Atlas 2027</div><h1 id="summaryTitle">La universidad<br><span>del emprendimiento,</span><br>donde se decide.</h1><p>Dos momentos de decisión, pregrado y posgrado. Un universo de personas, señales y afinidades para conectar la Ean con quien está eligiendo dónde estudiar.</p><div class="hero-actions"><button class="button button-primary" type="button" data-nav="audiences" data-m="all">Explorar audiencias<i data-icon="arrow-right"></i></button><button class="button button-ghost" type="button" data-nav="sim">Abrir el simulador</button></div></div><div class="hero-labels" id="heroLabels"></div><span class="hero-caption">Vista ilustrativa · ciudad andina al atardecer</span></section><section class="panel geo" aria-labelledby="geoTitle"><div class="geo-head"><div><div class="eyebrow">Colombia · Geografía de oportunidad</div><h2 id="geoTitle">¿Dónde están estas personas?</h2><p>Ciudades prioritarias para explorar afinidad con la Ean.</p></div><div class="segmented" role="group" aria-label="Capa del mapa"><button type="button" data-layer="pre" aria-pressed="true">Pregrado</button><button type="button" data-layer="pos" aria-pressed="false">Posgrado</button></div></div><div class="map-canvas" id="mapCanvas"></div><div class="geo-side"><div class="city-detail" id="cityDetail"></div><div class="city-list" id="cityList"></div></div></section></div><div class="summary-secondary"><section class="panel universe"><div class="panel-overline"><span class="eyebrow">Universo Ean · 2027</span><button class="text-button" type="button" data-action="method">Supuestos de planeación</button></div><h2>Audiencia única planeable</h2><div class="universe-main"><div><strong id="uniqTotal">5,0 M</strong><span><i data-icon="people"></i>personas en Colombia</span></div><p>Un universo de oportunidades para llegar a quien decide estudiar, en el momento en que lo decide.</p></div><div class="context-kpis" id="contextKpis"></div></section><section class="panel ecosystem"><div class="eyebrow">Ecosistema de medios</div><div class="ecosystem-grid" id="ecosystem"></div></section><section class="panel audience-funnel"><div class="eyebrow">Contexto de audiencia · De Colombia a la Ean</div><p>Referencias de planeación para dimensionar la oportunidad. Supuestos, no mediciones.</p><div class="funnel-layout"><div class="funnel-rows" id="funnelRows"></div><div class="funnel-target"><i data-icon="target"></i><strong id="funnelTotal">5,0 M</strong><b>personas planeables</b><p>Pregrado y posgrado se superponen: los universos no se suman.</p><button class="text-button" type="button" data-nav="sim">Ver intersección<i data-icon="arrow-up-right"></i></button></div></div></section><section class="panel panel-pad" aria-labelledby="calTitle"><div class="eyebrow">Calendario de admisiones</div><h2 id="calTitle" style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 2px">Cuatro olas en 2027</h2><div id="calendar"></div></section></div></div></section><!-- ================= AUDIENCIAS ================= --><section id="audiences" class="view" aria-labelledby="audiencesTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Clústeres / Momentos</div><h1 id="audiencesTitle">Doce perfiles, <span>dos momentos.</span></h1><p>Cada clúster trae edad, tamaño ilustrativo, qué lo activa, programas afines, afinidad por plataforma y el mensaje que debería recibir.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters" id="audCounters"></div><div class="segmented" role="group" aria-label="Filtrar por momento" id="audFilter"><button type="button" data-m="all" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button></div></div></div><div class="note" style="margin-bottom:16px">Los aspirantes de 16 y 17 años no se pueden segmentar por intereses en Meta, TikTok ni Google (solo edad, ubicación y género; en varias plataformas la edad mínima para pauta es 18). Por eso pregrado se planea sobre 18 a 21 años más padres y madres decisores.</div><div class="persona-cards" id="personaCards"></div></section><!-- ================= MEDIOS ================= --><section id="media" class="view" aria-labelledby="mediaTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Canales / Territorios</div><h1 id="mediaTitle">Cada audiencia, <span>su plataforma.</span></h1><p>Explora las señales por entorno y descubre qué clúster está presente en cada uno. Selecciona un canal para ver sus señales y oportunidades.</p></div><div class="counters" id="mediaCounters"></div></div><div class="platform-cards" id="platformCards"></div><div class="heading-row" style="margin-top:28px;margin-bottom:0"><div class="page-heading"><div class="eyebrow">Mix sugerido por momento</div><h2 style="font-size:26px;font-weight:900;letter-spacing:-.04em;margin:6px 0 4px">Dónde va cada peso</h2></div></div><div class="mix-cards" id="mixSuggested"></div><section class="panel panel-pad" style="margin-top:16px"><div class="eyebrow">Embudo de admisiones</div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em;margin:6px 0 6px">De la impresión a la matrícula</h2><p class="small muted" style="max-width:66ch">Supuestos de planeación por plataforma: CPM, tasa de clics y conversión a lead. Las conversiones de lead a inscrito y de inscrito a matriculado se ajustan en el simulador.</p><div class="table-scroll" style="margin-top:10px"><table id="funnelTable"></table></div></section></section><!-- ================= INTERESES ================= --><section id="library" class="view" aria-labelledby="libraryTitle" hidden>
+  <div class="library-hero">
+    <div class="page-heading">
+      <div class="eyebrow">Colombia · Biblioteca de segmentación</div>
+      <h1 id="libraryTitle">Biblioteca de <span>segmentación.</span></h1>
+      <p>Intereses, comportamientos, datos demográficos, cargos, palabras clave y audiencias propias, cruzados con los doce clústeres. Verifica disponibilidad y tamaño en cada plataforma antes de pautar.</p>
+    </div>
+    <aside class="library-insight" aria-label="Cómo usar la biblioteca">
+      <span class="insight-icon">⌕</span>
+      <span><b>Encuentra y combina audiencias</b><small>Explora las señales sugeridas y cruza filtros para construir segmentos más precisos.</small></span>
+    </aside>
+    <button id="exportLib" type="button" hidden aria-hidden="true">Exportar CSV</button>
+  </div><div class="library-toolbar"><label class="search-field"><i data-icon="search"></i><input type="search" id="q" placeholder="Buscar interés, cargo, palabra clave o clúster…" autocomplete="off" aria-label="Buscar en la biblioteca"></label><button class="button button-ghost button-small" type="button" id="clearFilters"><i data-icon="close"></i>Limpiar filtros</button><div class="view-switch" aria-label="Vista"><button class="icon-button active" type="button" data-lib-view="grid" aria-label="Ver tarjetas" aria-pressed="true"><i data-icon="grid"></i></button><button class="icon-button" type="button" data-lib-view="table" aria-label="Ver tabla" aria-pressed="false"><i data-icon="list"></i></button></div></div><div class="filters-row"><div class="segmented" id="libMoment" role="group" aria-label="Momento"><button type="button" data-m="" aria-pressed="true">Todos</button><button type="button" data-m="pre" aria-pressed="false">Pregrado</button><button type="button" data-m="pos" aria-pressed="false">Posgrado</button><button type="button" data-m="ambos" aria-pressed="false">Ambos</button></div><select id="fPlat" aria-label="Plataforma"><option value="">Todas las plataformas</option></select><select id="fCluster" aria-label="Clúster"><option value="">Todos los clústeres</option></select></div><div class="category-grid" id="categoryGrid"></div><div class="result-row"><span class="result-count" id="resultCount"></span><span class="small muted">Las tarjetas muestran 24 por página.</span></div><div id="libGrid" class="interests-grid"></div><div id="libTable" class="table-scroll" hidden><table class="lib-table" id="libTableEl"></table></div><div class="pagination" id="pagination"></div></section><!-- ================= SIMULADOR ================= --><section id="sim" class="view" aria-labelledby="simTitle" hidden><div class="heading-row"><div class="page-heading"><div class="eyebrow">Simulador / Pregrado + Posgrado</div><h1 id="simTitle">Alcance, frecuencia <span>y admisiones.</span></h1><p>Modelo de planificación con universos e intersección supuestos. No representa mediciones de campañas.</p></div><div style="display:grid;gap:10px;justify-items:end"><div class="counters sim-context" id="simContext"></div><div style="display:flex;gap:8px"><button class="button button-ghost button-small" type="button" data-action="method"><i data-icon="info"></i>Ver supuestos</button><button class="button button-ghost button-small" type="button" id="resetSim">Restablecer</button></div></div></div><div class="sim-grid"><section class="panel config-panel" aria-label="Configuración del escenario"><div><div class="eyebrow">Configura tu escenario</div><p class="small muted" style="margin-top:4px">Define la inversión y el peso entre los dos momentos.</p></div><div class="ctrl-row"><div class="lbl"><span>Inversión total 2027</span><output id="oBudget">$1.800 M COP</output></div><input type="range" id="iBudget" min="300" max="5000" step="50" value="1800" aria-label="Inversión total en millones de pesos"><div class="hint">Millones de pesos en pauta, sin producción ni fee.</div></div><div id="allocations"></div><div class="ctrl-row"><div class="lbl"><span>Lead a inscrito</span><output id="oR1">Pre 10% · Pos 12%</output></div><input type="range" id="iR1pre" min="3" max="30" step="1" value="10" aria-label="Conversión de lead a inscrito en pregrado"><input type="range" id="iR1pos" min="3" max="30" step="1" value="12" aria-label="Conversión de lead a inscrito en posgrado"></div><div class="ctrl-row"><div class="lbl"><span>Inscrito a matriculado</span><output id="oR2">Pre 40% · Pos 45%</output></div><input type="range" id="iR2pre" min="10" max="80" step="1" value="40" aria-label="Conversión de inscrito a matriculado en pregrado"><input type="range" id="iR2pos" min="10" max="80" step="1" value="45" aria-label="Conversión de inscrito a matriculado en posgrado"></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix pregrado</div><div class="mix-table" id="mixPre"></div></div><div><div class="eyebrow green" style="margin-bottom:8px">Mix posgrado</div><div class="mix-table" id="mixPos"></div></div><p class="small muted" style="font-size:10px">Cada mix suma 100%. Los demás canales se ajustan al mover un porcentaje.</p></section><div class="sim-right"><div class="kpis" id="kpis"></div><section class="panel panel-pad"><div class="eyebrow">Audiencia única estimada</div><div class="venn-wrap" style="margin-top:8px"><div id="venn"></div><div class="venn-text"><strong>Audiencia única =<br>Pregrado + Posgrado<br>− intersección</strong><b id="vennUnique">—</b><span>personas únicas proyectadas al cierre de las cuatro olas</span></div></div></section><div class="charts"><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Curva de alcance acumulado</div><p>Personas únicas por ola de campaña · proyección.</p></div></div><div id="chartReach"></div><div class="legend"><span><i style="background:#fff"></i>Pregrado + posgrado</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section><section class="panel chart-card"><div class="chart-head"><div><div class="eyebrow">Frecuencia promedio</div><p>Exposiciones por persona alcanzada · proyección.</p></div></div><div id="chartFreq"></div><div class="legend"><span><i style="background:#fff"></i>Total</span><span><i style="background:var(--pre)"></i>Pregrado</span><span><i style="background:var(--pos)"></i>Posgrado</span></div></section></div><section class="panel panel-pad"><div class="eyebrow">Embudo de admisiones proyectado</div><div id="funnels" style="display:grid;gap:14px;margin-top:10px"></div></section><section class="panel panel-pad"><div class="eyebrow">Alcance y frecuencia por plataforma</div><div class="table-scroll" style="margin-top:8px"><table id="platTable"></table></div></section><section class="panel panel-pad"><div class="heading-row" style="margin-bottom:12px"><div><h2 style="font-size:22px;font-weight:900;letter-spacing:-.04em">Escenarios rápidos</h2><p class="small muted">Encuentra tu punto de partida. Al elegir uno se aplican su inversión, reparto y mix.</p></div><button class="button button-primary button-small" type="button" id="compareBtn">Aplicar y comparar<i data-icon="arrow-right"></i></button></div><div class="scen" id="scenarios"></div><div id="compare" style="margin-top:14px"></div></section><div class="method-note"><i data-icon="sparkles"></i><div><b>Modelo de planificación</b><p>Proyección con universos e intersección supuestos. No representa mediciones de campañas. Los CPM, CTR y conversiones son supuestos de planeación editables en <code>data.js</code>.</p><button class="text-button" type="button" data-action="method">Ver supuestos<i data-icon="arrow-up-right"></i></button></div></div></div></div></section></main></div><dialog id="dialog" aria-labelledby="dialogTitle"><div class="dialog-top"><span class="eyebrow" id="dialogEyebrow"></span><button class="icon-button" type="button" id="closeDialog" aria-label="Cerrar"><i data-icon="close"></i></button></div><div class="dialog-body" id="dialogBody"></div></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div><script>/* =====================================================================
    DATOS DEL ATLAS — todo son supuestos de planeación (ilustrativos).
    Para cambiar números, clústeres, ciudades o señales, edita solo este archivo.
    ===================================================================== */
@@ -2543,64 +2922,56 @@ const CITY_GEO={
   popayan:[-76.6147,2.4448],
   sincelejo:[-75.3978,9.3047]
 };
+const COLOMBIA_DEPT_RINGS=[[[-73.65989,1.6121],[-73.41384,1.24522],[-73.07842,0.89445],[-72.87032,1.14606],[-72.50797,1.06797],[-72.26926,0.76306],[-71.98158,0.6292],[-71.9216,0.45939],[-71.7698,0.32801],[-71.58373,0.16316],[-71.29728,0.07516],[-71.47478,-0.01161],[-71.73675,-0.16406],[-72.01953,-0.26322],[-72.18357,-0.46153],[-72.317,-0.65241],[-72.59243,-0.69331],[-72.95601,-0.56317],[-73.20941,-0.6239],[-73.57053,-0.51607],[-73.84107,-0.39832],[-74.1569,-0.26074],[-74.43968,-0.07482],[-74.66247,0.05409],[-74.84487,0.21398],[-75.03339,0.48418],[-75.20722,0.60193],[-75.42267,0.73827],[-75.75809,0.83743],[-76.08494,1.05806],[-76.30284,1.23654],[-76.12411,1.56624],[-75.84745,1.72241],[-75.61609,1.99634],[-75.38595,2.31488],[-75.13255,2.59624],[-74.89874,2.96436],[-74.76163,2.87264],[-74.58902,2.66193],[-74.74204,2.32356],[-74.59392,2.13516],[-74.56332,1.8476],[-74.20709,1.71621],[-73.85821,1.60838],[-73.65989,1.6121]],[[-76.05556,3.22341],[-76.0727,3.04988],[-76.02863,2.94081],[-75.82297,2.83546],[-75.7483,2.71895],[-75.82297,2.48345],[-75.97966,2.50328],[-76.12656,2.38057],[-76.12166,2.2244],[-76.30284,2.28389],[-76.42525,2.12896],[-76.58929,2.10789],[-76.62479,1.97402],[-76.43382,1.79058],[-76.38118,1.66664],[-76.1694,1.58855],[-76.30284,1.23654],[-76.15227,1.10887],[-76.16573,1.02955],[-76.40077,0.97997],[-76.54399,1.03699],[-76.54032,1.20431],[-76.60153,1.41378],[-76.88553,1.37288],[-76.92838,1.48319],[-76.93572,1.72861],[-77.3299,1.68647],[-77.20381,1.95171],[-77.30786,2.10789],[-77.45966,2.28637],[-77.55392,2.20209],[-77.83547,2.17606],[-77.91749,2.41156],[-77.9077,2.68052],[-77.73632,2.78712],[-77.69102,3.00031],[-77.49761,3.21597],[-77.34704,3.14037],[-77.23442,3.10814],[-76.93817,3.11434],[-76.81086,3.2073],[-76.54644,3.10566],[-76.45586,3.32629],[-76.22939,3.27671],[-76.05556,3.22341],[-76.05556,3.22341]],[[-76.08494,1.05806],[-75.89519,0.93535],[-75.6369,0.87709],[-75.42267,0.73827],[-75.25741,0.70233],[-75.23538,0.56599],[-75.03339,0.48418],[-74.89261,0.24868],[-74.73715,0.20902],[-74.66247,0.05409],[-74.54128,-0.12068],[-74.35154,-0.10704],[-74.1569,-0.26074],[-73.99898,-0.34378],[-74.38949,-0.55325],[-74.57556,-0.39584],[-74.77754,-0.20868],[-74.92811,-0.22851],[-75.20232,-0.04507],[-75.39207,-0.10209],[-75.63323,0.04541],[-75.82175,0.08259],[-76.01026,0.29826],[-76.20001,0.37263],[-76.33711,0.38502],[-76.41179,0.24125],[-76.61867,0.25612],[-76.84881,0.24001],[-77.11322,0.37263],[-77.13036,0.52508],[-77.18667,0.63044],[-77.02753,0.99484],[-77.08874,1.18324],[-76.92103,1.34561],[-76.69701,1.44353],[-76.58562,1.30471],[-76.56236,1.07293],[-76.4228,0.96014],[-76.21347,0.97873],[-76.08494,1.05806],[-76.08494,1.05806]],[[-75.71402,4.71325],[-75.82542,4.66367],[-75.88785,4.43065],[-75.78747,4.29431],[-75.84011,4.10095],[-75.80706,3.93115],[-75.92213,3.73903],[-75.99313,3.60888],[-76.0274,3.48742],[-76.03842,3.3015],[-76.19144,3.22713],[-76.34323,3.28043],[-76.49258,3.17631],[-76.67743,3.09946],[-76.90879,3.2011],[-77.10098,3.18499],[-77.31643,3.17383],[-77.43028,3.2544],[-77.55025,3.23085],[-77.33724,3.44775],[-77.30052,3.57046],[-77.18423,3.65475],[-77.18055,3.83199],[-77.31766,3.94974],[-77.24298,4.0836],[-77.35928,3.92619],[-77.35316,4.19763],[-77.15852,4.18276],[-76.99448,4.12079],[-76.86717,4.03278],[-76.58929,3.99312],[-76.44484,4.17532],[-76.56236,4.36992],[-76.2857,4.71201],[-76.21103,4.82976],[-76.08861,4.94627],[-75.98823,4.87438],[-75.79114,4.71821],[-75.71402,4.71325]],[[-69.84544,1.71374],[-70.18086,1.88602],[-70.10129,2.1178],[-70.18942,2.23183],[-70.42691,2.26778],[-70.63012,2.3124],[-70.84802,2.56773],[-70.50158,2.78836],[-70.28001,2.93461],[-70.24696,3.17631],[-70.1123,3.38578],[-69.87359,3.43288],[-69.6912,3.54443],[-69.42433,3.66714],[-69.05586,3.63863],[-68.70943,3.76754],[-68.45358,3.83819],[-68.31402,3.97825],[-67.87945,3.91751],[-67.69216,3.9361],[-67.43876,3.63987],[-67.3396,3.45147],[-67.86231,2.8652],[-67.62116,2.81438],[-67.4865,2.66689],[-67.29798,2.44254],[-67.1621,2.13268],[-67.12293,1.98022],[-66.96256,1.66664],[-66.91237,1.42742],[-66.85728,1.22786],[-67.15598,1.31711],[-67.11313,1.59475],[-67.20005,1.85132],[-67.34695,1.98518],[-67.36898,2.21572],[-67.60157,2.04343],[-67.88435,1.8947],[-68.14509,1.97279],[-68.23201,1.82033],[-69.39373,1.72613],[-69.84544,1.71374],[-69.84544,1.71374]],[[-67.70807,4.04518],[-68.04349,4.01171],[-68.34708,3.92371],[-68.57354,3.81092],[-68.78165,3.72911],[-69.12809,3.67334],[-69.56021,3.6783],[-69.77566,3.5655],[-69.99846,3.37339],[-70.1576,3.28166],[-70.28368,3.12921],[-70.35591,2.90363],[-70.5836,2.84041],[-70.93616,2.78836],[-71.07693,2.88256],[-71.07816,4.89917],[-70.86516,5.14335],[-70.35836,5.58708],[-70.05722,5.70235],[-69.53573,6.04568],[-69.31048,6.0903],[-69.04362,6.22169],[-68.64332,6.12873],[-68.29566,6.16591],[-68.02635,6.1969],[-67.76928,6.29482],[-67.45712,6.18946],[-67.58933,5.83869],[-67.59912,5.54494],[-67.85007,5.30448],[-67.806,5.05535],[-67.84517,4.64508],[-67.76438,4.36124],[-67.70807,4.04518],[-67.70807,4.04518]],[[-69.83564,6.04072],[-70.05722,5.70235],[-70.2641,5.56353],[-70.67786,5.36397],[-70.86516,5.14335],[-71.00226,4.97974],[-71.21159,4.81737],[-71.59842,4.64508],[-71.81387,4.57443],[-71.99872,4.38231],[-72.30353,4.4071],[-72.55449,4.33645],[-72.76994,4.33274],[-72.89725,4.47527],[-73.01721,4.63517],[-73.0772,4.81241],[-72.9707,4.97974],[-72.97314,5.14583],[-72.88011,5.35034],[-72.68792,5.28217],[-72.39657,5.56973],[-72.28762,5.60567],[-72.30965,5.79407],[-72.41616,5.90314],[-72.36597,6.03701],[-72.41248,6.18822],[-72.33903,6.34563],[-72.34393,6.22664],[-72.27783,6.13616],[-71.96077,6.16715],[-71.77715,6.19318],[-71.53354,6.21425],[-71.41725,6.24276],[-71.21894,6.29853],[-70.9839,6.22912],[-70.72315,6.21673],[-70.53096,6.23036],[-70.31306,6.27994],[-70.12087,6.25763],[-69.98254,6.15847],[-69.83564,6.04072]],[[-69.4329,-1.06887],[-69.428,-1.38742],[-69.93358,-4.2196],[-70.1833,-3.92833],[-70.48567,-3.87627],[-70.43915,-3.36189],[-70.26043,-2.555],[-70.6289,-2.47939],[-70.93616,-2.25752],[-71.12712,-2.33809],[-71.39889,-2.35916],[-71.73186,-2.2253],[-72.01586,-2.36908],[-72.40024,-2.43477],[-72.76259,-2.40006],[-73.15677,-2.26],[-73.15677,-1.85346],[-73.54115,-1.69852],[-73.63174,-1.27215],[-73.90472,-1.12837],[-74.26707,-0.82718],[-73.67703,-0.42187],[-73.33549,-0.50615],[-72.95601,-0.56317],[-72.53857,-0.6772],[-72.23009,-0.49252],[-72.01953,-0.26322],[-71.70492,-0.06738],[-71.25444,0.05904],[-70.89698,-0.10333],[-70.82721,-0.36485],[-70.56402,-0.36981],[-70.24451,-0.47021],[-70.29103,-0.80734],[-70.17841,-1.09986],[-69.93603,-1.09614],[-69.59204,-1.14572],[-69.4329,-1.06887]],[[-70.10985,2.08062],[-70.05477,1.77695],[-69.84666,1.07789],[-69.38148,1.07417],[-69.14033,0.68993],[-69.43412,0.71224],[-69.68752,0.66391],[-70.0462,0.56351],[-69.90175,-0.33759],[-69.61163,-0.49996],[-69.52593,-0.86932],[-69.4329,-1.06887],[-69.59204,-1.14572],[-69.83932,-1.02797],[-70.04497,-0.97963],[-70.23839,-1.02053],[-70.29103,-0.80734],[-70.32041,-0.54954],[-70.4367,-0.47765],[-70.63746,-0.32023],[-70.82721,-0.36485],[-70.94473,-0.1591],[-71.13692,0.00699],[-71.29728,0.07516],[-71.58373,0.16316],[-71.7698,0.32801],[-71.9216,0.45939],[-71.98158,0.6292],[-71.74042,0.98493],[-71.54701,1.27001],[-71.39032,1.59847],[-71.25933,1.66788],[-70.89454,1.91949],[-70.4416,1.99386],[-70.10985,2.08062],[-70.10985,2.08062]],[[-71.07693,2.88256],[-70.95942,2.84289],[-70.82231,2.81315],[-70.5836,2.84041],[-70.94228,2.60615],[-70.84802,2.56773],[-70.70724,2.47229],[-70.56157,2.29257],[-70.42691,2.26778],[-70.25186,2.26406],[-70.07068,2.29133],[-70.10129,2.1178],[-70.1882,2.0236],[-70.4416,1.99386],[-70.70479,1.90709],[-70.9888,1.82405],[-71.25933,1.66788],[-71.40256,1.72241],[-71.43806,1.54641],[-71.54701,1.27001],[-71.64127,0.99484],[-71.80286,0.88825],[-72.08074,0.70481],[-72.39902,1.00228],[-72.50797,1.06797],[-72.79809,1.17581],[-72.85685,1.04318],[-73.07842,0.89445],[-73.39303,1.1473],[-73.47627,1.36173],[-73.65989,1.6121],[-73.63174,2.3533],[-73.43832,2.38305],[-73.24001,2.38925],[-73.06618,2.42643],[-72.93642,2.50328],[-72.81645,2.61483],[-72.70016,2.61979],[-72.56305,2.68176],[-72.47002,2.73382],[-72.35862,2.78092],[-72.11257,2.87512],[-71.85794,2.84289],[-71.65229,2.82058],[-71.38909,2.84537],[-71.2777,2.86768],[-71.07693,2.88256]],[[-74.66492,5.76804],[-74.62697,5.69739],[-74.66737,5.40488],[-74.85099,5.31439],[-75.05665,5.27473],[-75.28802,5.13839],[-75.31739,5.02808],[-75.32352,4.86571],[-75.42757,4.81613],[-75.71402,4.95619],[-75.8144,4.919],[-75.91723,5.0789],[-75.80338,5.28093],[-75.64792,5.3082],[-75.81073,5.36149],[-75.86826,5.4904],[-75.68954,5.51891],[-75.59895,5.73705],[-75.37738,5.67384],[-75.22069,5.50279],[-75.09093,5.58584],[-74.99299,5.71598],[-74.80692,5.69987],[-74.71389,5.76928],[-74.66492,5.76804]],[[-75.3884,4.71573],[-75.41533,4.62277],[-75.51448,4.55584],[-75.57814,4.45172],[-75.59283,4.3191],[-75.69688,4.13194],[-75.75197,4.0774],[-75.84011,4.10095],[-75.82297,4.22862],[-75.78747,4.29431],[-75.80338,4.39595],[-75.88785,4.43065],[-75.86704,4.6079],[-75.82542,4.66367],[-75.70667,4.65748],[-75.71402,4.71325],[-75.58304,4.70705],[-75.49245,4.66615],[-75.3884,4.71573],[-75.3884,4.71573]],[[-75.86826,5.4904],[-75.85847,5.37761],[-75.81073,5.36149],[-75.73973,5.39744],[-75.64792,5.3082],[-75.69321,5.2549],[-75.80338,5.28093],[-75.80216,5.19788],[-75.91723,5.0789],[-75.8903,4.95991],[-75.8144,4.919],[-75.74707,5.04667],[-75.71402,4.95619],[-75.48266,4.91653],[-75.42757,4.81613],[-75.37493,4.80249],[-75.3884,4.71573],[-75.49245,4.66615],[-75.58304,4.70705],[-75.71402,4.71325],[-75.79114,4.71821],[-75.93559,4.80869],[-75.98823,4.87438],[-76.07759,5.04667],[-76.06045,5.13591],[-76.12411,5.1731],[-76.20123,5.32183],[-76.19021,5.39744],[-76.08861,5.44578],[-76.08494,5.53378],[-76.00904,5.56725],[-75.98333,5.51891],[-75.86826,5.4904],[-75.86826,5.4904]],[[-74.83018,8.19988],[-74.60494,8.03751],[-74.56087,7.64584],[-74.49109,7.34341],[-74.31971,7.44008],[-74.32216,7.01867],[-73.939,7.18228],[-74.01123,6.91331],[-74.25606,6.67533],[-74.39683,6.45223],[-74.61228,6.12625],[-74.61228,5.96636],[-74.66492,5.76804],[-74.80692,5.69987],[-75.0995,5.64285],[-75.22069,5.50279],[-75.47898,5.66393],[-75.68954,5.51891],[-75.98333,5.51891],[-76.08739,5.68871],[-76.05678,5.89571],[-76.19144,6.05932],[-76.37751,6.19318],[-76.7166,6.17087],[-76.77781,6.48941],[-76.97245,6.79804],[-76.82433,7.00503],[-76.49993,7.16864],[-76.66151,7.44876],[-76.96021,7.63964],[-76.99693,8.01892],[-76.92471,8.02511],[-76.74843,7.92224],[-76.77413,8.26805],[-76.92715,8.54197],[-76.63091,8.73037],[-76.33956,8.64113],[-76.22694,8.38084],[-76.34813,8.15526],[-76.48156,7.8206],[-75.845,7.34712],[-75.60507,7.5851],[-75.22069,8.06602],[-74.96606,8.08957],[-74.83018,8.19988]],[[-76.97979,8.25566],[-77.02631,7.89001],[-76.93572,7.58386],[-76.615,7.31242],[-76.54767,7.00131],[-76.79372,6.86497],[-76.95409,6.67533],[-76.79005,6.31837],[-76.60153,6.19194],[-76.23796,6.20805],[-76.15961,6.00354],[-76.0984,5.84985],[-76.00659,5.62302],[-76.08861,5.44578],[-76.12411,5.1731],[-76.08861,4.94627],[-76.31263,4.75044],[-76.56236,4.36992],[-76.4987,4.06377],[-76.86717,4.03278],[-77.04957,4.09476],[-77.35316,4.19763],[-77.52454,4.25713],[-77.32623,4.56947],[-77.37519,4.95867],[-77.38988,5.4433],[-77.50373,5.5846],[-77.2638,5.71598],[-77.33602,6.00106],[-77.40947,6.22788],[-77.325,6.54891],[-77.51597,6.65674],[-77.71061,6.87984],[-77.79263,7.46116],[-77.74244,7.67806],[-77.56861,7.50826],[-77.17933,7.91728],[-77.33357,8.27425],[-77.34459,8.64485],[-77.12914,8.40935],[-76.97979,8.25566]],[[-77.92851,2.64086],[-77.84772,2.26034],[-77.73387,2.13392],[-77.48782,2.19465],[-77.32255,2.22192],[-77.33235,2.04963],[-77.28093,1.85999],[-77.23931,1.65796],[-76.83412,1.61458],[-76.92103,1.34561],[-77.08874,1.18324],[-77.02753,0.99484],[-77.18667,0.63044],[-77.13036,0.52508],[-77.11322,0.37263],[-77.325,0.3875],[-77.52209,0.53128],[-77.56371,0.65151],[-77.66409,0.8114],[-77.8673,0.80149],[-78.03379,0.87957],[-78.19537,0.98493],[-78.31412,1.19068],[-78.50631,1.19688],[-78.62138,1.25017],[-78.79031,1.40759],[-78.95925,1.59351],[-78.86131,1.8067],[-78.71686,1.76951],[-78.53936,1.85751],[-78.5871,1.97279],[-78.71319,2.1649],[-78.62383,2.37189],[-78.3337,2.65573],[-78.07296,2.61111],[-77.92851,2.64086],[-77.92851,2.64086]],[[-75.70055,9.41208],[-75.45817,9.23856],[-75.39207,9.15923],[-75.20967,9.05016],[-75.24517,8.88283],[-75.32841,8.73657],[-75.32841,8.5618],[-75.21334,8.4738],[-75.12765,8.46884],[-75.00768,8.51099],[-74.87425,8.40315],[-74.78122,8.27797],[-74.92811,8.07469],[-75.05665,8.04743],[-75.22069,8.06602],[-75.47409,7.77722],[-75.71157,7.58138],[-75.845,7.34712],[-76.4938,7.54172],[-76.41179,8.00652],[-76.34813,8.15526],[-76.28815,8.32878],[-76.2098,8.52338],[-76.33956,8.64113],[-76.33956,8.91877],[-76.25142,9.05759],[-76.17063,9.22988],[-76.08127,9.33647],[-75.94906,9.44431],[-75.70055,9.41208],[-75.70055,9.41208]],[[-75.22436,10.79533],[-75.22314,10.63048],[-75.12643,10.3987],[-74.96484,10.32557],[-74.94525,10.12849],[-74.78734,10.00827],[-74.87303,9.84837],[-74.80325,9.66741],[-74.8057,9.55338],[-74.6992,9.42695],[-74.51435,9.2336],[-74.40295,9.21377],[-74.24871,9.16419],[-74.10426,9.02165],[-73.87167,8.96091],[-73.86678,8.88655],[-73.78965,8.74896],[-73.74681,8.46637],[-73.86678,8.06974],[-73.83128,7.93215],[-73.83005,7.72764],[-73.84596,7.54172],[-73.89493,7.43141],[-74.24626,7.00255],[-74.4103,7.20211],[-74.31971,7.44008],[-74.41397,7.39918],[-74.59882,7.4624],[-74.56087,7.64584],[-74.51925,7.90117],[-74.72491,8.11684],[-74.83018,8.19988],[-74.64901,8.31391],[-74.53394,8.47628],[-74.54006,8.80474],[-74.82773,9.06131],[-74.90241,9.16295],[-74.9122,9.4158],[-75.13255,9.59552],[-75.32474,9.62527],[-75.33576,9.81243],[-75.46674,9.90911],[-75.57324,10.08635],[-75.56223,10.26979],[-75.51203,10.57222],[-75.27577,10.71476],[-75.22436,10.79533]],[[-72.90092,10.43588],[-72.91194,10.11486],[-72.97192,9.85457],[-73.08454,9.5571],[-73.24123,9.4034],[-73.36855,9.17286],[-73.41139,9.05387],[-73.44812,8.86176],[-73.46281,8.74525],[-73.53136,8.52834],[-73.51667,8.39572],[-73.39425,8.37836],[-73.40527,8.24574],[-73.37711,8.10568],[-73.27796,7.98545],[-73.35141,7.89249],[-73.41139,7.71649],[-73.63296,7.74871],[-73.75048,7.80325],[-73.67581,7.94331],[-73.77496,8.14534],[-73.82026,8.6622],[-73.79577,8.81838],[-73.868,8.93612],[-73.86433,9.11213],[-73.96226,9.18774],[-73.98919,9.31664],[-74.13731,9.49636],[-73.868,9.60048],[-73.84229,9.79756],[-73.95859,9.93142],[-74.08345,10.07024],[-73.95369,10.3392],[-73.77986,10.39622],[-73.59991,10.57594],[-73.55094,10.74947],[-73.47994,10.86722],[-73.25592,10.82632],[-73.11392,10.67882],[-73.09923,10.55115],[-73.12739,10.3987],[-72.98661,10.39994],[-72.90092,10.43588]],[[-72.90092,10.43588],[-73.08822,10.42473],[-73.17513,10.4805],[-73.07597,10.63668],[-73.26327,10.73212],[-73.29142,10.86226],[-73.59869,10.83623],[-73.62807,11.14238],[-73.57543,11.26013],[-73.27551,11.28616],[-73.02456,11.49439],[-72.82625,11.63569],[-72.459,11.77699],[-72.13827,12.10421],[-71.96444,12.25666],[-71.95955,12.15007],[-71.92772,12.29757],[-71.8053,12.305],[-71.62413,12.4401],[-71.28259,12.34343],[-71.11488,12.08562],[-71.23485,11.95299],[-71.61066,11.746],[-71.97179,11.64684],[-72.34883,11.15106],[-72.48471,11.06181],[-72.63773,10.88457],[-72.75157,10.63296],[-72.90092,10.43588],[-72.90092,10.43588]],[[-73.57543,11.26013],[-73.62807,11.14238],[-73.59869,10.83623],[-73.59379,10.70485],[-73.65989,10.45571],[-73.89248,10.39126],[-74.06509,10.16692],[-73.99286,9.93638],[-73.89738,9.83722],[-73.80312,9.63642],[-74.03693,9.5918],[-73.9794,9.38977],[-73.94267,9.28937],[-73.89126,9.1741],[-73.79822,9.05883],[-73.87167,8.96091],[-74.10426,9.02165],[-74.24871,9.16419],[-74.40295,9.21377],[-74.51435,9.2336],[-74.6992,9.42695],[-74.8057,9.55338],[-74.80325,9.66741],[-74.87303,9.84837],[-74.78734,10.00827],[-74.94525,10.12849],[-74.82773,10.41109],[-74.73592,10.55115],[-74.76408,10.99488],[-74.59882,11.00852],[-74.35644,10.97629],[-74.21811,11.06553],[-74.14588,11.33574],[-73.9794,11.33946],[-73.66112,11.25269],[-73.57543,11.26013]],[[-74.78122,8.27797],[-74.87425,8.40315],[-75.00768,8.51099],[-75.12765,8.46884],[-75.21334,8.4738],[-75.32841,8.5618],[-75.32841,8.73657],[-75.24517,8.88283],[-75.20967,9.05016],[-75.39207,9.15923],[-75.45817,9.23856],[-75.70055,9.41208],[-75.5965,9.49017],[-75.64424,9.75665],[-75.57324,10.08635],[-75.46674,9.90911],[-75.33576,9.81243],[-75.32474,9.62527],[-75.13255,9.59552],[-74.9122,9.4158],[-74.90241,9.16295],[-74.82773,9.06131],[-74.54006,8.80474],[-74.53394,8.47628],[-74.64901,8.31391],[-74.78122,8.27797]],[[-81.70379,12.59504],[-81.70379,12.54298],[-81.73562,12.53059],[-81.72215,12.57769],[-81.70379,12.59504],[-81.70379,12.59504]],[[-69.428,6.10766],[-69.83564,6.04072],[-70.03029,6.16219],[-70.19922,6.29482],[-70.38039,6.30225],[-70.55667,6.24524],[-70.78681,6.25143],[-71.09652,6.27746],[-71.34502,6.2316],[-71.48825,6.20186],[-71.66698,6.19194],[-71.87998,6.15971],[-72.13827,6.06675],[-72.29252,6.20433],[-72.36719,6.30721],[-72.26069,6.44231],[-72.09176,6.64806],[-72.05136,6.76829],[-71.83468,7.0261],[-71.71472,7.03478],[-71.57394,7.0261],[-71.3793,7.01743],[-71.11121,6.99016],[-70.89576,7.05957],[-70.60808,7.06453],[-70.50281,7.00627],[-70.32286,6.93438],[-70.1172,6.979],[-69.428,6.10766],[-69.428,6.10766]],[[-72.04769,7.0385],[-72.10032,6.74598],[-72.26069,6.44231],[-72.41248,6.18822],[-72.32557,5.93537],[-72.30965,5.79407],[-72.30109,5.50651],[-72.68792,5.28217],[-72.89725,5.25986],[-72.9707,4.97974],[-73.05271,4.7368],[-73.22287,4.73308],[-73.4016,4.87934],[-73.51544,5.03551],[-73.57788,5.302],[-73.81781,5.55361],[-73.99041,5.37513],[-74.28666,5.74573],[-74.53027,5.79035],[-74.66492,5.76804],[-74.61228,5.96636],[-74.61228,6.12625],[-74.37847,6.03948],[-74.02592,5.80646],[-73.86188,5.71103],[-73.59991,5.86968],[-73.49708,6.10766],[-73.4016,5.9019],[-73.39058,5.75069],[-73.2192,5.91306],[-72.95356,6.06551],[-72.75769,6.31713],[-72.66099,6.44355],[-72.48593,6.65674],[-72.31333,6.9319],[-72.19948,7.04098],[-72.04769,7.0385]],[[-73.05271,4.7368],[-73.35386,4.32158],[-73.55094,4.30795],[-73.60236,4.4542],[-73.62195,4.56204],[-73.80679,4.42198],[-73.74436,4.2658],[-73.81414,4.20135],[-74.0051,4.10963],[-74.15078,4.00428],[-74.152,4.25589],[-74.1165,4.40462],[-74.00878,4.82109],[-74.17281,4.71077],[-74.21199,4.39347],[-74.24504,4.10343],[-74.36623,4.0365],[-74.43968,3.73035],[-74.53516,3.84314],[-74.53149,4.03402],[-74.48375,4.17656],[-74.63921,4.21127],[-74.81304,4.29431],[-74.83263,4.44305],[-74.81427,4.58559],[-74.81427,4.73556],[-74.75184,4.86571],[-74.7347,5.28713],[-74.67472,5.51643],[-74.66125,5.75193],[-74.53027,5.79035],[-74.3344,5.82754],[-74.30992,5.6193],[-73.99041,5.37513],[-73.89003,5.51271],[-73.78231,5.50032],[-73.57788,5.302],[-73.47994,5.06402],[-73.54727,4.92396],[-73.4016,4.87934],[-73.30611,4.73184],[-73.2241,4.67855],[-73.05271,4.7368],[-73.05271,4.7368]],[[-72.04769,7.0385],[-72.22029,6.98644],[-72.31333,6.9319],[-72.50307,6.90835],[-72.72219,7.00503],[-72.85807,7.15377],[-72.87032,7.27771],[-72.90092,7.43389],[-72.97804,7.52933],[-73.21798,7.6322],[-73.35508,7.5442],[-73.51667,7.63716],[-73.48117,7.67682],[-73.35141,7.79457],[-73.27918,7.93587],[-73.3661,8.02264],[-73.4322,8.14039],[-73.35018,8.33374],[-73.45668,8.36101],[-73.4726,8.44777],[-73.55217,8.60643],[-73.41139,8.78119],[-73.43955,8.97455],[-73.42975,9.10221],[-73.25225,9.15799],[-73.00865,9.29061],[-72.98171,9.14683],[-72.88256,9.13072],[-72.71975,8.94108],[-72.38922,8.34862],[-72.35372,8.1565],[-72.34638,8.03751],[-72.44431,7.86027],[-72.47614,7.63344],[-72.47859,7.49834],[-72.25579,7.37811],[-72.15419,7.32853],[-72.04769,7.0385],[-72.04769,7.0385]],[[-74.15078,4.00428],[-74.22912,3.99436],[-74.33563,3.82207],[-74.41642,3.74027],[-74.43968,3.73035],[-74.36011,3.91379],[-74.36623,4.0365],[-74.32461,4.12698],[-74.24504,4.10343],[-74.21688,4.27324],[-74.21199,4.39347],[-74.17771,4.48643],[-74.17281,4.71077],[-74.05162,4.83224],[-74.00878,4.82109],[-74.0051,4.5608],[-74.1165,4.40462],[-74.09814,4.34513],[-74.152,4.25589],[-74.10916,4.16913],[-74.15078,4.00428],[-74.15078,4.00428]],[[-71.07816,4.89917],[-71.07693,2.88256],[-71.38909,2.84537],[-71.74165,2.8838],[-72.11257,2.87512],[-72.38922,2.7363],[-72.56305,2.68176],[-72.73566,2.57145],[-72.93642,2.50328],[-73.1531,2.36694],[-73.43832,2.38305],[-73.66112,2.29381],[-73.85821,1.60838],[-74.20709,1.71621],[-74.56332,1.8476],[-74.59392,2.13516],[-74.74204,2.32356],[-74.58902,2.66193],[-74.76163,2.87264],[-74.89874,2.96436],[-74.63921,3.36843],[-74.50211,3.64731],[-74.22912,3.99436],[-74.0051,4.10963],[-73.75293,4.19267],[-73.80679,4.42198],[-73.56808,4.52733],[-73.55094,4.30795],[-73.12372,4.25961],[-72.96825,4.59922],[-72.76994,4.33274],[-72.40514,4.31786],[-71.99872,4.38231],[-71.73553,4.57443],[-71.21159,4.81737],[-71.07816,4.89917]],[[-74.43968,3.73035],[-74.50211,3.64731],[-74.61596,3.46015],[-74.61596,3.32133],[-74.89874,2.96436],[-75.14724,2.72266],[-75.28679,2.41032],[-75.38595,2.31488],[-75.53529,2.1178],[-75.65893,1.89222],[-75.84745,1.72241],[-76.03475,1.58235],[-76.1694,1.58855],[-76.38118,1.66664],[-76.43382,1.79058],[-76.62479,1.97402],[-76.58929,2.10789],[-76.42525,2.12896],[-76.30284,2.28389],[-76.12166,2.2244],[-76.12656,2.38057],[-75.97966,2.50328],[-75.82297,2.48345],[-75.7483,2.71895],[-75.82297,2.83546],[-76.02863,2.94081],[-75.80338,2.88503],[-75.62711,3.00278],[-75.58304,3.12425],[-75.47898,3.36099],[-75.36636,3.40685],[-75.14969,3.43536],[-75.03584,3.28662],[-74.7653,3.44032],[-74.67594,3.6659],[-74.53516,3.84314],[-74.43968,3.73035],[-74.43968,3.73035]],[[-73.63296,7.74871],[-73.50565,7.59502],[-73.24735,7.55783],[-72.99273,7.5975],[-72.89358,7.47479],[-72.84094,7.362],[-72.84094,7.19467],[-72.78707,7.04841],[-72.55326,6.9852],[-72.48593,6.65674],[-72.5398,6.48817],[-72.73566,6.49065],[-72.75769,6.31713],[-72.80421,6.21549],[-73.12984,5.95892],[-73.2192,5.91306],[-73.34529,5.84241],[-73.47382,5.81638],[-73.4016,5.9019],[-73.40282,6.05436],[-73.58644,6.00602],[-73.59991,5.86968],[-73.71131,5.77672],[-73.90472,5.73953],[-74.02592,5.80646],[-74.28666,6.08287],[-74.45192,6.09898],[-74.4507,6.332],[-74.40907,6.58609],[-74.25606,6.67533],[-74.11528,6.76581],[-73.89738,6.98644],[-73.939,7.18228],[-73.89493,7.43141],[-73.84596,7.54172],[-73.83005,7.72764],[-73.83128,7.93215],[-73.86678,8.06974],[-73.76395,8.06354],[-73.67091,7.89373],[-73.75293,7.75119],[-73.63296,7.74871]],[[-74.7347,5.28713],[-74.75184,4.86571],[-74.81427,4.73556],[-74.81427,4.58559],[-74.83263,4.44305],[-74.81304,4.29431],[-74.63921,4.21127],[-74.48375,4.17656],[-74.53149,4.03402],[-74.53516,3.84314],[-74.67594,3.6659],[-74.7653,3.44032],[-75.03584,3.28662],[-75.14969,3.43536],[-75.36636,3.40685],[-75.47898,3.36099],[-75.58304,3.12425],[-75.62711,3.00278],[-75.80338,2.88503],[-76.02863,2.94081],[-76.0727,3.04988],[-76.05556,3.22341],[-76.06168,3.35479],[-75.98456,3.55931],[-75.95518,3.71424],[-75.86214,3.87413],[-75.75197,4.0774],[-75.59283,4.3191],[-75.51448,4.55584],[-75.3884,4.71573],[-75.32352,4.86571],[-75.31739,5.02808],[-75.28802,5.13839],[-75.05665,5.27473],[-74.85099,5.31439],[-74.7347,5.28713]],[[-74.91098,10.25368],[-74.96484,10.32557],[-75.08236,10.41233],[-75.12643,10.3987],[-75.2415,10.52017],[-75.22314,10.63048],[-75.25007,10.72344],[-75.22436,10.79533],[-75.04441,10.89944],[-75.00524,10.98001],[-74.85222,11.1052],[-74.76408,10.99488],[-74.72123,10.9044],[-74.73592,10.55115],[-74.80937,10.47555],[-74.82773,10.41109],[-74.91098,10.25368],[-74.91098,10.25368]]];
 function cityPos(c){ return [c.x/100*500, c.y/100*500]; }
 function renderMap(){
-  const roleColor = r => r==='sede' ? '#dff45e' : r==='regional' ? '#5fe0d0' : '#76a8ff';
+  const roleColor=r=>r==='sede'?'#dff45e':r==='regional'?'#54e5d8':'#6da7ff';
   const W=520,H=610,pad=34;
   const {minLon,maxLon,minLat,maxLat}=COLOMBIA_BOUNDS;
   const scale=Math.min((W-pad*2)/(maxLon-minLon),(H-pad*2)/(maxLat-minLat));
-  const mapW=(maxLon-minLon)*scale, mapH=(maxLat-minLat)*scale;
-  const ox=(W-mapW)/2, oy=(H-mapH)/2;
+  const mapW=(maxLon-minLon)*scale,mapH=(maxLat-minLat)*scale;
+  const ox=(W-mapW)/2,oy=(H-mapH)/2;
   const project=(lon,lat)=>[ox+(lon-minLon)*scale,oy+(maxLat-lat)*scale];
-
-  const d=COLOMBIA_GEO.map((p,i)=>{
-    const [x,y]=project(p[0],p[1]);
-    return `${i?'L':'M'}${x.toFixed(2)},${y.toFixed(2)}`;
-  }).join(' ')+' Z';
-
+  const pathOf=ring=>ring.map((p,i)=>{const [x,y]=project(p[0],p[1]);return `${i?'L':'M'}${x.toFixed(2)},${y.toFixed(2)}`;}).join(' ')+' Z';
+  const d=pathOf(COLOMBIA_GEO);
+  const deptPaths=COLOMBIA_DEPT_RINGS.map(r=>`<path class="dept-line" d="${pathOf(r)}"/>`).join('');
   const mapped=CITIES.filter(c=>CITY_GEO[c.id]);
   const pins=mapped.map(c=>{
-    const [lon,lat]=CITY_GEO[c.id];
-    const [x,y]=project(lon,lat);
-    const selected=c.id===selCity;
-    const share=c[mapLayer];
-    const color=roleColor(c.role);
-    const r=selected?8:c.role==='sede'?6.6:4.8;
+    const [x,y]=project(...CITY_GEO[c.id]);
+    const selected=c.id===selCity,share=c[mapLayer],color=roleColor(c.role);
+    const r=selected?8:c.role==='sede'?6.5:4.7;
     return `<g class="pin ${selected?'sel':''}" data-city="${c.id}" style="--pin:${color}" tabindex="0" role="button" aria-label="${esc(c.name)}: ${share}% del universo de ${MLABEL[mapLayer].toLowerCase()}">
       <title>${esc(c.name)} · ${fmtM(UNIVERSE[mapLayer]*share/100,2)} · ${share}%</title>
-      <circle class="glow" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r+11}"/>
+      <circle class="glow" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r+12}"/>
       <circle class="ring" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r+4}"/>
       <circle class="core" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r}"/>
     </g>`;
   }).join('');
-
   $('#mapCanvas').innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa geográfico de Colombia con ciudades prioritarias">
     <defs>
       <linearGradient id="realLandFill" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#17394b"/>
-        <stop offset=".48" stop-color="#0d2a3c"/>
-        <stop offset="1" stop-color="#081927"/>
+        <stop offset="0" stop-color="#12394d"/>
+        <stop offset=".48" stop-color="#0b2c40"/>
+        <stop offset="1" stop-color="#071b2d"/>
       </linearGradient>
     </defs>
+    <circle class="map-guide" cx="260" cy="305" r="185"/>
+    <circle class="map-guide" cx="260" cy="305" r="135"/>
     <path class="real-map-shadow" d="${d}"/>
     <path class="real-map-land" d="${d}"/>
+    ${deptPaths}
     ${pins}
   </svg>
   <div class="map-legend">
     <span><i style="background:#dff45e;color:#dff45e"></i>Sede</span>
-    <span><i style="background:#5fe0d0;color:#5fe0d0"></i>Regional</span>
-    <span><i style="background:#76a8ff;color:#76a8ff"></i>Virtual</span>
+    <span><i style="background:#54e5d8;color:#54e5d8"></i>Regional</span>
+    <span><i style="background:#6da7ff;color:#6da7ff"></i>Virtual</span>
   </div>
-  <div class="map-source">Contorno geográfico real · GeoJSON</div>`;
-
+  <div class="map-compass" aria-hidden="true">N<br>⌃</div>
+  <div class="map-source">Contorno geográfico real · Colombia</div>`;
   $$('#mapCanvas .pin').forEach(g=>{
     g.addEventListener('click',()=>selectCity(g.dataset.city));
-    g.addEventListener('keydown',e=>{
-      if(e.key==='Enter'||e.key===' '){
-        e.preventDefault();
-        selectCity(g.dataset.city);
-      }
-    });
+    g.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();selectCity(g.dataset.city);}});
   });
   renderCityDetail();
   renderCityList();
@@ -2737,28 +3108,76 @@ function initLibrary(){
 }
 function gotoLibrary(opts){ Object.assign(lib,{q:'',m:'',plat:'',cluster:'',tipo:'',page:1}, opts); renderLibrary(); navigate('library'); }
 function renderLibrary(){
-  $('#q').value = lib.q; $('#fPlat').value = lib.plat; $('#fCluster').value = lib.cluster;
-  $$('#libMoment button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m===lib.m));
-  $$('[data-lib-view]').forEach(b => { const on=b.dataset.libView===lib.view; b.classList.toggle('active',on); b.setAttribute('aria-pressed',on); });
-  // categorías (tipo de señal) con conteo sobre los demás filtros
-  const base = LIB.filter(r => (!lib.m || r.m===lib.m) && (!lib.plat || PLAT_LIB[lib.plat].includes(r.plat)) && (!lib.cluster || r.clusters.includes(lib.cluster)));
-  const tipos = {}; base.forEach(r => { tipos[r.tipo]=(tipos[r.tipo]||0)+1; });
-  const tipoList = Object.entries(tipos).sort((a,b)=>b[1]-a[1]).slice(0,12);
-  $('#categoryGrid').innerHTML = tipoList.map(([t,n]) => `<button class="category-tile ${lib.tipo===t?'active':''}" type="button" data-tipo="${esc(t)}" style="--tile:url('${TIPO_TILES[t]||'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230b1535%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2316665d%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22700%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%22930%22%20cy%3D%22130%22%20r%3D%22260%22%20fill%3D%22white%22%20opacity%3D%22.08%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22610%22%20r%3D%22320%22%20fill%3D%22white%22%20opacity%3D%22.05%22%2F%3E%3Ctext%20x%3D%2270%22%20y%3D%22620%22%20fill%3D%22white%22%20opacity%3D%22.65%22%20font-family%3D%22Arial%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3ECOLOMBIA%202027%3C%2Ftext%3E%3C%2Fsvg%3E'}') center/cover"><span class="cap"><strong>${esc(t)}</strong><span>${n} señales</span></span></button>`).join('');
-  $$('#categoryGrid .category-tile').forEach(b => b.addEventListener('click', () => { lib.tipo = lib.tipo===b.dataset.tipo ? '' : b.dataset.tipo; lib.page=1; renderLibrary(); }));
-  const rows = libFiltered(); const pages = Math.max(1, Math.ceil(rows.length/lib.per)); lib.page = Math.min(lib.page, pages);
-  const slice = rows.slice((lib.page-1)*lib.per, lib.page*lib.per);
-  const ctx = [lib.cluster && `clúster ${CL[lib.cluster].name}`, lib.plat && PLAT[lib.plat].name, lib.m && MLABEL[lib.m], lib.tipo && `tipo ${lib.tipo}`].filter(Boolean).join(' · ');
-  $('#resultCount').textContent = `${rows.length} de ${LIB.length} registros${ctx?' · '+ctx:''}`;
-  const grid = $('#libGrid'), table = $('#libTable'); grid.hidden = lib.view!=='grid'; table.hidden = lib.view!=='table';
+  $('#q').value=lib.q; $('#fPlat').value=lib.plat; $('#fCluster').value=lib.cluster;
+  $$('#libMoment button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===lib.m));
+  $$('[data-lib-view]').forEach(b=>{const on=b.dataset.libView===lib.view;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on);});
+
+  const TYPE_META={
+    'Interés':['◎','#26eee7'],
+    'Palabra clave':['⌕','#42e7e3'],
+    'Demográfico':['♧','#be7cff'],
+    'Cargo':['▣','#62e6df'],
+    'Remarketing':['◔','#e07cff'],
+    'Hashtag':['#','#61bfff'],
+    'Comportamiento':['↖','#6dccff'],
+    'Demográfico detallado':['♙','#5be0d6'],
+    'Aptitud':['☆','#dc82ff'],
+    'En el mercado':['⌑','#69e2b0'],
+    'Afinidad':['♡','#df83ff'],
+    'Sector':['▥','#67c2ff']
+  };
+  const PLAT_META={
+    'Meta':['∞','#5c83ff'],
+    'TikTok':['♪','#ff75be'],
+    'LinkedIn':['in','#66aefb'],
+    'YouTube':['▶','#ff5f65'],
+    'Google':['G','#ffd166']
+  };
+
+  const base=LIB.filter(r=>(!lib.m||r.m===lib.m)&&(!lib.plat||PLAT_LIB[lib.plat].includes(r.plat))&&(!lib.cluster||r.clusters.includes(lib.cluster)));
+  const tipos={}; base.forEach(r=>{tipos[r.tipo]=(tipos[r.tipo]||0)+1;});
+  const tipoList=Object.entries(tipos).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  $('#categoryGrid').innerHTML=tipoList.map(([t,n])=>{
+    const meta=TYPE_META[t]||['◇','#6be5dc'];
+    return `<button class="category-tile ${lib.tipo===t?'active':''}" type="button" data-tipo="${esc(t)}" style="--icon:${meta[1]};--tile-glow:${meta[1]}22">
+      <span class="cat-icon">${meta[0]}</span>
+      <span class="cap"><strong>${esc(t)}</strong><span>${n} señales</span></span>
+    </button>`;
+  }).join('');
+  $$('#categoryGrid .category-tile').forEach(b=>b.addEventListener('click',()=>{lib.tipo=lib.tipo===b.dataset.tipo?'':b.dataset.tipo;lib.page=1;renderLibrary();}));
+
+  const rows=libFiltered();
+  const pages=Math.max(1,Math.ceil(rows.length/lib.per)); lib.page=Math.min(lib.page,pages);
+  const slice=rows.slice((lib.page-1)*lib.per,lib.page*lib.per);
+  const ctx=[lib.cluster&&`clúster ${CL[lib.cluster].name}`,lib.plat&&PLAT[lib.plat].name,lib.m&&MLABEL[lib.m],lib.tipo&&`tipo ${lib.tipo}`].filter(Boolean).join(' · ');
+  $('#resultCount').textContent=`${rows.length} de ${LIB.length} registros${ctx?' · '+ctx:''}`;
+
+  const grid=$('#libGrid'),table=$('#libTable');
+  grid.hidden=lib.view!=='grid'; table.hidden=lib.view!=='table';
   if(lib.view==='grid'){
-    grid.innerHTML = slice.map(r => `<button class="interest-card" type="button" data-signal="${r.id}" style="--accent:${PLAT[Object.keys(PLAT_LIB).find(k=>PLAT_LIB[k][0]===r.plat)||'meta'].color}"><div class="top"><span class="chip ${r.m}">${MLABEL[r.m]}</span><span class="type">${esc(r.plat)}</span></div><strong>${esc(r.nombre)}</strong><span class="type" style="color:var(--muted)">${esc(r.tipo)}</span>${r.nota?`<span class="nota">${esc(r.nota)}</span>`:''}<div class="who">${r.clusters.slice(0,4).map(c=>`<img src="${portrait(CL[c])}" alt="" title="${esc(CL[c].name)}">`).join('')}<span>${r.clusters.length>4?`+${r.clusters.length-4}`:''}</span></div></button>`).join('') || `<p class="muted">Ningún registro coincide. Prueba con otra palabra o limpia los filtros.</p>`;
-    $$('#libGrid .interest-card').forEach(b => b.addEventListener('click', () => signalDialog(+b.dataset.signal)));
-  } else {
-    $('#libTableEl').innerHTML = `<thead><tr><th>#</th><th>Momento</th><th>Señal</th><th>Plataforma</th><th>Tipo</th><th>Clústeres</th><th>Nota</th></tr></thead><tbody>${slice.map(r=>`<tr><td class="muted">${r.id}</td><td><span class="chip ${r.m}">${MLABEL[r.m]}</span></td><td>${esc(r.nombre)}</td><td>${esc(r.plat)}</td><td>${esc(r.tipo)}</td><td class="small">${r.clusters.map(c=>esc(CL[c].name)).join(', ')}</td><td class="small muted">${esc(r.nota)}</td></tr>`).join('') || '<tr><td colspan="7" class="muted">Ningún registro coincide.</td></tr>'}</tbody>`;
+    grid.innerHTML=slice.map(r=>{
+      const pm=PLAT_META[r.plat]||[r.plat.slice(0,1),'#8eb1cf'];
+      const note=r.nota||`${r.tipo} sugerido para ${MLABEL[r.m].toLowerCase()}.`;
+      const linked=r.clusters.length;
+      return `<button class="interest-card" type="button" data-signal="${r.id}" style="--accent:${pm[1]};--plat-color:${pm[1]}">
+        <div class="top">
+          <span class="chip ${r.m}">${MLABEL[r.m]}</span>
+          <span class="plat-badge"><span class="plat-mark">${pm[0]}</span>${esc(r.plat).toUpperCase()}</span>
+        </div>
+        <strong>${esc(r.nombre)}</strong>
+        <span class="signal-sub">${esc(note)}</span>
+        <div class="signal-footer">
+          <span class="signal-stat"><b>${linked}</b><small>clúster${linked===1?'':'es'} vinculados</small></span>
+          <span class="who">${r.clusters.slice(0,4).map(cid=>`<img src="${portrait(CL[cid])}" alt="" title="${esc(CL[cid].name)}">`).join('')}${linked>4?`<span>+${linked-4}</span>`:''}</span>
+        </div>
+      </button>`;
+    }).join('')||`<p class="muted">Ningún registro coincide. Prueba con otra palabra o limpia los filtros.</p>`;
+    $$('#libGrid .interest-card').forEach(b=>b.addEventListener('click',()=>signalDialog(+b.dataset.signal)));
+  }else{
+    $('#libTableEl').innerHTML=`<thead><tr><th>#</th><th>Momento</th><th>Señal</th><th>Plataforma</th><th>Tipo</th><th>Clústeres</th><th>Nota</th></tr></thead><tbody>${slice.map(r=>`<tr><td class="muted">${r.id}</td><td><span class="chip ${r.m}">${MLABEL[r.m]}</span></td><td>${esc(r.nombre)}</td><td>${esc(r.plat)}</td><td>${esc(r.tipo)}</td><td class="small">${r.clusters.map(cid=>esc(CL[cid].name)).join(', ')}</td><td class="small muted">${esc(r.nota)}</td></tr>`).join('')||'<tr><td colspan="7" class="muted">Ningún registro coincide.</td></tr>'}</tbody>`;
   }
-  $('#pagination').innerHTML = `<span>Página ${lib.page} de ${pages}</span><div><button type="button" data-page="prev" ${lib.page<=1?'disabled':''}>Anterior</button><button type="button" data-page="next" ${lib.page>=pages?'disabled':''}>Siguiente</button></div>`;
-  $$('#pagination button').forEach(b => b.addEventListener('click', () => { lib.page += b.dataset.page==='next'?1:-1; renderLibrary(); window.scrollTo({top:$('#categoryGrid').offsetTop-100,behavior:'smooth'}); }));
+  $('#pagination').innerHTML=`<span>Página ${lib.page} de ${pages}</span><div><button type="button" data-page="prev" ${lib.page<=1?'disabled':''}>Anterior</button><button type="button" data-page="next" ${lib.page>=pages?'disabled':''}>Siguiente</button></div>`;
+  $$('#pagination button').forEach(b=>b.addEventListener('click',()=>{lib.page+=b.dataset.page==='next'?1:-1;renderLibrary();window.scrollTo({top:$('#categoryGrid').offsetTop-100,behavior:'smooth'});}));
 }
 function signalDialog(id){
   const r = LIB.find(x=>x.id===id); if(!r) return;
