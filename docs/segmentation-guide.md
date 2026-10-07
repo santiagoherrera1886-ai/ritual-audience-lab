@@ -11,7 +11,7 @@
 
 Las semillas son propuestas a partir de la matriz o del producto, no etiquetas cuya disponibilidad se haya comprobado en una cuenta publicitaria. Las consultas de Search son hipótesis sin volumen ni CPC verificados. Los pasos distinguen controles, sugerencias, intereses, consultas y segmentos personalizados; la configuración exacta depende de objetivo, formato y cuenta.
 
-Google y YouTube siguen compartiendo las 34 filas originales. Sus guías se separan porque el mecanismo de activación es distinto, sin crear nuevas señales. Los rangos de los perfiles son referencias de planeación; para Carlos, TikTok necesita los intervalos 25–34 y 35–44, que también incluyen 25–29.
+Google y YouTube siguen compartiendo las 34 filas originales. Sus guías se separan porque el mecanismo de activación es distinto, sin crear nuevas señales. Desde el 7 de octubre, todos los perfiles comparten una base nacional de 18 años en adelante, sin límite superior y con todos los géneros. Se incluyen todos los intervalos adultos disponibles en cada plataforma; los clústeres se organizan por afinidad, sin selección de ciudades.
 
 Las recomendaciones de prueba y los ejemplos son propuestas del atlas. La aplicación no activa campañas, no accede a cuentas publicitarias y no promete resultados. Se conserva la matriz original de 119 registros y ambos simuladores.
 

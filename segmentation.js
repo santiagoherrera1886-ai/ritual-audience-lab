@@ -7,7 +7,7 @@ window.RITUAL_SEGMENTATION = {
       route: 'Administrador de anuncios → Conjunto de anuncios → Audiencia',
       explanation: 'Los intereses orientan la búsqueda de personas afines. Con Advantage+ pueden ser sugerencias: Meta puede ampliar la entrega. Revisa qué opciones aparecen como controles y cuáles como sugerencias en tu cuenta.',
       steps: [
-        ['Define la base', 'Configura las ciudades de cobertura y revisa los controles de edad disponibles. El rango del perfil es una hipótesis de planeación.'],
+        ['Define la base', 'Configura Colombia como ubicación, edad mínima de 18 años y todos los géneros. Incluye todas las edades adultas, sin límite superior ni selección de ciudades. Revisa los controles disponibles del formato.'],
         ['Busca las señales', 'En segmentación detallada o sugerencias, busca las semillas del ejemplo. Selecciona únicamente etiquetas que existan; si faltan, prueba una categoría afín disponible.'],
         ['Revisa la expansión', 'Comprueba Advantage+ y configura Facebook o Instagram en ubicaciones. Elegir Instagram no crea una audiencia distinta por sí solo.']
       ],
@@ -25,6 +25,7 @@ window.RITUAL_SEGMENTATION = {
       route: 'Google Ads → Campaña de Búsqueda → Grupo de anuncios → Palabras clave',
       explanation: 'En Search, las palabras clave se relacionan con lo que alguien busca. Una afinidad como “Gimnasio” sirve para descubrir necesidades; no se convierte automáticamente en una palabra clave rentable para Ritual.',
       steps: [
+        ['Define la base nacional', 'Configura Colombia y todos los rangos de edad disponibles desde los 18 años, incluido el grupo de mayor edad. Mantén todos los géneros. Revisa cómo trata el formato la edad desconocida antes de activar.'],
         ['Conecta con una necesidad', 'Transforma el interés en consultas relevantes para el producto y la página de destino. Valida intención y volumen antes de invertir.'],
         ['Define las concordancias', 'Agrupa consultas por intención. Evalúa frase o exacta para una prueba controlada; exacta también admite búsquedas con el mismo significado. La amplia requiere una estrategia adecuada de Smart Bidding.'],
         ['Lee los términos reales', 'Revisa consultas y negativas. Si agregas audiencias en Observación, podrás analizarlas sin limitar la entrega a ellas; Segmentación sí restringe el público.']
@@ -35,7 +36,8 @@ window.RITUAL_SEGMENTATION = {
       sources: [
         ['Concordancias', 'https://support.google.com/google-ads/answer/7478529?hl=en&ref_type=adv'],
         ['Observación y Segmentación', 'https://support.google.com/google-ads/answer/7365594?hl=en_'],
-        ['Tipos de audiencias', 'https://support.google.com/google-ads/answer/2497941?hl=en']
+        ['Tipos de audiencias', 'https://support.google.com/google-ads/answer/2497941?hl=en'],
+        ['Edades y género', 'https://support.google.com/google-ads/answer/2580383?hl=en']
       ]
     },
     tiktok: {
@@ -43,7 +45,7 @@ window.RITUAL_SEGMENTATION = {
       route: 'TikTok Ads Manager → Grupo de anuncios → Segmentación',
       explanation: 'Combina ubicación y edad con categorías de interés o comportamientos de interacción disponibles. Las opciones de una misma dimensión se unen con O; entre dimensiones se aplica Y.',
       steps: [
-        ['Configura ubicación y edades', 'Elige la cobertura y los intervalos de edad de TikTok. Revisa abajo cómo se traduce el rango de este perfil.'],
+        ['Configura ubicación y edades', 'Elige Colombia y todos los intervalos de edad disponibles desde los 18 años, incluido el de mayor edad. Mantén todos los géneros. Los clústeres comparten esta base nacional, sin selección de ciudades.'],
         ['Encuentra categorías afines', 'Busca las semillas en Intereses y comportamientos. Según disponibilidad, explora interacción con videos o categorías de creadores; no equivale a acceder a los seguidores de una cuenta específica.'],
         ['Comprueba Smart Targeting', 'Cuando esté disponible y activo, puede ampliar intereses o audiencias. Revisa su estado para interpretar correctamente la prueba.']
       ],
@@ -62,7 +64,8 @@ window.RITUAL_SEGMENTATION = {
       route: 'Google Ads → Gestor de audiencias → Segmentos personalizados',
       explanation: 'Puedes construir un segmento con términos, URLs o apps, según el tipo de campaña. Las URLs describen afinidad con sitios similares: no son una compra de sus visitantes ni ubicaciones donde aparecerá el anuncio.',
       steps: [
-        ['Crea el segmento', 'Nómbralo por perfil y territorio. Usa términos que expresen intereses o intención relacionados con Ritual.'],
+        ['Define la base nacional', 'Configura Colombia, todos los rangos adultos desde los 18 años y todos los géneros en la campaña compatible. Incluye el grupo de mayor edad y revisa el tratamiento de la edad desconocida.'],
+        ['Crea el segmento', 'Nómbralo por clúster y afinidad. Usa términos que expresen intereses o intención relacionados con Ritual; el nombre del segmento no limita ubicación ni edad.'],
         ['Elige cómo interpretar los términos', 'Si la opción está disponible, distingue intereses de personas que buscaron términos en propiedades de Google. Esta última interpretación aplica a campañas en propiedades de Google.'],
         ['Asócialo a una campaña compatible', 'Añádelo a la audiencia de Video, Demand Gen o Display según disponibilidad. Revisa la expansión u optimización del formato antes de interpretar el alcance.']
       ],
@@ -71,7 +74,8 @@ window.RITUAL_SEGMENTATION = {
       measure: 'Propuesta del atlas: prueba una audiencia de afinidad frente a otra de intención. Evalúa alcance, frecuencia y visualización según el formato contratado.',
       sources: [
         ['Crear segmentos personalizados', 'https://support.google.com/google-ads/answer/9805516?hl=en'],
-        ['Audiencias por tipo de campaña', 'https://support.google.com/google-ads/answer/2497941?hl=en']
+        ['Audiencias por tipo de campaña', 'https://support.google.com/google-ads/answer/2497941?hl=en'],
+        ['Edades y género', 'https://support.google.com/google-ads/answer/2580383?hl=en']
       ]
     }
   }

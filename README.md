@@ -6,7 +6,8 @@ Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz si
 
 ## Funciones
 
-- Resumen con universo de planeación, explorador de Colombia con siete ciudades y ecosistema de medios. El mapa de la opción C usa una lista de ciudades, selección de pines y panel contextual con perfiles, momentos de consumo y acceso a intereses.
+- Base común de todo el atlas: personas de 18 años en adelante, sin límite superior, en toda Colombia y de todos los géneros.
+- Resumen con universo supuesto y explorador nacional de clústeres por afinidad. El mapa representa la cobertura del país, con perfiles, momentos de consumo y acceso a intereses; sin filtros ni potenciales por ciudad.
 - Panel lateral permanente con filtros de producto y los tres perfiles: Valeria, Carlos y Julián.
 - Medios: Meta, Google, TikTok y YouTube, con porcentajes derivados de las señales de la matriz y accesos a sus intereses.
 - Audiencias: perfiles completos y acceso a sus señales.
@@ -20,7 +21,7 @@ Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz si
 
 `data.js` conserva las 119 filas originales y sus nueve campos: Valeria 34, Carlos 43 y Julián 42. Las fotografías, perfiles editoriales y categorías son ilustrativos. Google y YouTube comparten las mismas 34 filas; no son 68 señales diferentes. Los porcentajes de medios representan registros, no alcance publicitario.
 
-Los valores demográficos, territoriales y universos que aparecen en la referencia visual se presentan como supuestos de planeación sin fuente demográfica verificada. El mapa utiliza un contorno geográfico de Colombia; su iluminación es decorativa. Los valores de ciudades no son mediciones de campañas ni proyecciones censales.
+Los universos son supuestos de planeación sin validación demográfica o de plataformas. No equivalen al total de adultos de Colombia. Se retiraron los valores anteriores de población, base urbana y potenciales por ciudad. El mapa representa la cobertura nacional; su iluminación es decorativa. Los clústeres se definen por afinidad, sin restricciones de ciudad, género o edades adultas.
 
 El nuevo modelo usa universos de 8,6 M (Día), 7,8 M (Noche) e intersección de 2,4 M. El escenario base 60/40 alcanza 14,0 M únicos al cierre de 12 olas: 100% de un universo de 14,0 M. La frecuencia combinada se calcula con las impresiones totales divididas por el alcance único (aproximadamente 3,6), no mediante un promedio simple. Cambiar los porcentajes altera las curvas de saturación; una asignación de 0% no genera alcance del producto. Los supuestos se explican en el simulador.
 
@@ -76,8 +77,14 @@ Intereses incluye un panel desplegable con guías de Meta, Google Search, TikTok
 
 ![Guía de segmentación contextual de Carlos](docs/Ritual_Guia_Segmentacion.jpg)
 
-## Mapa C · Explorador de ciudades
+## Mapa C · Explorador de ciudades (versión anterior)
 
 El resumen ahora muestra el mapa a todo el ancho, con selección de las siete ciudades, pestañas Ciudades / Clústeres, panel con imagen ilustrativa y acceso a perfiles, productos e intereses. [Diseño, fuentes y verificación](docs/map-explorer.md).
 
 ![Mapa C publicado: Bogotá seleccionada](docs/Ritual_Mapa_Explorador_C.jpg)
+
+## Base nacional de 18+ · 7 de octubre de 2026
+
+Todo el atlas, las guías y los CSV comparten Colombia / 18+ / todos los géneros. Los nombres de Valeria, Carlos y Julián identifican afinidades ilustrativas; no imponen filtros de género, ciudad ni edades adultas. El mapa conserva el contorno nacional y permite explorar los clústeres y productos.
+
+Los supuestos de 8,6 M / 7,8 M / 2,4 M se conservan explícitamente como escenario ilustrativo. Ampliar la base de activación no valida ni recalcula por sí solo estos universos. El 100% de cobertura se refiere a los 14 M supuestos, no a toda la población adulta del país. [Alcance y verificación de la actualización](docs/audiencia-nacional.md).
