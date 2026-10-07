@@ -1,0 +1,64 @@
+{
+  "method": "Proyección DANE por edad simple × tasas TIC 2025 por grupo; tasa 12–24 usada como proxy de 18–24; tasas constantes hacia 2027.",
+  "populationSource": "https://www.dane.gov.co/files/censo2018/proyecciones-de-poblacion/Nacional/PPED-AreaSexoEdadNac-2018-2070.xlsx",
+  "internetSource": "https://www.dane.gov.co/files/operaciones/TICH/anex-TICH-2025.xlsx",
+  "rates": [
+    0.9381837570611629,
+    0.9112847255015205,
+    0.6324634718139461
+  ],
+  "years": {
+    "2025": {
+      "total": 53057212,
+      "adults": 38726789,
+      "ageGroups": [
+        6227752,
+        21911103,
+        10587934
+      ],
+      "estimatedInternetByGroup": [
+        5842775.769405171,
+        19967253.48279054,
+        6696481.496976922
+      ],
+      "estimatedInternet": 32506510.749172635,
+      "30mShareOfEstimate": 0.9228920394282418
+    },
+    "2026": {
+      "total": 53399171,
+      "adults": 39236663,
+      "ageGroups": [
+        6192820,
+        22206623,
+        10837220
+      ],
+      "estimatedInternetByGroup": [
+        5810003.134403511,
+        20236556.344870754,
+        6854145.786011533
+      ],
+      "estimatedInternet": 32900705.265285797,
+      "30mShareOfEstimate": 0.9118345566790512
+    },
+    "2027": {
+      "total": 53712233,
+      "adults": 39721750,
+      "ageGroups": [
+        6151801,
+        22490699,
+        11079250
+      ],
+      "estimatedInternetByGroup": [
+        5771519.774872619,
+        20495430.46455232,
+        7007220.920094662
+      ],
+      "estimatedInternet": 33274171.1595196,
+      "30mShareOfEstimate": 0.901600218865771
+    }
+  },
+  "sha256": {
+    "poblacion.xlsx": "898f544bee2129723460424095d8b294b828fbbd37b3e87f639c3982a225a5aa",
+    "tic-2025.xlsx": "a9d4229f7df6b4f0c8212faa34ff116598f07daf9594d7d2772b8764abd5347e"
+  }
+}

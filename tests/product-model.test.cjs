@@ -1,30 +1,47 @@
 const test=require('node:test');
 const assert=require('node:assert/strict');
 const Model=require('../product-model.js');
+const Media=require('../model.js');
+const close=(a,b)=>assert(Math.abs(a-b)<1e-5,`${a} ≠ ${b}`);
 
-test('reference plan reconciles product universes, overlap, unique reach and coverage',()=>{
-  const p=Model.calculate({dayShare:60}),r=p.final;
-  assert.equal(p.universe,14e6);
-  assert(Math.abs(r.day-8.6e6)<1e-6);assert(Math.abs(r.night-7.8e6)<1e-6);
-  assert(Math.abs(r.overlap-2.4e6)<1e-6);assert(Math.abs(r.reach-14e6)<1e-6);
-  assert.equal(r.coverage,1);assert(Math.abs(r.frequency-r.impressions/r.reach)<1e-10);
+test('both views use the same 30M universe and budget-driven reach',()=>{
+  const p=Model.calculate({dayShare:60}),r=p.final,m=Media.calculate(Media.defaults());
+  assert.equal(p.universe,30e6);assert.equal(r.budget,600e6);
+  assert.equal(r.reach,m.reach);assert.equal(r.impressions,m.impressions);
+  assert(r.coverage>0&&r.coverage<1);
+  close(r.frequency,r.impressions/r.reach);
+  close(r.impressions,r.dayImpressions+r.nightImpressions);
 });
-test('all allocations keep reach bounded and overlap physically possible across the 12 waves',()=>{
-  for(let share=0;share<=100;share++){
-    const p=Model.calculate({dayShare:share});let previous=0;
+test('all product allocations reconcile and stay physically possible across budgets and 12 waves',()=>{
+  for(const budget of [0,300,600,1200,6000]) for(let share=0;share<=100;share++){
+    const state={...Media.defaults(),budget};
+    const p=Model.calculate({dayShare:share},state);let previous=0;
     assert.equal(p.dayShare+p.nightShare,100);
     for(const r of p.waves){
-      assert(r.reach>=previous-1e-6);assert(r.reach<=p.universe+1e-6);
+      assert(r.reach>=previous-1e-6&&r.reach<=p.universe);
       assert(r.overlap>=0&&r.overlap<=Math.min(r.day,r.night));
-      assert(r.frequency>=1&&Number.isFinite(r.frequency));
-      assert(Math.abs(r.reach-(r.day+r.night-r.overlap))<1e-6);previous=r.reach;
+      assert(Number.isFinite(r.frequency)&&r.frequency>=(budget?1:0));
+      close(r.reach,r.day+r.night-r.overlap);
+      close(r.impressions,r.dayImpressions+r.nightImpressions);
+      close(r.reach,Media.calculate(state,r.wave/12).reach);
+      previous=r.reach;
     }
   }
 });
-test('single-product plans have no intersection or impressions from the inactive product',()=>{
+test('single-product plans have no intersection or impacts from the inactive product',()=>{
   const day=Model.calculate({dayShare:100}).final,night=Model.calculate({dayShare:0}).final;
-  assert.equal(day.night,0);assert.equal(day.nightFrequency,0);assert.equal(day.overlap,0);assert.equal(day.reach,day.day);
-  assert.equal(night.day,0);assert.equal(night.dayFrequency,0);assert.equal(night.overlap,0);assert.equal(night.reach,night.night);
+  assert.equal(day.night,0);assert.equal(day.nightFrequency,0);assert.equal(day.nightImpressions,0);assert.equal(day.overlap,0);assert.equal(day.reach,day.day);
+  assert.equal(night.day,0);assert.equal(night.dayFrequency,0);assert.equal(night.dayImpressions,0);assert.equal(night.overlap,0);assert.equal(night.reach,night.night);
+});
+test('budget, CPM, media allocation and a custom universe feed the product plan',()=>{
+  const base=Media.defaults(),p=Model.calculate({dayShare:60},base).final;
+  const zero=Model.calculate({dayShare:60},{...base,budget:0}).final;
+  for(const key of ['reach','day','night','overlap','impressions','frequency','dayFrequency','nightFrequency'])assert.equal(zero[key],0);
+  assert(Model.calculate({dayShare:60},{...base,budget:1200}).final.reach>p.reach);
+  assert(Model.calculate({dayShare:60},{...base,cpms:base.cpms.map(x=>x*2)}).final.reach<p.reach);
+  const custom={...base,universe:20,shares:[100,0,0,0,0]};
+  assert.equal(Model.calculate({dayShare:60},custom).universe,20e6);
+  assert.equal(Model.calculate({dayShare:60},custom).final.reach,Media.calculate(custom).reach);
 });
 test('invalid persisted shares fall back safely and out-of-range inputs are bounded',()=>{
   assert.deepEqual(Model.sanitize(null),{dayShare:60});assert.deepEqual(Model.sanitize({dayShare:NaN}),{dayShare:60});

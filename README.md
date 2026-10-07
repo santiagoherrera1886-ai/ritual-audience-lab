@@ -21,11 +21,9 @@ Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz si
 
 `data.js` conserva las 119 filas originales y sus nueve campos: Valeria 34, Carlos 43 y Julián 42. Las fotografías, perfiles editoriales y categorías son ilustrativos. Google y YouTube comparten las mismas 34 filas; no son 68 señales diferentes. Los porcentajes de medios representan registros, no alcance publicitario.
 
-Los universos son supuestos de planeación sin validación demográfica o de plataformas. No equivalen al total de adultos de Colombia. Se retiraron los valores anteriores de población, base urbana y potenciales por ciudad. El mapa representa la cobertura nacional; su iluminación es decorativa. Los clústeres se definen por afinidad, sin restricciones de ciudad, género o edades adultas.
+El universo inicial es **30 millones** de adultos de toda Colombia. La proyección DANE suma 39,7 M de personas de 18+ en 2027. Al aplicar las tasas TIC de 2025 por edad, se estima un potencial digital de 33,3 M (cálculo propio, con tasa 12–24 como aproximación para 18–24 y tasas constantes). Los 30 M son una decisión de planeación con margen frente a ese potencial; no son compradores ni alcance publicitario medido. [Cálculo, fuentes y límites](docs/universo-2027.md).
 
-El nuevo modelo usa universos de 8,6 M (Día), 7,8 M (Noche) e intersección de 2,4 M. El escenario base 60/40 alcanza 14,0 M únicos al cierre de 12 olas: 100% de un universo de 14,0 M. La frecuencia combinada se calcula con las impresiones totales divididas por el alcance único (aproximadamente 3,6), no mediante un promedio simple. Cambiar los porcentajes altera las curvas de saturación; una asignación de 0% no genera alcance del producto. Los supuestos se explican en el simulador.
-
-El modelo de inversión por medio conserva su fórmula de presupuesto, CPM y saturación, con independencia supuesta entre canales. Es un ejercicio separado del modelo por producto. Ninguno está conectado a cuentas publicitarias ni representa resultados medidos.
+Día y Noche comparten universo, presupuesto, mix y CPM. Las 12 olas entregan presupuesto uniforme; el alcance responde a la inversión y a la saturación por canal. La intersección se deriva del modelo compartido. Repartir la inversión entre productos modifica sus alcances, pero mantiene el combinado si se conservan los demás parámetros. Ambos simuladores muestran el mismo alcance total. Los CPM, límites de cobertura e independencia entre canales siguen siendo supuestos de planeación.
 
 ## Ejecutar y verificar
 
@@ -36,14 +34,15 @@ python -m http.server 4173
 node --test tests/*.test.cjs
 ```
 
-Las diez pruebas verifican redistribución, presupuesto, límites de alcance, sanitización de estados, intersección, frecuencia y las 101 combinaciones de inversión en 12 olas. Se comprobó también la navegación, filtros, detalles, tablas, exportación por producto y la conservación del simulador por medios mediante una prueba de integración de DOM.
+Las trece pruebas verifican redistribución, presupuesto, límites de alcance, sanitización de estados, intersección, frecuencia y las 101 combinaciones de inversión en 12 olas. Se comprobó también la navegación, filtros, detalles, tablas, exportación por producto y la conservación del simulador por medios mediante una prueba de integración de DOM.
 
 ## Archivos principales
 
 - `index.html`: cinco vistas y diálogos.
 - `styles.css` y `atlas.css`: estilos de base y diseño de las nuevas referencias; reglas responsive.
 - `data.js`: matriz original.
-- `model.js`: inversión por medios.
+- `audience-model.js`: base demográfica, tasas de internet y fuentes.
+- `model.js`: inversión por medios y migración de escenarios.
 - `product-model.js`: simulación por producto y olas.
 - `app.js`: interacción, gráficos SVG, exportación y persistencia.
 - `segmentation.js`: guías editoriales de Meta, Google Search, TikTok y YouTube/Video.
@@ -87,4 +86,4 @@ El resumen ahora muestra el mapa a todo el ancho, con selección de las siete ci
 
 Todo el atlas, las guías y los CSV comparten Colombia / 18+ / todos los géneros. Los nombres de Valeria, Carlos y Julián identifican afinidades ilustrativas; no imponen filtros de género, ciudad ni edades adultas. El mapa conserva el contorno nacional y permite explorar los clústeres y productos.
 
-Los supuestos de 8,6 M / 7,8 M / 2,4 M se conservan explícitamente como escenario ilustrativo. Ampliar la base de activación no valida ni recalcula por sí solo estos universos. El 100% de cobertura se refiere a los 14 M supuestos, no a toda la población adulta del país. [Alcance y verificación de la actualización](docs/audiencia-nacional.md).
+La actualización de amplitud sustituye el escenario anterior de 14 M por 30 M y unifica los modelos por producto y por medios. El cálculo, las fuentes oficiales y la distinción entre universo potencial y alcance están disponibles dentro del dashboard. [Sustento del universo ampliado](docs/universo-2027.md). [Registro de la primera actualización nacional](docs/audiencia-nacional.md).

@@ -1,6 +1,7 @@
 /* Planning assumptions inherited from the original atlas, not measured reach. */
 (function (root) {
   'use strict';
+  const Audience = typeof module !== 'undefined' && module.exports ? require('./audience-model.js') : root.RitualAudience;
   const CHANNELS = [
     { id: 'meta', name: 'Meta Ads', share: 35, cpm: 9200, cap: .78, accent: '#5387ef' },
     { id: 'google', name: 'Google Ads', share: 20, cpm: 12500, cap: .62, accent: '#5caf85' },
@@ -10,7 +11,7 @@
   ];
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
   function defaults() {
-    return { budget: 600, universe: 14, shares: CHANNELS.map(c => c.share), cpms: CHANNELS.map(c => c.cpm) };
+    return { budget: 600, universe: Audience.planningUniverse / 1e6, shares: CHANNELS.map(c => c.share), cpms: CHANNELS.map(c => c.cpm) };
   }
   function sanitize(value) {
     const fallback = defaults();
@@ -24,6 +25,16 @@
     if (Array.isArray(value.shares) && value.shares.length === 5 && value.shares.every(x => Number.isInteger(x) && x >= 0 && x <= 100) && value.shares.reduce((a, b) => a + b, 0) === 100) result.shares = [...value.shares];
     if (Array.isArray(value.cpms) && value.cpms.length === 5) result.cpms = value.cpms.map((x, i) => Number.isFinite(x) && x >= 100 && x <= 1000000 ? x : fallback.cpms[i]);
     return result;
+  }
+  function restore(stored) {
+    if (![1, 2].includes(stored?.version)) return { state: defaults(), saved: [] };
+    const state = sanitize(stored.state);
+    // Upgrade only the old active default. Preserve custom and comparison scenarios.
+    if (stored.version === 1 && state.universe === 14) state.universe = defaults().universe;
+    const saved = Array.isArray(stored.saved) ? stored.saved.slice(0, 3)
+      .filter(x => x && typeof x.name === 'string' && x.state)
+      .map(x => ({ name: x.name.slice(0, 40), state: sanitize(x.state) })) : [];
+    return { state, saved };
   }
   // Rebalance other channels with the largest-remainder method: exact integer sum 100.
   function rebalance(shares, index, value) {
@@ -59,7 +70,7 @@
     const reach = Math.min(universe, universe * (1 - channels.reduce((remaining, c) => remaining * (1 - c.reach / universe), 1)));
     return { budget, universe, impressions, reach, coverage: reach / universe, frequency: reach > 0 ? impressions / reach : 0, channels };
   }
-  const api = { CHANNELS, defaults, sanitize, rebalance, calculate };
+  const api = { CHANNELS, defaults, sanitize, restore, rebalance, calculate };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.RitualModel = api;
 })(typeof window === 'undefined' ? globalThis : window);
