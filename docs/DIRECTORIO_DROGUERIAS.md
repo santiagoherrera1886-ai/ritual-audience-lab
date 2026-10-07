@@ -5,7 +5,7 @@ Consulta de fuentes: **7 de octubre de 2026**. Esta versión es una **base parci
 ## Contenido
 
 - 7.672 registros con dirección; 302 identificados como Cruz Verde, 6.695 locales o sin cadena reconocida y 675 de otras cadenas.
-- 222 municipios y 27 divisiones territoriales de las 33 del selector (32 departamentos + Bogotá D.C.). La cobertura por municipio es parcial.
+- 216 municipios y 27 divisiones territoriales de las 33 del selector (32 departamentos + Bogotá D.C.). La cobertura por municipio es parcial.
 - 1.546 registros con coordenadas publicadas. Los demás ofrecen búsqueda por dirección, sin inventar coordenadas.
 - Filtros por tipo, departamento, municipio, barrio, cadena y nombre/dirección. Consulta por establecimientos o agregada por ciudades; fichas, enlaces a mapa y CSV de todas las coincidencias.
 
@@ -37,7 +37,7 @@ El generador conserva solo campos del establecimiento: nombre comercial/razón s
 
 Se excluyen categorías no farmacéuticas, depósitos, ópticas, veterinarias, naturistas y registros comerciales sin nombre farmacéutico identificable. En las cámaras de comercio, el código CIIU 4773 incluye cosméticos y otros comercios: no se toma como equivalente automático a droguería.
 
-Se normalizan abreviaturas de dirección para detectar coincidencias por departamento, municipio, dirección y cadena/nombre. Se unieron 32 duplicados exactos normalizados. Se conservan las fuentes de cada registro unido. Todavía pueden existir duplicados con direcciones diferentes o nombres inconsistentes: los indicadores se denominan **registros**, no sedes únicas certificadas.
+Se consolidan alias de municipio (incluidos sectores reportados como Yopal) y variantes de tildes. Los sectores de Yopal quedan en localidad, no como municipios adicionales. El selector identifica ciudades homónimas por su departamento. Los barrios agrupan variantes de mayúsculas y acentos. Se normalizan abreviaturas de dirección para detectar coincidencias por departamento, municipio, dirección y cadena/nombre. Se unieron 32 duplicados exactos normalizados. Se conservan las fuentes de cada registro unido. Todavía pueden existir duplicados con direcciones diferentes o nombres inconsistentes: los indicadores se denominan **registros**, no sedes únicas certificadas.
 
 “De barrio / locales” significa que no se identificó una cadena por el nombre. No certifica independencia, carácter barrial ni tamaño de la empresa. “Sin registros integrados” no significa ausencia de droguerías. Los conteos no miden demanda, inversión recomendada ni universo de consumidores.
 

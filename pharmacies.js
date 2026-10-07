@@ -48,7 +48,7 @@
     updatePlaces();
     $('#phQuery').addEventListener('input',e=>{state.query=e.target.value;state.page=1;render();});
     $('#phDepartment').addEventListener('change',e=>{state.department=e.target.value;state.city='';state.neighborhood='';state.page=1;updatePlaces();render();});
-    $('#phCity').addEventListener('change',e=>{state.city=e.target.value;state.neighborhood='';state.page=1;updatePlaces();render();});
+    $('#phCity').addEventListener('change',e=>{if(e.target.value){const [department,city]=e.target.value.split('|');state.department=department;state.city=city;}else state.city='';state.neighborhood='';state.page=1;updatePlaces();render();});
     $('#phNeighborhood').addEventListener('change',e=>{state.neighborhood=e.target.value;state.page=1;render();});
     $('#phChain').addEventListener('change',e=>{state.chain=e.target.value;state.kind='';state.page=1;render();});
     $('#phCoordinates').addEventListener('change',e=>{state.coordinates=e.target.checked;state.page=1;render();});
@@ -58,8 +58,8 @@
   function updatePlaces() {
     const base=records.filter(r=>!state.department||r.department===state.department);
     $('#phDepartment').value=state.department;
-    $('#phCity').innerHTML=options(M.sorted(base.map(r=>r.city)),'Todos los municipios');$('#phCity').value=state.city;
-    const neighborhoods=M.sorted(base.filter(r=>!state.city||r.city===state.city).map(r=>r.neighborhood));
+    $('#phCity').innerHTML='<option value="">Todos los municipios</option>'+M.cities(base).sort((a,b)=>a.city.localeCompare(b.city,'es')||a.department.localeCompare(b.department,'es')).map(c=>`<option value="${esc(c.department+'|'+c.city)}">${esc(c.city)}${state.department?'':' · '+esc(c.department)}</option>`).join('');$('#phCity').value=state.city?state.department+'|'+state.city:'';
+    const neighborhoods=M.neighborhoods(base.filter(r=>!state.city||r.city===state.city));
     $('#phNeighborhood').innerHTML=options(neighborhoods,neighborhoods.length?'Todos los barrios publicados':'Sin barrios publicados');$('#phNeighborhood').value=state.neighborhood;$('#phNeighborhood').disabled=!neighborhoods.length;
   }
   function render() {

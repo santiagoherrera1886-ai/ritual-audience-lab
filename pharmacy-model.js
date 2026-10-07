@@ -11,7 +11,11 @@
   }
   function filter(records, state={}) {
     const tokens=normalize(state.query).split(' ').filter(Boolean);
-    return records.filter(r=>(!state.department||r.department===state.department)&&(!state.city||r.city===state.city)&&(!state.neighborhood||r.neighborhood===state.neighborhood)&&(!state.kind||r.kind===state.kind)&&(!state.chain||r.chain===state.chain)&&(!state.coordinates||Number.isFinite(r.lat)&&Number.isFinite(r.lon))&&tokens.every(t=>r.search.includes(t)));
+    return records.filter(r=>(!state.department||r.department===state.department)&&(!state.city||r.city===state.city)&&(!state.neighborhood||normalize(r.neighborhood)===normalize(state.neighborhood))&&(!state.kind||r.kind===state.kind)&&(!state.chain||r.chain===state.chain)&&(!state.coordinates||Number.isFinite(r.lat)&&Number.isFinite(r.lon))&&tokens.every(t=>r.search.includes(t)));
+  }
+  function neighborhoods(records) {
+    const values=new Map();records.forEach(r=>{const key=normalize(r.neighborhood);if(key&&!values.has(key))values.set(key,r.neighborhood);});
+    return sorted([...values.values()]);
   }
   function stats(records) {
     return {total:records.length,cruzverde:records.filter(r=>r.kind==='cruzverde').length,local:records.filter(r=>r.kind==='local').length,chain:records.filter(r=>r.kind==='chain').length,departments:new Set(records.map(r=>r.department)).size,cities:new Set(records.map(r=>r.department+'|'+r.city)).size,coordinates:records.filter(r=>Number.isFinite(r.lat)&&Number.isFinite(r.lon)).length};
@@ -34,5 +38,5 @@
     const cell=value=>{let text=String(value??'');if(typeof value==='string'&&/^[\s]*[=+@-]/.test(text))text="'"+text;return '"'+text.replaceAll('"','""')+'"';};
     return '\uFEFF'+rows.map(row=>row.map(cell).join(',')).join('\r\n');
   }
-  return {normalize,sorted,index,filter,stats,cities,mapURL,csv};
+  return {normalize,sorted,index,filter,neighborhoods,stats,cities,mapURL,csv};
 });

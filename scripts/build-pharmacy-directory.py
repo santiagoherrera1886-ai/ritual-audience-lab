@@ -40,11 +40,17 @@ def chain_for(name):return next((brand for brand,pattern in chains if re.search(
 city_fixes={'bogota':'Bogotá D.C.','bogota d.c.':'Bogotá D.C.','bogota d c':'Bogotá D.C.','buga':'Guadalajara de Buga','guadalajara de buga':'Guadalajara de Buga','cucuta':'Cúcuta','ocana':'Ocaña','riohacha':'Riohacha','pi j':'Pijiño del Carmen','el piяn':'El Piñón','pijiя del carmen':'Pijiño del Carmen','nariя':'Nariño','san sebastian b':'San Sebastián de Buenavista','ariguani (el dificil)':'Ariguaní','carmen de viboral':'El Carmen de Viboral','medellin':'Medellín','ibague':'Ibagué','popayan':'Popayán','chia':'Chía','zipaquira':'Zipaquirá','monteria':'Montería','quibdo':'Quibdó','san andres':'San Andrés','tulua':'Tuluá','facatativa':'Facatativá','fusagasuga':'Fusagasugá','el retiro':'Retiro'}
 def city_name(city):
  city=clean(re.sub(r'^\d+\s*-\s*','',city)).replace('-',' ')
+ accents=['Alejandría','Apía','Belén de Umbría','Chámeza','Chiquinquirá','Ciénaga','Cocorná','Colón','Concepción','El Peñol','El Retén','Fundación','Guátape','Guática','La Unión','Maní','Mistrató','Nunchía','Orocué','Puerto Asís','Puerto Guzmán','Puerto Leguízamo','Quinchía','Sabanas de San Ángel','Sácama','San Zenón','Santa Bárbara de Pinto','Sonsón','Támara','Villagarzón','Zapayán']
+ city=next((a for a in accents if norm(a)==norm(city)),city)
  return city_fixes.get(norm(city),title(city))
 def add(source_id,name,dept,city,address,neighborhood='',locality='',phone='',hours='',lat=None,lon=None,note='',year='',force_chain=''):
  name,address=clean(name),clean(address)
  if not name or not address or norm(address)in['n/a','na','no tiene','sin direccion','0']:excluded['missing_name_or_address']+=1;return
+ original_city=clean(city)
  city=city_name(city)
+ if dept=='Casanare' and norm(city).startswith('yopal') and norm(city)!='yopal':
+  locality=locality or original_city;city='Yopal';note=(note+' Municipio normalizado desde: '+original_city+'.').strip()
+ if dept=='Casanare' and norm(city)=='villenueva':city='Villanueva'
  if dept=='Antioquia' and norm(city)=='santuario':city='El Santuario'
  if not city:excluded['missing_city']+=1;return
  brand=force_chain or chain_for(name)

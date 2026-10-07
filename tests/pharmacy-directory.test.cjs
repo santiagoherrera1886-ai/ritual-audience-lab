@@ -13,6 +13,7 @@ test('all directory records have a location, provenance, safe public fields and 
   assert.ok(!('nit' in r||'email' in r||'representante_legal' in r||'nom_prop' in r));
   if(r.lat!==null){assert.ok(r.lat>=-4.3&&r.lat<=13.7);assert.ok(r.lon>=-82&&r.lon<=-66);}
  }
+ assert.ok(!records.some(r=>r.department==='Casanare'&&r.city.startsWith('Yopal')&&r.city!=='Yopal'));
  assert.equal(dataset.completeNationalCensus,false);assert.equal(dataset.coverage,'partial');
  for(const source of dataset.sources)assert.equal(source.records,records.filter(r=>r.sources.includes(source.id)).length);
 });
@@ -23,7 +24,8 @@ test('accent-insensitive search combines with city, chain, neighborhood and coor
  assert.equal(M.filter(records,{department:'Amazonas'}).length,0);
  assert.equal(M.filter(records,{query:'unestablecimientoquenopuedeexistir'}).length,0);
  const geolocated=M.filter(records,{coordinates:true});assert.ok(geolocated.length>0&&geolocated.length<records.length);assert.ok(geolocated.every(r=>Number.isFinite(r.lat)&&Number.isFinite(r.lon)));
- const r=records.find(r=>r.neighborhood);assert.ok(M.filter(records,{city:r.city,neighborhood:r.neighborhood}).every(p=>p.city===r.city&&p.neighborhood===r.neighborhood));
+ const values=M.neighborhoods(records);assert.equal(new Set(values.map(M.normalize)).size,values.length);
+ const r=records.find(r=>r.neighborhood);assert.ok(M.filter(records,{city:r.city,neighborhood:r.neighborhood}).every(p=>p.city===r.city&&M.normalize(p.neighborhood)===M.normalize(r.neighborhood)));
 });
 test('city aggregation conserves filtered totals; exports all matches with attribution and partial-coverage warning',()=>{
  const filtered=M.filter(records,{kind:'cruzverde'}),cities=M.cities(filtered),stats=M.stats(filtered);
