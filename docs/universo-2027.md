@@ -31,3 +31,9 @@ La migración del guardado local actualiza el antiguo universo activo de 14 M a 
 ## Verificación
 
 13 pruebas de modelos aprobadas, incluidas 101 asignaciones de producto × 5 presupuestos × 12 olas; límites de alcance e intersección, coherencia entre vistas, cero inversión, CPM, cambio de universo y migración de estados. Integración DOM aprobada: fuentes, sincronización de presupuesto y universo, restablecimiento, 119 señales, tres clústeres, cuatro guías, cuatro exportaciones y compatibilidad de Carlos. Sin errores de ejecución. La verificación visual se realiza en el despliegue público.
+
+## Resultado publicado
+
+Verificado en https://ritual-audience-lab.vercel.app/#sim, commit `89ca590`: universo 30 M, población adulta 39,7 M y potencial digital 33,3 M; controles de presupuesto 600 → 0 → 600 M COP, con cero alcance e impactos al invertir cero. El diálogo muestra tabla, límites y tres enlaces oficiales. Captura de escritorio a 1363 px; sin errores de aplicación en la consola del dominio. No se realizó inspección visual móvil.
+
+![Simulador publicado con universo de 30 M](Ritual_Universo_30M.jpg)
