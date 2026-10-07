@@ -9,8 +9,12 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="atlas.css">
+  <link rel="stylesheet" href="pharmacies.css">
   <link rel="preload" as="image" href="assets/atlas-hero.webp">
   <script defer src="data.js"></script>
+  <script defer src="youth-audience.js"></script>
+  <script defer src="pharmacy-model.js"></script>
+  <script defer src="pharmacies.js"></script>
   <script defer src="audience-model.js"></script>
   <script defer src="model.js"></script>
   <script defer src="product-model.js"></script>
@@ -23,21 +27,21 @@
   <button id="menuButton" class="icon-button mobile-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="sidebar"><i data-icon="menu"></i></button>
   <a class="brand" href="#summary" aria-label="Ritual, ir al resumen"><img src="assets/ritual-lockup.svg" alt="JGB Ritual"><span>AUDIENCE<br>ATLAS / 2027</span></a>
   <nav class="top-nav" aria-label="Secciones del atlas">
-    <a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a>
+    <a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a><a href="#pharmacies" data-nav="pharmacies">Droguerías</a>
   </nav>
   <span class="sr-only" id="breadcrumbName">Resumen</span>
   <div class="top-actions"><span class="country">COLOMBIA <span>·</span> 18+ <span>·</span> 2027</span><button class="button button-primary export-button" id="exportBtn"><i data-icon="download"></i><span>Exportar CSV</span></button></div>
 </header>
 <div class="mobile-scrim" id="mobileScrim"></div>
 <aside class="sidebar atlas-sidebar" id="sidebar" aria-label="Filtros de productos y audiencias">
-  <nav class="main-nav mobile-nav" aria-label="Navegación principal"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a></nav>
+  <nav class="main-nav mobile-nav" aria-label="Navegación principal"><a href="#summary" data-nav="summary">Resumen</a><a href="#audiences" data-nav="audiences">Audiencias</a><a href="#media" data-nav="media">Medios</a><a href="#library" data-nav="library">Intereses</a><a href="#sim" data-nav="sim">Simulador</a><a href="#pharmacies" data-nav="pharmacies">Droguerías</a></nav>
   <div class="sidebar-section-label">01 / MOMENTO DE CONSUMO</div>
   <button class="product-card product-day" data-product="day" aria-pressed="false"><span class="product-kicker">THE DAY RITUAL / ☀</span><strong>Hidrapro</strong><span class="product-tagline">Bienestar para<br>tus días</span><img src="assets/ritual-dia.webp" alt="Ritual Hidrapro"></button>
   <button class="product-card product-night" data-product="night" aria-pressed="false"><span class="product-kicker">THE EVENING RITUAL / ☾</span><strong>Noche Plena</strong><span class="product-tagline">Momento de calma</span><img src="assets/ritual-noche.webp" alt="Ritual Noche Plena"></button>
   <button class="all-products" data-product="all" aria-pressed="true"><i data-icon="target"></i>Explorar ambos productos<i data-icon="arrow-right"></i></button>
   <div class="sidebar-divider"></div><div class="sidebar-section-label">02 / CLÚSTERES DE AUDIENCIAS</div><div id="sidebarPersonas"></div><button class="all-clusters" data-all-personas><i data-icon="arrow-up"></i>Ver todos los clústeres</button>
-  <div class="sidebar-disclaimer"><div><i data-icon="chart"></i><strong>Matriz estratégica,<br>no reach medido</strong><button class="icon-button" data-action="method" aria-label="Consultar metodología"><i data-icon="info"></i></button></div><p>119 registros sugeridos. La disponibilidad exacta de cada interés y el tamaño de audiencia se verifican en cada plataforma.</p></div>
-</aside>
+  <div class="sidebar-disclaimer"><div><i data-icon="chart"></i><strong>Matriz estratégica,<br>no reach medido</strong><button class="icon-button" data-action="method" aria-label="Consultar metodología"><i data-icon="info"></i></button></div><p>143 registros sugeridos. La disponibilidad exacta de cada interés y el tamaño de audiencia se verifican en cada plataforma.</p></div>
+<div class="ph-sidebar-guide"><span class="ph-eyebrow">03 / CANAL FARMACÉUTICO</span><h2>Conecta con<br>el territorio.</h2><p>Explora registros de droguerías y revisa su información de origen.</p><button data-ph-kind="" aria-pressed="true">Todo el directorio</button><button data-ph-kind="cruzverde" aria-pressed="false">Cruz Verde</button><button data-ph-kind="local" aria-pressed="false">De barrio / locales</button><hr><p><b>Antes de activar</b><br>Confirma que el establecimiento siga operando y que venda Ritual.</p><p>La cobertura es parcial. Las ciudades organizan los puntos de venta; las afinidades siguen siendo nacionales.</p></div></aside>
 <div class="app-body">
   <main id="main" tabindex="-1">
     <div class="audience-scope" aria-label="Base de audiencia de todo el atlas"><span><i data-icon="globe"></i>Toda Colombia</span><span><b>18+</b> Sin límite superior</span><span>Todos los géneros</span><small>Clústeres por afinidad</small></div>
@@ -65,22 +69,22 @@
     </section>
 
     <section id="audiences" class="view" aria-labelledby="audiencesTitle" hidden>
-      <div class="atlas-page-heading"><div class="atlas-eyebrow">PERSONAS / AFINIDADES</div><h1 id="audiencesTitle">Un universo de <span>afinidades.</span></h1><p>Tres clústeres por hábitos y afinidades, abiertos a personas de 18 años en adelante en toda Colombia. Los nombres y retratos son ilustrativos; todos incluyen todos los géneros.</p></div>
+      <div class="atlas-page-heading"><div class="atlas-eyebrow">PERSONAS / AFINIDADES</div><h1 id="audiencesTitle">Un universo de <span>afinidades.</span></h1><p>Cuatro perfiles nacionales: Valeria, Carlos y Julián para personas de 18 años en adelante, y Alex, una nueva cohorte de 18 a 25 años dentro del mismo universo adulto. Los nombres y retratos son ilustrativos; todos incluyen todos los géneros.</p></div>
       <div class="persona-cards" id="personaCards"></div>
-      <p class="page-note">Perfiles ilustrativos · 119 señales de afinidad para conectar con sus rutinas.</p>
+      <p class="page-note">Perfiles ilustrativos · 143 señales de afinidad para conectar con sus rutinas.</p>
     </section>
 
     <section id="media" class="view" aria-labelledby="mediaTitle" hidden>
-      <div class="media-heading"><div class="atlas-page-heading"><div class="atlas-eyebrow">CANALES / TERRITORIOS</div><h1 id="mediaTitle">Cada audiencia, <span>su plataforma.</span></h1><p>Una misma base para todos los medios: Colombia, 18+ y todos los géneros.<br>Explora las afinidades nacionales de cada clúster por plataforma.</p></div><div class="media-counters"><div><b id="mediaSignalCount">119</b><span>señales visibles</span></div><div><b id="mediaPersonaCount">3</b><span>clústeres</span></div><div><b>4</b><span>entornos</span></div></div></div>
+      <div class="media-heading"><div class="atlas-page-heading"><div class="atlas-eyebrow">CANALES / TERRITORIOS</div><h1 id="mediaTitle">Cada audiencia, <span>su plataforma.</span></h1><p>Una misma base para todos los medios: Colombia, 18+ y todos los géneros.<br>Explora cada perfil por plataforma. Alex tiene un enfoque específico de 18–25; revisa la guía de edad de cada medio.</p></div><div class="media-counters"><div><b id="mediaSignalCount">143</b><span>señales visibles</span></div><div><b id="mediaPersonaCount">4</b><span>clústeres</span></div><div><b>4</b><span>entornos</span></div></div></div>
       <div class="platform-cards" id="platformCards"></div><p class="media-data-note">Google y YouTube comparten señales de la matriz. Los porcentajes describen registros por perfil, no alcance medido. <button data-goto="sim">Abrir planeación de inversión <i data-icon="arrow-right"></i></button></p>
     </section>
 
     <section id="library" class="view" aria-labelledby="libraryTitle" hidden>
-      <div class="atlas-page-heading library-heading"><div class="atlas-eyebrow">INTERESES / SEÑALES DE AFINIDAD</div><h1 id="libraryTitle">Conexiones que se vuelven <span>rituales.</span></h1><p>Explora 119 señales por clúster, plataforma y momento de consumo. Aplican en toda Colombia desde los 18 años, sin división por ciudades.</p></div>
+      <div class="atlas-page-heading library-heading"><div class="atlas-eyebrow">INTERESES / SEÑALES DE AFINIDAD</div><h1 id="libraryTitle">Conexiones que se vuelven <span>rituales.</span></h1><p>Explora 143 señales por clúster, plataforma y momento de consumo. Aplican en toda Colombia, sin división por ciudades. Alex: 18–25; los otros perfiles: 18+.</p></div>
       <details class="segmentation-panel" id="segmentationGuide"><summary><i data-icon="target"></i><span><strong>Cómo segmentar por medio</strong><small>Convierte estas señales en una configuración de campaña.</small></span><span class="guide-summary-action">Ver guía<i data-icon="plus"></i></span></summary><div class="segmentation-panel-body" id="librarySegmentationGuide"></div></details>
       <div class="library-content">
         <div class="library-toolbar"><label class="search-field"><i data-icon="search"></i><input type="search" id="libSearch" placeholder="Explorar tus intereses favoritos…" aria-label="Buscar intereses"></label><button class="button filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="libraryFilters"><i data-icon="sliders"></i>Filtros<span id="activeFilterCount" hidden></span></button></div>
-        <div class="category-panel library-categories" id="categoryPanel"><h2 class="sr-only">Categorías</h2><div id="categoryNav"></div></div><div class="library-filters" id="libraryFilters" hidden><div class="segmented" id="personaFilters"><button class="active" data-person-filter="all" aria-pressed="true">Todos</button><button data-person-filter="Valeria" aria-pressed="false">Valeria</button><button data-person-filter="Carlos" aria-pressed="false">Carlos</button><button data-person-filter="Julián" aria-pressed="false">Julián</button></div><select id="platformFilter" aria-label="Filtrar por plataforma"><option value="all">Todas las plataformas</option><option value="meta">Meta</option><option value="google">Google / YouTube</option><option value="tiktok">TikTok</option></select><div class="view-switch" aria-label="Vista de intereses"><button class="active icon-button" data-library-view="grid" aria-label="Ver tarjetas" aria-pressed="true"><i data-icon="grid"></i></button><button class="icon-button" data-library-view="table" aria-label="Ver tabla" aria-pressed="false"><i data-icon="list"></i></button></div></div>
+        <div class="category-panel library-categories" id="categoryPanel"><h2 class="sr-only">Categorías</h2><div id="categoryNav"></div></div><div class="library-filters" id="libraryFilters" hidden><div class="segmented" id="personaFilters"><button class="active" data-person-filter="all" aria-pressed="true">Todos</button><button data-person-filter="Valeria" aria-pressed="false">Valeria</button><button data-person-filter="Carlos" aria-pressed="false">Carlos</button><button data-person-filter="Julián" aria-pressed="false">Julián</button><button data-person-filter="Alex" aria-pressed="false">Alex · 18–25</button></div><select id="platformFilter" aria-label="Filtrar por plataforma"><option value="all">Todas las plataformas</option><option value="meta">Meta</option><option value="google">Google / YouTube</option><option value="tiktok">TikTok</option></select><div class="view-switch" aria-label="Vista de intereses"><button class="active icon-button" data-library-view="grid" aria-label="Ver tarjetas" aria-pressed="true"><i data-icon="grid"></i></button><button class="icon-button" data-library-view="table" aria-label="Ver tabla" aria-pressed="false"><i data-icon="list"></i></button></div></div>
         <div class="filter-row" id="filterStatus"><span id="libCount" class="result-count"></span><button class="text-button reset-filters" id="clearFilters" hidden>Ver todos los intereses<i data-icon="close"></i></button></div>
         <div id="libraryResults"></div><div class="pagination" id="pagination"></div>
       </div>
@@ -101,6 +105,7 @@
       <section class="comparison-panel" id="comparisonPanel" hidden><div class="panel-header"><h2>Compara tus escenarios.</h2><button class="text-button" id="clearScenarios">Borrar comparación<i data-icon="close"></i></button></div><div class="table-scroll"><table class="comparison-table"><thead><tr><th>Escenario</th><th>Inversión</th><th>Alcance estimado</th><th>Frecuencia</th><th>Impresiones</th><th></th></tr></thead><tbody id="comparisonRows"></tbody></table></div></section>
       </div>
     </section>
+    <section id="pharmacies" class="view" aria-labelledby="pharmacyTitle" hidden><div id="pharmacyApp"></div></section>
   </main>
 </div>
 <dialog id="detailDialog" class="detail-dialog"><div class="dialog-top"><span class="eyebrow" id="dialogEyebrow"></span><button class="icon-button" id="closeDialog" aria-label="Cerrar detalle"><i data-icon="close"></i></button></div><div id="dialogContent"></div></dialog>

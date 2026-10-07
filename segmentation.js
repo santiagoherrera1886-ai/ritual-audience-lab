@@ -1,6 +1,6 @@
 // Guías editoriales. La disponibilidad se confirma en cada cuenta publicitaria.
 window.RITUAL_SEGMENTATION = {
-  reviewed: '01 oct 2026',
+  reviewed: '07 oct 2026',
   channels: {
     meta: {
       name: 'Meta · Facebook e Instagram', short: 'Meta', kind: 'Afinidad e intereses',
