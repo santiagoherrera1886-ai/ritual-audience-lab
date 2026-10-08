@@ -50,12 +50,14 @@
 #sim .unique-total>strong{font-size:clamp(35px,3.4vw,52px);line-height:1.1;letter-spacing:-.05em;font-weight:900;color:#6021c8}
 #sim .unique-total>small{font-size:10px;color:#84759e}
 #sim .reach-composition{min-width:0;width:100%}
-#sim .unique-bar{display:flex;width:100%;height:20px;gap:2px;background:#e8ddf6;border-radius:6px;overflow:hidden}
-#sim .unique-bar>span{display:block;height:100%;min-width:0}
-#sim .unique-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0 17px}
-#sim .unique-legend>span{font-size:9px;line-height:1.4;color:#776893;min-width:0}
-#sim .unique-legend i{display:inline-block;width:8px;height:8px;margin-right:5px;border-radius:2px}
-#sim .unique-legend b{display:block;margin-top:4px;font-size:clamp(11px,1.1vw,16px);font-weight:850;color:#321665;white-space:nowrap}
+#sim .venn-bubbles-wrap{display:flex;flex-direction:column;align-items:center;margin:2px auto 14px;max-width:700px}
+#sim .venn-bubbles{display:block;width:100%;height:auto;max-height:285px;overflow:visible}
+#sim .venn-product-name{fill:#fff;font-family:Inter,system-ui,sans-serif;font-size:14px;font-weight:750;letter-spacing:1.15px}
+#sim .venn-product-value{fill:#fff;font-family:Inter,system-ui,sans-serif;font-size:30px;font-weight:850;letter-spacing:-1px}
+#sim .venn-intersection-kicker{fill:#74539c;font-family:Inter,system-ui,sans-serif;font-size:11px;font-weight:800;letter-spacing:1.1px}
+#sim .venn-intersection-value{fill:#572493;font-family:Inter,system-ui,sans-serif;font-size:24px;font-weight:850}
+#sim .venn-visual-note{margin:-4px 0 4px;font-size:10px;color:#80749e;text-align:center;line-height:1.6}
+#sim .venn-no-reach{min-height:195px;display:flex;align-items:center;justify-content:center;padding:20px;color:#76609b;font-size:12px;line-height:1.7;text-align:center;border:1px dashed #cbb7e5;border-radius:14px;background:#f7f2fc}
 #sim .reach-equation{display:flex;align-items:center;justify-content:space-between;gap:5px;border:1px solid #e4d7f6;border-radius:9px;background:#f4effc;padding:12px 8px}
 #sim .reach-equation>span{text-align:center;color:#75659c;font-size:9px;line-height:1.45}
 #sim .reach-equation b{display:block;color:#4d278a;font-size:clamp(10px,1vw,15px);font-weight:850;white-space:nowrap}
@@ -67,6 +69,6 @@
 #sim .overlap-control input{display:block;width:100%;margin:12px 0 7px;accent-color:#791df0}
 #sim .overlap-control p{font-size:10px;color:#8a7d9f;line-height:1.55}
 @media(max-width:1100px){.summary-age-grid,#audiences .age-cards{grid-template-columns:repeat(3,minmax(0,1fr))}#audiences .age-card strong{font-size:17px}}
-@media(max-width:700px){#summary .age-summary-panel{padding:18px 15px}.age-summary-heading,.age-summary-footer,#audiences .affinity-heading{align-items:flex-start;flex-direction:column}.summary-age-grid,#audiences .age-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.age-row-value b{font-size:18px}#audiences .age-detail-panel{grid-template-columns:1fr;gap:18px;padding:20px}#audiences .age-detail-moments{border-left:0;border-top:1px solid #6c5c99;padding:16px 0 0}#sim .unique-legend{gap:5px}#sim .reach-equation{padding:10px 4px;gap:3px}#sim .reach-equation b{font-size:10px}}
-@media(max-width:370px){.summary-age-grid,#audiences .age-cards{grid-template-columns:1fr}#sim .unique-legend{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){#summary .age-summary-panel{padding:18px 15px}.age-summary-heading,.age-summary-footer,#audiences .affinity-heading{align-items:flex-start;flex-direction:column}.summary-age-grid,#audiences .age-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.age-row-value b{font-size:18px}#audiences .age-detail-panel{grid-template-columns:1fr;gap:18px;padding:20px}#audiences .age-detail-moments{border-left:0;border-top:1px solid #6c5c99;padding:16px 0 0}#sim .venn-product-name{font-size:15px}#sim .venn-product-value{font-size:31px}#sim .reach-equation{padding:10px 4px;gap:3px}#sim .reach-equation b{font-size:10px}}
+@media(max-width:370px){.summary-age-grid,#audiences .age-cards{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){#summary .age-summary-row,#audiences .age-card{transition:none}#summary .age-summary-row:hover,#audiences .age-card:hover{transform:none}}

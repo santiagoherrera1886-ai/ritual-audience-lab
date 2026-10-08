@@ -276,17 +276,77 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     showDialog('UNIVERSO Y EDADES · COLOMBIA 2027',`<h2>24 millones, <span class="purple">con una base clara.</span></h2><p class="dialog-description">Toda Colombia, personas de 18 años en adelante y todos los géneros. El universo de 24 M es la base de planeación definida para Ritual.</p><div class="universe-method-kpis"><div><b>${millions(Audience.adults)}</b><span>Adultos · proyección DANE 2027</span></div><div><b>${millions(Audience.estimatedDigital)}</b><span>Potencial digital · cálculo propio</span></div><div><b>24,0 M</b><span>Universo de planeación Ritual</span></div></div><div class="detail-section"><h3>01 / Del país a la base de planeación</h3><p>La proyección del DANE suma ${number(Audience.adults)} adultos en 2027. Al aplicar las tasas de uso de internet observadas en 2025, estimamos ${number(Math.round(Audience.estimatedDigital))} adultos con uso de internet. Es un cálculo propio con tasas constantes, no una proyección oficial de usuarios digitales para 2027.</p><p>Los 24 millones equivalen al ${number(Audience.planningUniverse/Audience.estimatedDigital*100,2)}% de ese potencial digital. El margen restante es una decisión de planeación. No representa una medición de compradores, intención de compra ni inventario publicitario disponible.</p></div><div class="detail-section"><h3>02 / Cómo se distribuyen los 24 millones por edad</h3><code>Digital por edad = población 2027 × tasa de internet 2025<br>Peso por edad = digital de la franja / digital total adulto<br>Personas Ritual por edad = 24.000.000 × peso por edad</code><div class="source-table-wrap"><table class="source-table"><thead><tr><th>Edad</th><th>Población 2027</th><th>Digital estimado</th><th>Universo Ritual</th><th>Peso</th></tr></thead><tbody>${Audience.ageDistribution().map(c=>`<tr><th>${c.age}</th><td>${number(c.population)}</td><td>${number(Math.round(c.estimatedDigital))}</td><td><b>${number(c.planning)}</b></td><td>${number(c.share*100,2)}%</td></tr>`).join('')}<tr><th>Total</th><td>${number(Audience.adults)}</td><td>${number(Math.round(Audience.estimatedDigital))}</td><td><b>24.000.000</b></td><td>100%</td></tr></tbody></table></div><p>Las franjas no se cruzan: los 25 años pertenecen a 18–25; la siguiente comienza en 26. Los conteos se redondean mediante restos mayores para conservar exactamente 24.000.000. La distribución se basa en el peso digital, no en una encuesta de afinidad con Ritual.</p><p>Usamos la tasa 12–24 del anexo TIC como aproximación para 18–24 (${number(Audience.cohorts[0].internetRate*100,2)}%). A los 25–54 se aplica ${number(Audience.cohorts[1].internetRate*100,2)}% y a 55+ ${number(Audience.cohorts[2].internetRate*100,2)}%. Dentro de 18–25, la edad 25 recibe su tasa correspondiente de 25–54.</p></div><div class="detail-section"><h3>03 / Edades, perfiles y alcance</h3><p>Las edades dividen el universo en cinco grupos excluyentes. Valeria, Carlos y Julián representan afinidades que pueden atravesar esas edades. Alex se enfoca en 18–25 y está incluido en la misma base. Los perfiles no tienen volúmenes independientes ni se suman a los 24 millones.</p><p>El alcance depende de la inversión, los CPM y la saturación de medios. Día y Noche comparten la base. El simulador limita su intersección al 10% de la audiencia menor alcanzada; es un objetivo que requiere controlar la entrega y validarse con datos reales.</p></div><div class="detail-section"><h3>Fuentes y fecha de revisión · 8 de octubre de 2026</h3><ul><li><a href="${Audience.sources.population}" target="_blank" rel="noopener noreferrer">DANE · Proyección por área, sexo y edad 2018–2070</a>. Actualización: 18 de julio de 2025. Hoja PobNacionalxÁreaSexoEdad, año 2027, área Total, ambos sexos, edades simples 18–100+.</li><li><a href="${Audience.sources.internet}" target="_blank" rel="noopener noreferrer">DANE · Anexo TIC hogares 2025</a>. Publicación: 30 de septiembre de 2026. Cuadro C.14, total nacional por edad.</li><li><a href="${Audience.sources.bulletin}" target="_blank" rel="noopener noreferrer">DANE · Boletín TIC 2025</a>, gráfico 30.</li></ul></div>`);
   }
   function showProductMethod() {
-    showDialog('ALCANCE ÚNICO / DÍA + NOCHE',`<h2>El cruce se descuenta. <span class="purple">La base sigue en 24 M.</span></h2><p class="dialog-description">La intersección máxima se define sobre la menor audiencia alcanzada entre Día y Noche. Puedes elegir un objetivo entre 0% y 10%.</p><div class="detail-section"><h3>Una persona cuenta una sola vez</h3><code>Intersección ≤ objetivo × mín(alcance Día, alcance Noche)<br>Alcance único = alcance Día + alcance Noche − intersección<br>Solo Día = alcance Día − intersección<br>Solo Noche = alcance Noche − intersección<br>Frecuencia = impresiones totales / alcance único</code><p>Ejemplo ilustrativo: si Día alcanza 12 M y Noche 10 M, el cruce máximo al 10% es 1 M. El alcance único sería 21 M. El 10% no se calcula sobre los 24 M ni se descuenta dos veces.</p></div><div class="detail-section"><h3>Cómo responde el modelo a la inversión</h3><p>Primero se estima el alcance total con el presupuesto, el mix, los CPM y las curvas de saturación por medio. Después se distribuyen los contactos por producto en proporción a su inversión, manteniendo sus impresiones. La intersección se limita al objetivo elegido y al alcance que permiten las curvas individuales de cada producto. Así, los alcances acumulados de ambos productos crecen sin duplicar personas.</p><p>Así, el alcance combinado conserva el resultado del modelo de medios, nunca supera la base activa de 24 M y no aumenta artificialmente al reducir el cruce. El modelo supone una planificación coordinada entre productos. Un 0% de inversión produce cero alcance e intersección para ese producto. Las 12 olas distribuyen el presupuesto por igual.</p></div><div class="detail-section"><h3>Qué significa el límite del 10%</h3><p>Es un objetivo de planificación, no una intersección medida ni una garantía de entrega. Para buscarlo en campaña se requieren exclusiones, control de frecuencia y una estrategia coordinada de audiencias. El cruce real entre plataformas debe medirse o estimarse con sus herramientas.</p><p>La barra muestra tres partes excluyentes y proporcionales: solo Día, ambos productos y solo Noche. La suma de las tres equivale al alcance único.</p><button class="text-button" data-action="universe-method">Consultar universo y edades</button></div>`);
+    showDialog('ALCANCE ÚNICO / DÍA + NOCHE',`<h2>El cruce se descuenta. <span class="purple">La base sigue en 24 M.</span></h2><p class="dialog-description">La intersección máxima se define sobre la menor audiencia alcanzada entre Día y Noche. Puedes elegir un objetivo entre 0% y 10%.</p><div class="detail-section"><h3>Una persona cuenta una sola vez</h3><code>Intersección ≤ objetivo × mín(alcance Día, alcance Noche)<br>Alcance único = alcance Día + alcance Noche − intersección<br>Solo Día = alcance Día − intersección<br>Solo Noche = alcance Noche − intersección<br>Frecuencia = impresiones totales / alcance único</code><p>Ejemplo ilustrativo: si Día alcanza 12 M y Noche 10 M, el cruce máximo al 10% es 1 M. El alcance único sería 21 M. El 10% no se calcula sobre los 24 M ni se descuenta dos veces.</p></div><div class="detail-section"><h3>Cómo responde el modelo a la inversión</h3><p>Primero se estima el alcance total con el presupuesto, el mix, los CPM y las curvas de saturación por medio. Después se distribuyen los contactos por producto en proporción a su inversión, manteniendo sus impresiones. La intersección se limita al objetivo elegido y al alcance que permiten las curvas individuales de cada producto. Así, los alcances acumulados de ambos productos crecen sin duplicar personas.</p><p>Así, el alcance combinado conserva el resultado del modelo de medios, nunca supera la base activa de 24 M y no aumenta artificialmente al reducir el cruce. El modelo supone una planificación coordinada entre productos. Un 0% de inversión produce cero alcance e intersección para ese producto. Las 12 olas distribuyen el presupuesto por igual.</p></div><div class="detail-section"><h3>Qué significa el límite del 10%</h3><p>Es un objetivo de planificación, no una intersección medida ni una garantía de entrega. Para buscarlo en campaña se requieren exclusiones, control de frecuencia y una estrategia coordinada de audiencias. El cruce real entre plataformas debe medirse o estimarse con sus herramientas.</p><p>El diagrama muestra dos círculos, uno por producto, y destaca la audiencia que comparten. Las áreas son ilustrativas: las cantidades indicadas provienen del modelo, y las personas compartidas se descuentan una sola vez del alcance combinado.</p><button class="text-button" data-action="universe-method">Consultar universo y edades</button></div>`);
   }
+  function ritualCircleOverlapArea(a,b,d) {
+    if (d >= a + b) return 0;
+    if (d <= Math.abs(a - b)) return Math.PI * Math.min(a,b)**2;
+    const angleA = Math.acos(Math.max(-1,Math.min(1,(d*d+a*a-b*b)/(2*d*a))));
+    const angleB = Math.acos(Math.max(-1,Math.min(1,(d*d+b*b-a*a)/(2*d*b))));
+    const segment = Math.sqrt(Math.max(0,(-d+a+b)*(d+a-b)*(d-a+b)*(d+a+b)));
+    return a*a*angleA+b*b*angleB-segment/2;
+  }
+
+  function ritualVennCircles(r) {
+    const maximum=Math.max(0,r.day,r.night);
+    if (!maximum) return '<div class="venn-no-reach">Sin alcance todavía. Ajusta la inversión para ver las audiencias de Día y Noche.</div>';
+    // The circle sizes follow product reach loosely. A minimum radius retains readable text.
+    // The overlap *fraction* of the smaller circle is represented geometrically.
+    const radiusDay=r.day>0?Math.max(55,99*Math.sqrt(r.day/maximum)):0;
+    const radiusNight=r.night>0?Math.max(55,99*Math.sqrt(r.night/maximum)):0;
+    const both=r.day>0&&r.night>0;
+    const share=both?Math.max(0,Math.min(1,r.overlap/Math.min(r.day,r.night))):0;
+    let distance=0;
+    if (both) {
+      if (!share) distance=radiusDay+radiusNight+14;
+      else {
+        const target=Math.PI*Math.min(radiusDay,radiusNight)**2*share;
+        let low=Math.abs(radiusDay-radiusNight),high=radiusDay+radiusNight;
+        for(let j=0;j<44;j++) {
+          const mid=(low+high)/2;
+          if(ritualCircleOverlapArea(radiusDay,radiusNight,mid)>target)low=mid;
+          else high=mid;
+        }
+        distance=(low+high)/2;
+      }
+    }
+    const contentWidth=both?radiusDay+distance+radiusNight:2*Math.max(radiusDay,radiusNight);
+    const centerDay=both?(640-contentWidth)/2+radiusDay:320;
+    const centerNight=both?centerDay+distance:320;
+    const intersectionX=both?(centerDay+radiusDay+centerNight-radiusNight)/2:320;
+    const y=121;
+    const text=(x,small,value)=>`<text x="${x}" y="${y-7}" text-anchor="middle" class="venn-product-name">${small}</text><text x="${x}" y="${y+25}" text-anchor="middle" class="venn-product-value">${value}</text>`;
+    const blue=r.day>0?`<circle cx="${centerDay}" cy="${y}" r="${radiusDay}" fill="url(#ritualVennDay)" stroke="#9bcaff" stroke-opacity=".8" stroke-width="1.5"/>`:"";
+    const purple=r.night>0?`<circle cx="${centerNight}" cy="${y}" r="${radiusNight}" fill="url(#ritualVennNight)" stroke="#d5a4ff" stroke-opacity=".8" stroke-width="1.5"/>`:"";
+    const intersection=both&&r.overlap>0?`<circle cx="${centerNight}" cy="${y}" r="${radiusNight}" fill="url(#ritualVennShared)" clip-path="url(#ritualVennDayClip)" stroke="none"/>`:"";
+    const dayLabel=r.day>0?text(centerDay-radiusDay*.24,"RITUAL DÍA",millions(r.day)):"";
+    const nightLabel=r.night>0?text(centerNight+radiusNight*.24,"RITUAL NOCHE",millions(r.night)):"";
+    const line=both&&r.overlap>0?`<circle cx="${intersectionX}" cy="${y}" r="4" fill="#fff" stroke="#6d3db2" stroke-width="2"/><path d="M${intersectionX} ${y+5}V225" stroke="#b387e0" stroke-width="1.6" stroke-dasharray="4 5" fill="none"/>`:"";
+    return `<div class="venn-bubbles-wrap"><svg class="venn-bubbles" viewBox="0 0 640 284" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="ritualVennDay" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#358eff"/><stop offset="1" stop-color="#1552c5"/></linearGradient>
+        <linearGradient id="ritualVennNight" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a34ff5"/><stop offset="1" stop-color="#6425b8"/></linearGradient>
+        <linearGradient id="ritualVennShared" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e993f8"/><stop offset="1" stop-color="#bd69dd"/></linearGradient>
+        <clipPath id="ritualVennDayClip"><circle cx="${centerDay}" cy="${y}" r="${radiusDay}"/></clipPath>
+        <filter id="ritualVennShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="9" stdDeviation="10" flood-color="#33155a" flood-opacity=".2"/></filter>
+      </defs>
+      <g filter="url(#ritualVennShadow)">${blue}${purple}${intersection}</g>
+      ${dayLabel}${nightLabel}${line}
+      <rect x="${intersectionX-84}" y="225" width="168" height="50" rx="15" fill="#f2eafa" stroke="#d7c4ef" stroke-width="1.2"/>
+      <text x="${intersectionX}" y="242" class="venn-intersection-kicker" text-anchor="middle">INTERSECCIÓN</text>
+      <text x="${intersectionX}" y="263" class="venn-intersection-value" text-anchor="middle">${millions(r.overlap)}</text>
+    </svg><p class="venn-visual-note">Día + Noche comparten personas en el cruce. Círculos ilustrativos; los valores son del modelo.</p></div>`;
+  }
+
   function renderProductSimulator() {
     const plan=ProductModel.calculate(productState,state),r=plan.final;
     $('#productDayShare').value=plan.dayShare;$('#productNightShare').value=plan.nightShare;
     $('#productDayShareValue').textContent=plan.dayShare+'%';$('#productNightShareValue').textContent=plan.nightShare+'%';
     $('#productDayShare').style.setProperty('--value',plan.dayShare+'%');$('#productNightShare').style.setProperty('--value',plan.nightShare+'%');
     $('#productUniqueReach').textContent=millions(r.reach);
-    const segments=[{label:'Solo Día',value:r.dayOnly,color:'#407cf4'},{label:'Ambos',value:r.overlap,color:'#d291db'},{label:'Solo Noche',value:r.nightOnly,color:'#8558db'}];
-    $('#productVenn').setAttribute('aria-label',segments.map(v=>`${v.label}: ${number(Math.round(v.value))} personas`).join('; '));
-    $('#productVenn').innerHTML=`<div class="unique-bar">${segments.map(v=>`<span style="width:${r.reach>0?v.value/r.reach*100:0}%;background:${v.color}"><span class="sr-only">${v.label}</span></span>`).join('')}</div><div class="unique-legend">${segments.map(v=>`<span><i style="background:${v.color}"></i>${v.label}<b>${millions(v.value)}</b></span>`).join('')}</div>`;
+    const circleChart=$('#productVenn');
+    circleChart.setAttribute('aria-label','Ritual Día: '+number(Math.round(r.day))+' personas; Ritual Noche: '+number(Math.round(r.night))+' personas; Intersección: '+number(Math.round(r.overlap))+' personas; Alcance único: '+number(Math.round(r.reach))+' personas');
+    circleChart.innerHTML=ritualVennCircles(r);
     $('#productReconciliation').innerHTML=`<div class="reach-equation"><span>Día<b>${millions(r.day)}</b></span><i>+</i><span>Noche<b>${millions(r.night)}</b></span><i>−</i><span>Cruce<b>${millions(r.overlap)}</b></span><i>=</i><span>Únicos<b>${millions(r.reach)}</b></span></div><p class="intersection-result">Cruce del escenario: <b>${number(r.overlapPercent,1)}%</b> de la audiencia menor. Cifras visibles redondeadas.</p>`;
     $('#productOverlap').value=plan.overlapPercent;
     $('#productOverlapValue').textContent=number(plan.overlapPercent,0)+'%';
