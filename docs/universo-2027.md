@@ -1,39 +1,58 @@
-# Universo nacional de planeación · 7 de octubre de 2026
+# Ritual · Universo de 24 millones por edad
 
-El escenario inicial pasa de 14 a **30 millones** de personas: +16 millones, +114,3%. Toda Colombia, 18 años en adelante, sin límite superior, todos los géneros, zonas urbanas y rurales. Los intereses y clústeres siguen siendo nacionales.
+Actualización del 8 de octubre de 2026. Sustituye el escenario activo anterior de 30 M. La base de planeación es **24.000.000 de personas de 18 años en adelante**, de todos los géneros, en toda Colombia. Es una decisión de planeación, no una medición de compradores ni de alcance disponible en una plataforma.
 
-## Base y cálculo
+## Base demográfica y distribución
 
-| Grupo adulto | Población 2027 | Uso de internet observado en 2025 | Digital estimado 2027 |
-|---|---:|---:|---:|
-| 18–24 | 6.151.801 | 93,8184%* | 5.771.520 |
-| 25–54 | 22.490.699 | 91,1285% | 20.495.430 |
-| 55+ | 11.079.250 | 63,2463% | 7.007.221 |
-| Total | **39.721.750** | Ponderado por edad | **33.274.171** |
+La proyección del DANE suma 39.721.750 adultos para 2027. Al aplicar las tasas de internet de 2025 por edad se estima un potencial digital de 33.274.171,16 adultos. Los 24 M equivalen al 72,13% de ese potencial; la diferencia es un margen de planeación elegido, no inventario medido.
 
-*Se usa la tasa publicada de 12–24 como aproximación para 18–24. Los cálculos usan las tasas completas, no las redondeadas de esta tabla.*
+| Edad | Población DANE 2027 | Digital estimado | Universo Ritual | Peso digital |
+|---|---:|---:|---:|---:|
+| 18–25 | 7.043.089 | 6.583.737 | 4.748.719 | 19,79% |
+| 26–34 | 7.940.851 | 7.236.376 | 5.219.455 | 21,75% |
+| 35–44 | 7.504.886 | 6.839.088 | 4.932.899 | 20,55% |
+| 45–54 | 6.153.674 | 5.607.749 | 4.044.758 | 16,85% |
+| 55+ | 11.079.250 | 7.007.221 | 5.054.169 | 21,06% |
+| Total | 39.721.750 | 33.274.171 | **24.000.000** | **100%** |
 
-1. [DANE, proyección nacional por edad simple 2018–2070](https://www.dane.gov.co/files/censo2018/proyecciones-de-poblacion/Nacional/PPED-AreaSexoEdadNac-2018-2070.xlsx), actualización 18 de julio de 2025. Hoja `PobNacionalxÁreaSexoEdad`, fila 39: 2027, área Total. Columnas HA:KW: ambos sexos, edades 0–100+. Suma de edades 18–100+: 39.721.750. La suma de todas las edades reconcilia con el total nacional de 53.712.233.
-2. [DANE, anexo TIC hogares 2025](https://www.dane.gov.co/files/operaciones/TICH/anex-TICH-2025.xlsx), publicación 30 de septiembre de 2026. Cuadro C.14, celdas P16:P18: porcentajes nacionales de uso de internet para 12–24, 25–54 y 55+. [Boletín, gráfico 30](https://www.dane.gov.co/files/operaciones/TICH/bol-TICH-2025.pdf).
-3. Cálculo propio: sumatoria de población adulta 2027 por grupo × tasa de internet 2025 correspondiente, manteniendo las tasas constantes. Resultado sin redondear: 33.274.171,1595196. No es una proyección oficial del DANE sobre usuarios de internet de 2027.
-4. Base de planeación: 30.000.000, equivalente a 90,16% de ese potencial estimado; margen de 9,84% elegido para planeación. No es una medición de inventario disponible, compradores, intención de compra ni afinidad certificada. Debe contrastarse con los planificadores de las cuentas publicitarias.
+Digital por franja = suma de población por edad simple × tasa de internet correspondiente. Peso por edad = digital de la franja / digital adulto total. Universo Ritual por edad = 24.000.000 × peso, redondeado mediante restos mayores. Los digitales visibles se redondean de forma independiente; el cálculo conserva la precisión original.
 
-La población adulta es el marco demográfico; el potencial digital es una aproximación; los 30 M son una decisión de planeación. No se suman usuarios de plataformas ni se convierten identidades sociales en personas únicas. Los datos y su precisión están centralizados en `audience-model.js`. Extracción de auditoría y huellas de los archivos: `universo-fuentes.json`.
+Las cinco edades son excluyentes. Los 25 años están incluidos en 18–25, y 26–34 comienza en 26. Los perfiles de afinidad Valeria, Carlos y Julián pueden atravesar las edades. Alex aporta señales editoriales de 18–25 dentro de la misma base, no personas adicionales. Los enfoques de comunicación son propuestas editoriales, no resultados de una encuesta.
 
-## Un simulador compartido
+## Fuentes y extracción reproducible
 
-Día y Noche usan la misma base nacional, mix, CPM y límites de cobertura por canal. Las 12 olas distribuyen el presupuesto uniformemente. Cada producto recibe su porcentaje de inversión y aplica la misma curva de saturación del modelo por medios. La intersección es alcance Día + alcance Noche − alcance combinado; la frecuencia es impresiones / alcance. Se asume independencia entre canales y entrega dentro de la misma base por producto. La intersección es modelada, no medida.
+- [DANE, proyección por área, sexo y edad 2018–2070](https://www.dane.gov.co/files/censo2018/proyecciones-de-poblacion/Nacional/PPED-AreaSexoEdadNac-2018-2070.xlsx), actualización 18 de julio de 2025. Hoja `PobNacionalxÁreaSexoEdad`, fila 39: 2027, área Total. Columnas HA:KW: ambos sexos, edades 0–100+. Se volvió a descargar el archivo el 8 de octubre de 2026 y coincide con la huella registrada en `universo-fuentes.json`.
+- [DANE, anexo TIC hogares 2025](https://www.dane.gov.co/files/operaciones/TICH/anex-TICH-2025.xlsx), publicación 30 de septiembre de 2026. Cuadro C.14, P16:P18: tasas nacionales 12–24, 25–54 y 55+. [Boletín, gráfico 30](https://www.dane.gov.co/files/operaciones/TICH/bol-TICH-2025.pdf).
+- Tasas conservadas: 0,9381837570611629 para 18–24 (proxy de 12–24), 0,9112847255015205 para 25–54 y 0,6324634718139461 para 55+. La edad 25 utiliza la tasa 25–54 aunque se muestre en la franja 18–25. Se mantienen constantes hacia 2027. El cálculo digital es propio, no una proyección oficial del DANE para uso de internet.
 
-El reparto por producto cambia el alcance de cada producto y su intersección. Con igual presupuesto, mix y CPM, el alcance combinado permanece igual, porque no se dispone de evidencia que justifique eficiencias distintas. Cambiar presupuesto, mix, CPM o universo sí modifica la proyección. Con 600 M COP y los supuestos iniciales: 16,7 M de alcance, 55,7% de cobertura y frecuencia 3,6. Con presupuesto cero: alcance, impresiones y frecuencia cero.
+## Intersección máxima del 10%
 
-La migración del guardado local actualiza el antiguo universo activo de 14 M a 30 M, preservando presupuesto, CPM y mix. Conserva escenarios comparativos históricos y universos personalizados. Los CSV incluyen presupuesto, universo, método y fuentes.
+La base del porcentaje es **la menor audiencia alcanzada entre Día y Noche**. No es el universo total ni el porcentaje de presupuesto. El control admite 0–10% y su valor inicial es 10%.
+
+Alcance único = Día + Noche − intersección. La visualización muestra tres grupos excluyentes: solo Día, ambos y solo Noche. La suma coincide con el alcance único, limitado al universo activo de 24 M.
+
+El modelo por medios determina el alcance total T, a partir del presupuesto, CPM, mix y saturación. Se calculan también curvas individuales de cada producto. Con q = proporción de presupuesto Día, n = 1 − q, m = min(q,n) y r = máximo de intersección (0–0,10):
+
+```
+Cruce objetivo = T × r × m / (1 − r × m)
+Margen Día = max(0, alcance individual Día / q − T)
+Margen Noche = max(0, alcance individual Noche / n − T)
+Cruce = min(cruce objetivo, margen Día, margen Noche)
+Día = q × (T + cruce)
+Noche = n × (T + cruce)
+Frecuencia producto = impresiones del producto / alcance del producto
+```
+
+Con q=0 o n=0, el cruce y el alcance del producto sin inversión son cero. La construcción mantiene alcances acumulados no decrecientes y no supera las curvas individuales. El alcance combinado coincide con el modelo por medios. Reducir el cruce redistribuye los contactos, no inventa más alcance total. Las doce olas entregan presupuesto uniforme.
+
+La baja duplicación es un **objetivo de planificación coordinada**, no una garantía de entrega ni una medición. Requiere exclusiones, gestión de frecuencia y validación de la entrega entre productos y plataformas. Los CPM y coberturas por medio siguen siendo supuestos del atlas.
+
+## Persistencia y exportación
+
+El escenario activo se abre con 24 M incluso si el navegador guardó 14 o 30 M. Conserva el presupuesto, CPM y mix. El universo queda fijo en la interfaz. Las comparaciones históricas conservan sus datos; al cargarlas se aplica su presupuesto/mix a la base actual de 24 M. El control de cruce se guarda en el mismo navegador.
+
+Resumen y Audiencias exportan CSV con las edades, poblaciones, digitales, pesos, universo, fuentes y perfiles. Intereses mantiene la matriz exportable. El CSV del simulador incluye el denominador y el límite del cruce.
 
 ## Verificación
 
-13 pruebas de modelos aprobadas, incluidas 101 asignaciones de producto × 5 presupuestos × 12 olas; límites de alcance e intersección, coherencia entre vistas, cero inversión, CPM, cambio de universo y migración de estados. Integración DOM aprobada: fuentes, sincronización de presupuesto y universo, restablecimiento, 119 señales, tres clústeres, cuatro guías, cuatro exportaciones y compatibilidad de Carlos. Sin errores de ejecución. La verificación visual se realiza en el despliegue público.
-
-## Resultado publicado
-
-Verificado en https://ritual-audience-lab.vercel.app/#sim, commit `89ca590`: universo 30 M, población adulta 39,7 M y potencial digital 33,3 M; controles de presupuesto 600 → 0 → 600 M COP, con cero alcance e impactos al invertir cero. El diálogo muestra tabla, límites y tres enlaces oficiales. Captura de escritorio a 1363 px; sin errores de aplicación en la consola del dominio. No se realizó inspección visual móvil.
-
-![Simulador publicado con universo de 30 M](Ritual_Universo_30M.jpg)
+20 pruebas de modelos aprobadas, incluyendo 101 repartos de inversión × 5 presupuestos × 12 olas, conservación del universo, intersección <=10%, crecimiento acumulado por producto, frecuencias, casos cero, tasa a los 25 años, migración y compatibilidad del directorio de droguerías. La integración DOM verifica los cinco selectores de edad, cuatro perfiles, tres diálogos, presupuesto cero/alto, controles del cruce, base fija, migración y exportación por edad, sin errores de ejecución.

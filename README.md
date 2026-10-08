@@ -1,3 +1,4 @@
+<!-- Current behavior: 2026-10-08 / 24M. Dated sections below describe historical changes. -->
 # Ritual Audience Atlas 2027
 
 Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz sigue las tres referencias entregadas el 30 de septiembre de 2026: resumen oscuro con productos y mapa, tarjetas fotográficas de medios y simulador claro de Día + Noche.
@@ -21,9 +22,11 @@ Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz si
 
 `data.js` conserva las 119 filas originales y sus nueve campos: Valeria 34, Carlos 43 y Julián 42. Las fotografías, perfiles editoriales y categorías son ilustrativos. Google y YouTube comparten las mismas 34 filas; no son 68 señales diferentes. Los porcentajes de medios representan registros, no alcance publicitario.
 
-El universo inicial es **30 millones** de adultos de toda Colombia. La proyección DANE suma 39,7 M de personas de 18+ en 2027. Al aplicar las tasas TIC de 2025 por edad, se estima un potencial digital de 33,3 M (cálculo propio, con tasa 12–24 como aproximación para 18–24 y tasas constantes). Los 30 M son una decisión de planeación con margen frente a ese potencial; no son compradores ni alcance publicitario medido. [Cálculo, fuentes y límites](docs/universo-2027.md).
+El universo activo es **24 millones de adultos de toda Colombia**, distribuido en cinco franjas excluyentes: 18–25, 26–34, 35–44, 45–54 y 55+. Se distribuye proporcionalmente al potencial digital estimado por edad con población DANE 2027 y tasas TIC 2025. Los conteos suman exactamente 24.000.000. [Cálculo, fuentes y límites](docs/universo-2027.md).
 
-Día y Noche comparten universo, presupuesto, mix y CPM. Las 12 olas entregan presupuesto uniforme; el alcance responde a la inversión y a la saturación por canal. La intersección se deriva del modelo compartido. Repartir la inversión entre productos modifica sus alcances, pero mantiene el combinado si se conservan los demás parámetros. Ambos simuladores muestran el mismo alcance total. Los CPM, límites de cobertura e independencia entre canales siguen siendo supuestos de planeación.
+Día y Noche comparten la misma base, presupuesto, mix y CPM. La intersección tiene un máximo configurable entre 0% y 10% de la audiencia menor alcanzada. Los alcances por producto se asignan de forma coordinada y conservan el alcance total del modelo de medios, sin sobrepasar los 24 M. La barra muestra solo Día, ambos y solo Noche de forma proporcional. Es un objetivo de planificación, no una medición de entrega.
+
+Resumen y Audiencias presentan edades, pesos, explicaciones y una propuesta editorial por etapa. Los perfiles de afinidad se mantienen, incluyendo Alex. El directorio de droguerías conserva fuentes, registros, filtros y exportaciones. La base activa del navegador migra a 24 M y conserva inversión, CPM y mix. Las comparaciones históricas se preservan.
 
 ## Ejecutar y verificar
 
@@ -34,12 +37,12 @@ python -m http.server 4173
 node --test tests/*.test.cjs
 ```
 
-Las trece pruebas verifican redistribución, presupuesto, límites de alcance, sanitización de estados, intersección, frecuencia y las 101 combinaciones de inversión en 12 olas. Se comprobó también la navegación, filtros, detalles, tablas, exportación por producto y la conservación del simulador por medios mediante una prueba de integración de DOM.
+Las veinte pruebas verifican redistribución, presupuesto, límites de alcance, sanitización de estados, intersección, frecuencia y las 101 combinaciones de inversión en 12 olas. Se comprobó también la navegación, filtros, detalles, tablas, exportación por producto y la conservación del simulador por medios mediante una prueba de integración de DOM.
 
 ## Archivos principales
 
 - `index.html`: cinco vistas y diálogos.
-- `styles.css` y `atlas.css`: estilos de base y diseño de las nuevas referencias; reglas responsive.
+- `ritual-2027.css`, `styles.css` y `atlas.css`: estilos de base y diseño de las nuevas referencias; reglas responsive.
 - `data.js`: matriz original.
 - `audience-model.js`: base demográfica, tasas de internet y fuentes.
 - `model.js`: inversión por medios y migración de escenarios.
@@ -52,7 +55,7 @@ Las trece pruebas verifican redistribución, presupuesto, límites de alcance, s
 
 La versión B previa permanece disponible en el historial de Git. El proyecto se publica automáticamente desde `main` mediante la configuración existente de Vercel.
 
-## Vistas publicadas
+## Capturas de versiones anteriores
 
 ![Resumen de Ritual Audience Atlas](docs/Ritual_Atlas_Resumen.jpg)
 

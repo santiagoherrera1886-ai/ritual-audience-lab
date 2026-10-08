@@ -27,10 +27,10 @@
     return result;
   }
   function restore(stored) {
-    if (![1, 2].includes(stored?.version)) return { state: defaults(), saved: [] };
+    if (![1, 2, 3].includes(stored?.version)) return { state: defaults(), saved: [] };
     const state = sanitize(stored.state);
-    // Upgrade only the old active default. Preserve custom and comparison scenarios.
-    if (stored.version === 1 && state.universe === 14) state.universe = defaults().universe;
+    // Active atlas uses the requested 24M base. Historical comparisons stay intact.
+    state.universe = defaults().universe;
     const saved = Array.isArray(stored.saved) ? stored.saved.slice(0, 3)
       .filter(x => x && typeof x.name === 'string' && x.state)
       .map(x => ({ name: x.name.slice(0, 40), state: sanitize(x.state) })) : [];

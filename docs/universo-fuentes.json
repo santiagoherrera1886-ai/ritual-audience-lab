@@ -22,7 +22,7 @@
         6696481.496976922
       ],
       "estimatedInternet": 32506510.749172635,
-      "30mShareOfEstimate": 0.9228920394282418
+      "24mShareOfEstimate": 0.7383136315425936
     },
     "2026": {
       "total": 53399171,
@@ -38,7 +38,7 @@
         6854145.786011533
       ],
       "estimatedInternet": 32900705.265285797,
-      "30mShareOfEstimate": 0.9118345566790512
+      "24mShareOfEstimate": 0.7294676453432409
     },
     "2027": {
       "total": 53712233,
@@ -54,11 +54,14 @@
         7007220.920094662
       ],
       "estimatedInternet": 33274171.1595196,
-      "30mShareOfEstimate": 0.901600218865771
+      "24mShareOfEstimate": 0.7212801750926169
     }
   },
   "sha256": {
     "poblacion.xlsx": "898f544bee2129723460424095d8b294b828fbbd37b3e87f639c3982a225a5aa",
     "tic-2025.xlsx": "a9d4229f7df6b4f0c8212faa34ff116598f07daf9594d7d2772b8764abd5347e"
-  }
+  },
+  "planningUniverse": 24000000,
+  "reviewed": "2026-10-08",
+  "ageAllocationMethod": "Peso digital por edad simple, escalado a 24.000.000; redondeo por restos mayores."
 }
