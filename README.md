@@ -1,4 +1,4 @@
-<!-- Current behavior: 2026-10-08 / 24M. Dated sections below describe historical changes. -->
+<!-- Current behavior: 2026-10-18 / commercial validation and editable universe. Dated sections below describe historical changes. -->
 # Ritual Audience Atlas 2027
 
 Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz sigue las tres referencias entregadas el 30 de septiembre de 2026: resumen oscuro con productos y mapa, tarjetas fotográficas de medios y simulador claro de Día + Noche.
@@ -9,24 +9,31 @@ Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz si
 
 - Base común de todo el atlas: personas de 18 años en adelante, sin límite superior, en toda Colombia y de todos los géneros.
 - Resumen con universo supuesto y explorador nacional de clústeres por afinidad. El mapa representa la cobertura del país, con perfiles, momentos de consumo y acceso a intereses; sin filtros ni potenciales por ciudad.
-- Panel lateral permanente con filtros de producto y los tres perfiles: Valeria, Carlos y Julián.
+- Panel lateral permanente con filtros de producto y los cuatro perfiles: Valeria, Carlos, Julián y Alex.
 - Medios: Meta, Google, TikTok y YouTube, con porcentajes derivados de las señales de la matriz y accesos a sus intereses.
 - Audiencias: perfiles completos y acceso a sus señales.
-- Intereses: 119 registros originales, búsqueda sin sensibilidad a tildes, filtros combinables, categorías, tarjetas, tabla, paginación y detalle.
+- Intereses: 143 registros (119 originales + 24 de Alex), búsqueda sin sensibilidad a tildes, filtros combinables, categorías, tarjetas, tabla, paginación y detalle.
 - Guía «Cómo segmentar por medio»: pasos, ejemplos del perfil o interés, validación, fuentes oficiales y copia del texto; disponible en Intereses, fichas y Medios.
 - Simulador Día + Noche: mezcla ajustable, intersección, alcance y frecuencia en 12 olas, y exportación del escenario.
 - Inversión por medio: se conserva el modelo de presupuesto/CPM, asignación total de 100%, escenarios y comparación de hasta tres planes.
 - CSV contextual y persistencia local de los simuladores. Navegación por URL y menú para pantallas pequeñas.
 
+## Validación comercial · 18 de octubre de 2026
+
+- `#commercial`: metas del PDF por producto, compradores/recompra, contribución digital, conversión sobre alcanzados, alcance, frecuencia, CPM e inversión. Comparación de 15 M nominales (9 M / 6 M), 24 M netos con dos repartos y 30 M netos como expansión.
+- `#requests`: ocho solicitudes de la conversación, implementación y definiciones pendientes para aprobación comercial.
+- La base de referencia sigue en 24 M; la sección permite aplicar otros universos netos al atlas completo, con edades, textos, simulador y CSV consistentes. Las cifras de alcance e inversión comercial son escenarios aritméticos, no una proyección aprobada.
+- [Fuentes, fórmulas, supuestos y alcance de la actualización](docs/validacion-comercial-2026-10-18.md).
+
 ## Datos y supuestos
 
 `data.js` conserva las 119 filas originales y sus nueve campos: Valeria 34, Carlos 43 y Julián 42. Las fotografías, perfiles editoriales y categorías son ilustrativos. Google y YouTube comparten las mismas 34 filas; no son 68 señales diferentes. Los porcentajes de medios representan registros, no alcance publicitario.
 
-El universo activo es **24 millones de adultos de toda Colombia**, distribuido en cinco franjas excluyentes: 18–25, 26–34, 35–44, 45–54 y 55+. Se distribuye proporcionalmente al potencial digital estimado por edad con población DANE 2027 y tasas TIC 2025. Los conteos suman exactamente 24.000.000. [Cálculo, fuentes y límites](docs/universo-2027.md).
+El universo de referencia es **24 millones de adultos de toda Colombia**, editable por escenario, distribuido en cinco franjas excluyentes: 18–25, 26–34, 35–44, 45–54 y 55+. Se distribuye proporcionalmente al potencial digital estimado por edad con población DANE 2027 y tasas TIC 2025. Los conteos se recalculan y suman exactamente el universo neto activo. [Cálculo, fuentes y límites](docs/universo-2027.md).
 
-Día y Noche comparten la misma base, presupuesto, mix y CPM. La intersección tiene un máximo configurable entre 0% y 10% de la audiencia menor alcanzada. Los alcances por producto se asignan de forma coordinada y conservan el alcance total del modelo de medios, sin sobrepasar los 24 M. La barra muestra solo Día, ambos y solo Noche de forma proporcional. Es un objetivo de planificación, no una medición de entrega.
+Día y Noche comparten la misma base, presupuesto, mix y CPM. La intersección tiene un máximo configurable entre 0% y 10% de la audiencia menor alcanzada. Los alcances por producto se asignan de forma coordinada y conservan el alcance total del modelo de medios, sin sobrepasar el universo activo. La barra muestra solo Día, ambos y solo Noche de forma proporcional. Es un objetivo de planificación, no una medición de entrega.
 
-Resumen y Audiencias presentan edades, pesos, explicaciones y una propuesta editorial por etapa. Los perfiles de afinidad se mantienen, incluyendo Alex. El directorio de droguerías conserva fuentes, registros, filtros y exportaciones. La base activa del navegador migra a 24 M y conserva inversión, CPM y mix. Las comparaciones históricas se preservan.
+Resumen y Audiencias presentan edades, pesos, explicaciones y una propuesta editorial por etapa. Los perfiles de afinidad se mantienen, incluyendo Alex. El directorio de droguerías conserva fuentes, registros, filtros y exportaciones. Los guardados anteriores a la versión 4 migran a 24 M conservando inversión, CPM y mix. Los nuevos guardados conservan el universo elegido. Las comparaciones históricas se preservan.
 
 ## Ejecutar y verificar
 
@@ -37,11 +44,13 @@ python -m http.server 4173
 node --test tests/*.test.cjs
 ```
 
-Las veinte pruebas verifican redistribución, presupuesto, límites de alcance, sanitización de estados, intersección, frecuencia y las 101 combinaciones de inversión en 12 olas. Se comprobó también la navegación, filtros, detalles, tablas, exportación por producto y la conservación del simulador por medios mediante una prueba de integración de DOM.
+Las 29 pruebas verifican redistribución, presupuesto, límites de alcance, sanitización de estados, intersección, frecuencia y las 101 combinaciones de inversión en 12 olas. Se comprobó también la navegación, filtros, detalles, tablas, exportación por producto y la conservación del simulador por medios mediante una prueba de integración de DOM.
 
 ## Archivos principales
 
-- `index.html`: cinco vistas y diálogos.
+- `index.html`: ocho vistas y diálogos.
+- `commercial-model.js`: validación comercial y comparación de universos.
+- `commercial.js`, `commercial.css`: interacción, fuentes, registro de solicitudes y presentación de la revisión comercial.
 - `ritual-2027.css`, `styles.css` y `atlas.css`: estilos de base y diseño de las nuevas referencias; reglas responsive.
 - `data.js`: matriz original.
 - `audience-model.js`: base demográfica, tasas de internet y fuentes.
@@ -54,6 +63,8 @@ Las veinte pruebas verifican redistribución, presupuesto, límites de alcance, 
 - `docs/atlas-assets.md`: prompts de los nuevos recursos generados.
 
 La versión B previa permanece disponible en el historial de Git. El proyecto se publica automáticamente desde `main` mediante la configuración existente de Vercel.
+
+La actualización comercial fue verificada con pruebas de cálculo y DOM (rutas, controles, persistencia, exportaciones y sincronización de edades). No hubo navegador disponible para revisión visual de esta actualización.
 
 ## Capturas de versiones anteriores
 

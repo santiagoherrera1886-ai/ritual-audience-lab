@@ -18,7 +18,7 @@
       ['Ritual Noche · propuesta de contenido','Conectar con hábitos de cierre de jornada y una pausa cotidiana. Mensaje propuesto: “Dale un momento a tu pausa”. Sin prometer curar insomnio, ansiedad o mejorar el rendimiento académico.'],
       ['Creatividad y medios','Probar videos breves de rutinas reales en Meta y TikTok; búsquedas de marca y categoría en Google; explicaciones de producto en YouTube. Comparar costo por visita cualificada, interacción y conversión con creatividades equivalentes.'],
       ['Del contenido al punto de venta','Usar el directorio para planear verificación comercial y disponibilidad. Confirmar existencia de Ritual y condiciones de compra con cada establecimiento antes de anunciar “disponible aquí”. La ciudad organiza las droguerías; no redefine los intereses del perfil.'],
-      ['Tamaño de la audiencia','Sin un alcance propio asignado. El universo de planeación de 30 millones es nacional y adulto; no es el tamaño de Alex. Se requiere un cálculo específico 18–25 y validación en cada plataforma antes de presupuestar esta cohorte.']
+      ['Tamaño de la audiencia','Sin un alcance propio asignado. El universo de planeación activo es nacional y adulto; no es el tamaño de Alex. Se requiere un cálculo específico 18–25 y validación en cada plataforma antes de presupuestar esta cohorte.']
     ]
   };
   const ageNote = channel => channel === 'meta'

@@ -18,7 +18,7 @@
     if (!value || typeof value !== 'object') return fallback;
     const result = {
       budget: Number.isFinite(value.budget) ? clamp(value.budget, 0, 6000) : fallback.budget,
-      universe: Number.isFinite(value.universe) ? clamp(value.universe, .1, 100) : fallback.universe,
+      universe: Number.isFinite(value.universe) ? clamp(value.universe, .1, Audience.estimatedDigital / 1e6) : fallback.universe,
       shares: fallback.shares,
       cpms: fallback.cpms
     };
@@ -27,10 +27,10 @@
     return result;
   }
   function restore(stored) {
-    if (![1, 2, 3].includes(stored?.version)) return { state: defaults(), saved: [] };
+    if (![1, 2, 3, 4].includes(stored?.version)) return { state: defaults(), saved: [] };
     const state = sanitize(stored.state);
-    // Active atlas uses the requested 24M base. Historical comparisons stay intact.
-    state.universe = defaults().universe;
+    // Migrate old fixed-universe saves; version 4 preserves explicit commercial scenarios.
+    if (stored.version < 4) state.universe = defaults().universe;
     const saved = Array.isArray(stored.saved) ? stored.saved.slice(0, 3)
       .filter(x => x && typeof x.name === 'string' && x.state)
       .map(x => ({ name: x.name.slice(0, 40), state: sanitize(x.state) })) : [];
