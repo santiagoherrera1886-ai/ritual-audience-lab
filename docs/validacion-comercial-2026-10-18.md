@@ -1,3 +1,5 @@
+> Nota del 5 de noviembre de 2026: este documento conserva contexto de octubre. La regla de cruce vigente es 0% por defecto y máximo 1%; sustituye cualquier referencia anterior a 10%. Ver [guía actual](separacion-audiencias-2026-11-05.md).
+
 # Validación comercial de Ritual — 18 de octubre de 2026
 
 ## Alcance de la actualización

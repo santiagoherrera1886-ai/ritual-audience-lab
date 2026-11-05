@@ -10,21 +10,21 @@ test('source units are converted to buyers; unique night households are never di
  close(d.dayBuyers,183690);close(d.nightBuyers,357280);
  close(d.dayDigitalBuyers,91845);close(d.nightDigitalBuyers,178640);
  close(d.dayReach,6123000);close(d.nightReach,8932000);
- close(d.reach.net,14442700);close(d.impressions,90330000);close(d.totalSpend,903300000);
- close(d.minNetUniverse,20632428.57142857);
+ close(d.reach.net,15055000);close(d.impressions,90330000);close(d.totalSpend,903300000);
+ close(d.minNetUniverse,21507142.85714286);
  assert.equal(r.recommended,'base');assert.equal(r.active.status,'funding');
 });
 test('15M nominal audiences are not passed off as 15M unique; allocation conserves net audience',()=>{
- for(const overlap of [0,5,10]) {
+ for(const overlap of [0,.5,1]) {
   const r=M.calculate({...M.defaults(),overlap});
   close(r.comparisons[0].pools.net,15000000-6000000*overlap/100);
-  for(const x of r.comparisons){close(x.pools.day+x.pools.night-x.pools.overlap,x.pools.net);assert(x.pools.overlap<=Math.min(x.pools.day,x.pools.night)*.1+.01);}
+  for(const x of r.comparisons){close(x.pools.day+x.pools.night-x.pools.overlap,x.pools.net);assert(x.pools.overlap<=Math.min(x.pools.day,x.pools.night)*.01+.01);}
  }
 });
 test('fixed 60/40 can fail while demand allocation within the same net universe passes',()=>{
  const r=M.calculate({...M.defaults(),budget:1000});
  assert.equal(r.comparisons[1].capacityOK,false);
- close(r.comparisons[1].nightGap,1932000);
+ close(r.comparisons[1].nightGap,2212000);
  assert.equal(r.comparisons[2].status,'conditional');
  assert.equal(r.comparisons[3].status,'conditional');
 });
@@ -61,7 +61,7 @@ test('distribution gate and invalid inputs produce explicit states and finite ou
  assert.equal(M.calculate({...M.defaults(),budget:1000,distribution:79}).active.status,'distribution');
  for(const input of [null,{}, {universe:1e9,dayConversion:0,nightConversion:NaN,dayUnitsPerBuyer:0,overlap:90,budget:-1}]){
   const r=M.calculate(input);
-  assert(r.state.universe<=A.estimatedDigital/1e6);assert(r.state.overlap<=10);assert(r.state.dayUnitsPerBuyer>=1);
+  assert(r.state.universe<=A.estimatedDigital/1e6);assert(r.state.overlap<=1);assert(r.state.dayUnitsPerBuyer>=1);
   for(const v of Object.values(r.demand))if(typeof v==='number')assert(Number.isFinite(v));
  }
 });

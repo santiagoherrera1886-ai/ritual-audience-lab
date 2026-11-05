@@ -31,7 +31,7 @@ Atlas estático de audiencias para Ritual Hidrapro y Noche Plena. La interfaz si
 
 El universo de referencia es **24 millones de adultos de toda Colombia**, editable por escenario, distribuido en cinco franjas excluyentes: 18–25, 26–34, 35–44, 45–54 y 55+. Se distribuye proporcionalmente al potencial digital estimado por edad con población DANE 2027 y tasas TIC 2025. Los conteos se recalculan y suman exactamente el universo neto activo. [Cálculo, fuentes y límites](docs/universo-2027.md).
 
-Día y Noche comparten la misma base, presupuesto, mix y CPM. La intersección tiene un máximo configurable entre 0% y 10% de la audiencia menor alcanzada. Los alcances por producto se asignan de forma coordinada y conservan el alcance total del modelo de medios, sin sobrepasar el universo activo. La barra muestra solo Día, ambos y solo Noche de forma proporcional. Es un objetivo de planificación, no una medición de entrega.
+Día y Noche comparten la misma base, presupuesto, mix y CPM. La intersección tiene un máximo configurable entre 0% y 1% (0% por defecto) de la audiencia menor alcanzada. Los alcances por producto se asignan de forma coordinada y conservan el alcance total del modelo de medios, sin sobrepasar el universo activo. La barra muestra solo Día, ambos y solo Noche de forma proporcional. Es un objetivo de planificación, no una medición de entrega.
 
 Resumen y Audiencias presentan edades, pesos, explicaciones y una propuesta editorial por etapa. Los perfiles de afinidad se mantienen, incluyendo Alex. El directorio de droguerías conserva fuentes, registros, filtros y exportaciones. Los guardados anteriores a la versión 4 migran a 24 M conservando inversión, CPM y mix. Los nuevos guardados conservan el universo elegido. Las comparaciones históricas se preservan.
 
@@ -101,3 +101,8 @@ El resumen ahora muestra el mapa a todo el ancho, con selección de las siete ci
 Todo el atlas, las guías y los CSV comparten Colombia / 18+ / todos los géneros. Los nombres de Valeria, Carlos y Julián identifican afinidades ilustrativas; no imponen filtros de género, ciudad ni edades adultas. El mapa conserva el contorno nacional y permite explorar los clústeres y productos.
 
 La actualización de amplitud sustituye el escenario anterior de 14 M por 30 M y unifica los modelos por producto y por medios. El cálculo, las fuentes oficiales y la distinción entre universo potencial y alcance están disponibles dentro del dashboard. [Sustento del universo ampliado](docs/universo-2027.md). [Registro de la primera actualización nacional](docs/audiencia-nacional.md).
+
+
+### Separación Día / Noche · 5 de noviembre de 2026
+
+`overlap-policy.js` fija un único tope del 1% para los modelos de producto y comercial, con base 0%. Se normalizan los valores antiguos al cargar y se mantiene el límite en cálculos, controles y CSV. La guía del simulador explica asignación estable, exclusiones recíprocas, excepción aislada y medición. El sitio no activa ni vigila campañas: la entrega real permanece **no verificada**. Ver `docs/separacion-audiencias-2026-11-05.md`.

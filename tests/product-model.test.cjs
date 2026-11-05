@@ -13,13 +13,13 @@ test('both views use the same 24M universe and budget-driven reach',()=>{
   close(r.impressions,r.dayImpressions+r.nightImpressions);
 });
 test('all product allocations reconcile and stay physically possible across budgets and 12 waves',()=>{
-  for(const budget of [0,300,600,1200,6000]) for(let share=0;share<=100;share++){
+  for(const cap of [0,.1,.5,1,10]) for(const budget of [0,300,600,1200,6000]) for(let share=0;share<=100;share++){
     const state={...Media.defaults(),budget};
-    const p=Model.calculate({dayShare:share},state);let previous=0,previousDay=0,previousNight=0;
+    const p=Model.calculate({dayShare:share,overlapPercent:cap},state);let previous=0,previousDay=0,previousNight=0;
     assert.equal(p.dayShare+p.nightShare,100);
     for(const r of p.waves){
       assert(r.reach>=previous-1e-6&&r.reach<=p.universe+1e-6);
-      assert(r.overlap>=0&&r.overlap<=Math.min(r.day,r.night)*.1+1e-6);
+      assert(r.overlap>=0&&r.overlap<=Math.min(r.day,r.night)*.01+1e-6);
       assert(Number.isFinite(r.frequency)&&r.frequency>=(budget?1:0));
       close(r.reach,r.day+r.night-r.overlap);
       close(r.impressions,r.dayImpressions+r.nightImpressions);
@@ -45,14 +45,14 @@ test('budget, CPM, media allocation and a custom universe feed the product plan'
   close(Model.calculate({dayShare:60},custom).final.reach,Media.calculate(custom).reach);
 });
 test('invalid persisted shares fall back safely and out-of-range inputs are bounded',()=>{
-  assert.deepEqual(Model.sanitize(null),{dayShare:60,overlapPercent:10});assert.deepEqual(Model.sanitize({dayShare:NaN}),{dayShare:60,overlapPercent:10});
+  assert.deepEqual(Model.sanitize(null),{dayShare:60,overlapPercent:0});assert.deepEqual(Model.sanitize({dayShare:NaN}),{dayShare:60,overlapPercent:0});
   assert.equal(Model.sanitize({dayShare:140}).dayShare,100);assert.equal(Model.sanitize({dayShare:-40}).dayShare,0);
 });
 
- test('overlap controls stay within 0–10% and conserve reach without inventing impressions',()=>{
-  for(const cap of [0,3,5,10,35,-5])for(const dayShare of [0,1,20,50,80,99,100]){
+ test('overlap controls stay within 0–1% and conserve reach without inventing impressions',()=>{
+  for(const cap of [0,.1,.5,1,1.01,10,35,-5,NaN,Infinity])for(const dayShare of [0,1,20,50,80,99,100]){
     const p=Model.calculate({dayShare,overlapPercent:cap},{...Media.defaults(),budget:6000});
-    assert(p.overlapPercent>=0&&p.overlapPercent<=10);
+    assert(p.overlapPercent>=0&&p.overlapPercent<=1);
     for(const r of p.waves){
       assert(r.overlap<=Math.min(r.day,r.night)*p.overlapPercent/100+1e-6);
       close(r.reach,r.dayOnly+r.overlap+r.nightOnly);

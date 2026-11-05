@@ -2,6 +2,7 @@
 (function (root) {
   'use strict';
   const Audience = typeof module !== 'undefined' && module.exports ? require('./audience-model.js') : root.RitualAudience;
+  const Policy = typeof module !== 'undefined' && module.exports ? require('./overlap-policy.js') : root.RitualOverlapPolicy;
   const FACTS = Object.freeze({
     dayUnits:1102140, nightHouseholds:357280, nightUnits:357280,
     daySharePercent:.7, nightPenetrationPercent:3.2, householdBase:11200000,
@@ -18,14 +19,14 @@
     dayUnitsPerBuyer:[1,1000],dayDigital:[0,100],nightDigital:[0,100],
     dayConversion:[.01,100],nightConversion:[.01,100],
     frequency:[1,100],cpm:[100,1e6],budget:[0,6000],
-    coverage:[1,100],overlap:[0,10],universe:[.1,Audience.estimatedDigital/1e6],
+    coverage:[1,100],overlap:[0,Policy.MAX_PERCENT],universe:[.1,Audience.estimatedDigital/1e6],
     dayBudgetShare:[0,100],distribution:[0,200],
     directOnlineShare:[0,100]
   });
   function defaults() {
     return {dayUnits:FACTS.dayUnits,nightHouseholds:FACTS.nightHouseholds,
       dayUnitsPerBuyer:6,dayDigital:50,nightDigital:50,dayConversion:1.5,nightConversion:2,
-      frequency:6,cpm:10000,budget:600,coverage:70,overlap:10,universe:24,
+      frequency:6,cpm:10000,budget:600,coverage:70,overlap:Policy.DEFAULT_PERCENT,universe:24,
       budgetAllocation:'need',dayBudgetShare:60,distribution:80,directOnlineShare:10};
   }
   function sanitize(raw) {
@@ -38,7 +39,7 @@
     return s;
   }
   function union(day,night,overlapPercent) {
-    const overlap=Math.min(day,night)*overlapPercent/100;
+    const overlap=Math.min(day,night)*(Policy.sanitizePercent(overlapPercent)/100);
     return {day,night,overlap,net:day+night-overlap};
   }
   function demand(s) {
@@ -60,6 +61,7 @@
       minNetUniverse:reach.net/(s.coverage/100)};
   }
   function allocate(netUniverse,dayShare,overlapPercent) {
+    overlapPercent=Policy.sanitizePercent(overlapPercent);
     const gross=netUniverse/(1-overlapPercent/100*Math.min(dayShare,1-dayShare));
     return union(gross*dayShare,gross*(1-dayShare),overlapPercent);
   }
