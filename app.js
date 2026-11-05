@@ -122,7 +122,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     $('.saved-locally').innerHTML = `${i(storageAvailable ? 'check':'info')}${storageAvailable ? 'Guardado automático en este navegador':'Cambios activos en esta sesión'}`;
   }
   let currentView = 'summary';
-  const TITLES = {summary:'Resumen',audiences:'Audiencias',media:'Medios',library:'Intereses',sim:'Simulador',pharmacies:'Droguerías',commercial:'Validación comercial',requests:'Solicitudes'};
+  const TITLES = {summary:'Resumen',audiences:'Audiencias',media:'Medios',library:'Intereses',sim:'Simulador',separation:'Segmentación',pharmacies:'Droguerías',commercial:'Validación comercial',requests:'Solicitudes'};
   const filters = { query:'', category:'all', person:'all', platform:'all', product:'all', page:1, view:'grid' };
   let productState=ProductModel.sanitize(null);
   let selectedAge='18-25';
@@ -148,6 +148,7 @@ const LOGOS={meta:`<svg viewBox="0 0 76 48" aria-hidden="true"><path d="M8 34c0-
     if(currentView === 'library') renderLibrary();
     if(currentView === 'media') renderMedia();
     if(currentView === 'sim') renderSimulator();
+    if(currentView === 'separation') window.RitualSeparation?.render(ProductModel.calculate(productState,state));
     if(currentView === 'pharmacies') window.RitualPharmacies.mount();
     if(currentView === 'commercial') window.RitualCommercial?.render();
     closeMenu();

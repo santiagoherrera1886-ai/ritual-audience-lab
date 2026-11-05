@@ -2,6 +2,17 @@
 
 Actualizado: 5 de noviembre de 2026. Guía propuesta de implementación para el equipo de pauta. El atlas no está conectado a cuentas publicitarias y no ejecuta exclusiones, pausas ni monitoreo.
 
+## Comunicación por producto
+
+Plan visible en **Segmentación** (`#separation`), con acceso desde Resumen y Simulador y descarga del PPT de dos diapositivas.
+
+| Producto | Mensaje y contexto | Recorrido | Incluir / excluir |
+| --- | --- | --- | --- |
+| Hidrapro | Hidratación, actividad y rutina diaria. Propuesta: «Tu bienestar acompaña tu día». | Piezas de Día, CTA «Conoce Hidrapro», página y eventos propios. | Incluir DÍA; excluir NOCHE y CRUCE. |
+| Noche Plena | Descanso, calma y ritual nocturno. Propuesta: «Un momento de calma para cerrar tu día». | Piezas de Noche, CTA «Conoce Noche Plena», página y eventos propios. | Incluir NOCHE; excluir DÍA y CRUCE. |
+
+Intereses, edades, clústeres y horarios orientan el mensaje, no acreditan personas excluyentes. Los mensajes requieren validación de marca. Los 9 M y 6 M son asignaciones internas, no registros CRM disponibles.
+
 ## Regla de planificación
 
 - Base: 0% de intersección entre HidraPro y Noche Plena.
@@ -29,8 +40,8 @@ Las tres listas maestras deben ser mutuamente excluyentes. Las dos campañas de 
 ## Activación por medio
 
 - **Meta:** configurar audiencias personalizadas y exclusiones recíprocas. Confirmar que la inclusión sea una restricción en la configuración seleccionada. Si opera como sugerencia, no presentarla como separación estricta. Verificar los controles reales de la cuenta.
-- **Google / YouTube:** utilizar exclusiones de datos propios; elegir una configuración que permita limitar la entrega y desactivar segmentación optimizada/expansión cuando se necesite inclusión estricta. Las señales de Performance Max no equivalen a una lista cerrada.
-- **TikTok:** listas de producto con inclusión y exclusión cruzada. Validar elegibilidad, tamaño mínimo, objetivo y expansión antes de activar. Si la excepción no alcanza el mínimo, dejarla apagada; no aumentar el 1%.
+- **Google / YouTube:** utilizar exclusiones de datos propios; elegir una configuración que permita limitar la entrega y desactivar segmentación optimizada/expansión cuando se necesite inclusión estricta. Las señales de Performance Max no equivalen a una lista cerrada. En Search, separar grupos por producto y revisar negativas cruzadas; las negativas separan consultas, no personas. Google advierte que las exclusiones pueden no aplicarse a quienes desactivan la personalización de anuncios.
+- **TikTok:** listas de producto con inclusión y exclusión cruzada. Desactivar Smart Targeting para inclusión cerrada. Validar elegibilidad, tamaño mínimo y objetivo antes de activar. Si la excepción no alcanza el mínimo, dejarla apagada; no aumentar el 1%.
 - **Programmatic:** solicitar al proveedor inclusión, supresión recíproca y frecuencia coordinada sobre identidades reconocidas; confirmar cobertura de identidad y deduplicación.
 
 Las campañas de cada producto necesitan conjuntos, piezas, páginas y eventos diferenciados. Intereses, perfiles, creativos, horarios o inventarios distintos no garantizan personas distintas. La prospección abierta no permite prometer el mismo control que una lista cerrada.
@@ -56,6 +67,7 @@ El simulador y la validación comercial comparten una política con base 0% y te
 
 - [Meta: controles de audiencias; puede requerir acceso](https://www.facebook.com/business/help/25941857932125812).
 - [Google: exclusiones de audiencia](https://support.google.com/google-ads/answer/2549058?hl=es).
+- [Google: palabras clave negativas](https://support.google.com/google-ads/answer/2453972?hl=es).
 - [Google: segmentación optimizada](https://support.google.com/google-ads/answer/10537509?hl=es).
 - [TikTok: audiencias de interacción](https://ads.tiktok.com/help/article/engagement).
 
